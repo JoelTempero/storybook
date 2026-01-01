@@ -6,8 +6,12 @@
     <meta name="theme-color" content="#0A0A0A">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="{{SITE_NAME}}">
-    <meta name="description" content="{{META_DESCRIPTION}}">
+    <meta name="apple-mobile-web-app-title" content="Storybook Weddings">
+    <meta name="description" content="Wedding Photography & Videography. Christchurch, New Zealand. Capturing your special day with cinematic excellence and everlasting memories.">
+    <meta property="og:site_name" content="Storybook Weddings">
+    <meta property="og:title" content="Storybook Weddings">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Wedding Photography & Videography. Christchurch, New Zealand.">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
@@ -17,40 +21,29 @@
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
     
-    <title>{{SITE_NAME}} | {{TAGLINE}}</title>
+    <title>Storybook Weddings | Photography & Videography</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-    
-    <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* ========================================
-           CSS VARIABLES - EASY TO CUSTOMIZE
-           ======================================== */
         :root {
-            /* Colors */
             --color-bg: #FAFAFA;
             --color-bg-dark: #0A0A0A;
             --color-text: #0A0A0A;
             --color-text-light: #FAFAFA;
             --color-text-muted: #6B6B6B;
             --color-accent: #0A0A0A;
-            --color-accent-light: #333333;
             --color-border: #E0E0E0;
             --color-card: #FFFFFF;
             --color-success: #2D5A3D;
-            --color-overlay: rgba(0, 0, 0, 0.45);
+            --color-overlay: rgba(0, 0, 0, 0.5);
             
-            /* Typography */
-            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            --font-serif: 'Instrument Serif', Georgia, serif;
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
             
-            /* Spacing */
             --space-xs: 0.5rem;
             --space-sm: 1rem;
             --space-md: 1.5rem;
@@ -58,1510 +51,303 @@
             --space-xl: 3rem;
             --space-xxl: 5rem;
             
-            /* Layout */
             --container-max: 1200px;
-            --container-narrow: 800px;
             --nav-height: 70px;
-            --nav-height-mobile: 60px;
             
-            /* Transitions */
             --transition-fast: 0.2s ease;
             --transition-base: 0.3s ease;
-            --transition-slow: 0.5s ease;
             
-            /* Border Radius */
             --radius-sm: 4px;
             --radius-md: 8px;
             --radius-lg: 12px;
             --radius-full: 50%;
         }
 
-        /* ========================================
-           RESET & BASE
-           ======================================== */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+        body { font-family: var(--font-primary); background: var(--color-bg); color: var(--color-text); line-height: 1.6; overflow-x: hidden; }
+        a { color: inherit; text-decoration: none; }
+        img, video { max-width: 100%; height: auto; display: block; }
+        button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+        .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-md); }
+        .section { padding: var(--space-xxl) 0; }
+        .text-muted { color: var(--color-text-muted); }
+
+        .heading-hero { font-family: var(--font-serif); font-size: clamp(2.5rem, 8vw, 4.5rem); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.1; }
+        .heading-section { font-family: var(--font-serif); font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+        .text-large { font-size: clamp(1rem, 2vw, 1.15rem); }
+
+        /* Navigation */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: var(--space-sm) 0; background: transparent; transition: background var(--transition-base), box-shadow var(--transition-base); }
+        .navbar.scrolled { background: var(--color-bg); box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+        .navbar-inner { display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-light); transition: color var(--transition-base); }
+        .navbar.scrolled .logo { color: var(--color-text); }
+        .nav-links { display: flex; align-items: center; gap: var(--space-lg); }
+        .nav-link { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-light); transition: color var(--transition-fast), opacity var(--transition-fast); opacity: 0.9; }
+        .nav-link:hover { opacity: 1; }
+        .navbar.scrolled .nav-link { color: var(--color-text); }
+        .nav-cta { padding: 0.7rem 1.5rem; background: var(--color-text-light); color: var(--color-bg-dark); border-radius: var(--radius-md); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; transition: all var(--transition-fast); }
+        .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .navbar.scrolled .nav-cta { background: var(--color-accent); color: var(--color-text-light); }
+        .nav-toggle { display: none; flex-direction: column; gap: 5px; padding: 10px; }
+        .nav-toggle span { width: 24px; height: 2px; background: var(--color-text-light); transition: all var(--transition-fast); }
+        .navbar.scrolled .nav-toggle span { background: var(--color-text); }
+
+        /* Hero */
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-text-light); }
+        .hero-bg { position: absolute; inset: 0; z-index: -2; }
+        .hero-bg video, .hero-bg img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%); }
+        .hero-content { max-width: 800px; padding: 0 var(--space-md); }
+        .hero-title { margin-bottom: var(--space-sm); }
+        .hero-subtitle { font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.9; margin-bottom: var(--space-lg); }
+        .hero-buttons { display: flex; gap: var(--space-sm); justify-content: center; flex-wrap: wrap; }
+        .btn { display: inline-block; padding: 0.9rem 2rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; border-radius: var(--radius-md); transition: all var(--transition-fast); }
+        .btn-primary { background: var(--color-text-light); color: var(--color-bg-dark); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(255,255,255,0.3); }
+        .btn-outline { border: 1px solid var(--color-text-light); color: var(--color-text-light); }
+        .btn-outline:hover { background: var(--color-text-light); color: var(--color-bg-dark); }
+
+        /* About Section */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
+        .about-content { padding-right: var(--space-lg); }
+        .about-image { border-radius: var(--radius-lg); overflow: hidden; aspect-ratio: 4/5; }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Testimonial Carousel */
+        .testimonial-section { background: var(--color-bg-dark); color: var(--color-text-light); }
+        .testimonial-header { text-align: center; margin-bottom: var(--space-xl); }
+        .testimonial-carousel { position: relative; max-width: 900px; margin: 0 auto; overflow: hidden; }
+        .testimonial-track { display: flex; transition: transform 0.5s ease; }
+        .testimonial-slide { min-width: 100%; padding: 0 var(--space-md); text-align: center; }
+        .testimonial-quote { font-family: var(--font-serif); font-size: clamp(1.2rem, 3vw, 1.6rem); font-style: italic; line-height: 1.6; margin-bottom: var(--space-md); opacity: 0.95; }
+        .testimonial-author { font-weight: 600; font-size: 1rem; letter-spacing: 0.05em; }
+        .testimonial-nav { display: flex; justify-content: center; gap: var(--space-sm); margin-top: var(--space-lg); }
+        .testimonial-dot { width: 10px; height: 10px; border-radius: var(--radius-full); background: rgba(255,255,255,0.3); cursor: pointer; transition: background var(--transition-fast); }
+        .testimonial-dot.active { background: var(--color-text-light); }
+
+        /* Portfolio Grid */
+        .portfolio-header { text-align: center; margin-bottom: var(--space-xl); }
+        .portfolio-tagline { font-size: 0.85rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-xs); }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+        .portfolio-item { position: relative; aspect-ratio: 16/9; overflow: hidden; cursor: pointer; }
+        .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .portfolio-item:hover img { transform: scale(1.05); }
+        .portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%); display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-md); color: white; opacity: 0; transition: opacity var(--transition-base); }
+        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
+        .portfolio-title { font-size: 1.1rem; font-weight: 600; margin-bottom: 4px; }
+        .portfolio-location { font-size: 0.85rem; opacity: 0.8; }
+        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; background: rgba(255,255,255,0.95); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all var(--transition-base); }
+        .portfolio-item:hover .play-icon { opacity: 1; }
+        .play-icon svg { width: 20px; height: 20px; margin-left: 3px; }
+
+        /* FAQ Section */
+        .faq-section { background: var(--color-bg); }
+        .faq-header { text-align: center; margin-bottom: var(--space-xl); }
+        .faq-container { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--color-border); }
+        .faq-question { width: 100%; padding: var(--space-md) 0; display: flex; justify-content: space-between; align-items: center; text-align: left; font-size: 1rem; font-weight: 500; cursor: pointer; }
+        .faq-question::after { content: '+'; font-size: 1.5rem; font-weight: 300; transition: transform var(--transition-fast); }
+        .faq-item.open .faq-question::after { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; }
+        .faq-item.open .faq-answer { max-height: 500px; padding-bottom: var(--space-md); }
+        .faq-answer p { color: var(--color-text-muted); line-height: 1.7; }
+
+        /* Calculator Section */
+        .calculator-section { background: #F7F7F7; }
+        .calculator-header { text-align: center; margin-bottom: var(--space-md); }
+        .calculator-note { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-lg); max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        /* Embedded Calculator Styles */
+        .calculator-embed { max-width: 900px; margin: 0 auto; }
+        .calc-layout { display: flex; flex-direction: column; gap: 24px; }
+        .calc-card { background: var(--color-card); border-radius: var(--radius-lg); padding: 28px; border: 1px solid var(--color-border); }
+        .calc-title { font-size: 1.25rem; font-weight: 500; margin-bottom: 18px; padding-bottom: 10px; border-bottom: 1px solid var(--color-border); letter-spacing: 0.03em; font-family: var(--font-primary); }
+        .calc-card.disabled { opacity: 0.5; pointer-events: none; }
+        .calc-card.disabled .calc-title::after { content: ' (Select a service first)'; font-size: 0.9rem; color: var(--color-text-muted); font-style: italic; font-weight: 400; }
+        
+        .service-group { margin-bottom: 24px; }
+        .service-group:last-child { margin-bottom: 0; }
+        .service-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .service-checkbox { display: none; }
+        .service-label { display: flex; align-items: center; gap: 12px; cursor: pointer; flex: 1; }
+        .checkbox-custom { width: 22px; height: 22px; border: 2px solid var(--color-accent); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: var(--transition-fast); flex-shrink: 0; }
+        .checkbox-custom::after { content: '✓'; color: white; font-size: 14px; opacity: 0; transition: opacity 0.2s ease; }
+        .service-checkbox:checked + .service-label .checkbox-custom { background: var(--color-accent); }
+        .service-checkbox:checked + .service-label .checkbox-custom::after { opacity: 1; }
+        .service-name { font-size: 1.05rem; font-weight: 500; }
+        .service-price { margin-left: auto; font-size: 1rem; color: var(--color-accent); font-weight: 500; }
+        .service-description { font-size: 0.85rem; color: var(--color-text-muted); font-style: italic; margin-left: 34px; margin-bottom: 12px; }
+        .service-options { margin-left: 34px; display: none; flex-direction: column; gap: 12px; padding: 16px; background: #F7F7F7; border-radius: var(--radius-md); }
+        .service-options.show { display: flex; }
+        
+        .duration-toggle { display: flex; gap: 8px; }
+        .duration-btn { flex: 1; padding: 8px 14px; border: 1px solid var(--color-border); background: white; font-family: inherit; font-size: 0.85rem; cursor: pointer; border-radius: 6px; transition: var(--transition-fast); }
+        .duration-btn:hover { border-color: var(--color-accent); }
+        .duration-btn.active { background: var(--color-accent); color: white; border-color: var(--color-accent); }
+        
+        .photo-slider-section { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--color-border); }
+        .photo-slider-label { font-size: 0.85rem; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+        .photo-slider-container { display: flex; align-items: center; gap: 12px; }
+        .photo-slider { flex: 1; height: 6px; -webkit-appearance: none; appearance: none; background: var(--color-border); border-radius: 3px; outline: none; }
+        .photo-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: var(--color-accent); border-radius: 50%; cursor: pointer; }
+        .photo-slider::-moz-range-thumb { width: 20px; height: 20px; background: var(--color-accent); border-radius: 50%; cursor: pointer; border: none; }
+        .photo-count-display { min-width: 100px; text-align: right; font-weight: 500; }
+        .photo-extra-cost { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 6px; }
+        
+        .addon-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; }
+        .addon-label { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .addon-checkbox { display: none; }
+        .addon-check-custom { width: 18px; height: 18px; border: 2px solid var(--color-accent); border-radius: 3px; display: flex; align-items: center; justify-content: center; transition: var(--transition-fast); }
+        .addon-check-custom::after { content: '✓'; color: white; font-size: 11px; opacity: 0; }
+        .addon-checkbox:checked + .addon-check-custom { background: var(--color-accent); }
+        .addon-checkbox:checked + .addon-check-custom::after { opacity: 1; }
+        .addon-price { color: var(--color-text-muted); font-size: 0.85rem; }
+        
+        .addon-item { display: flex; align-items: flex-start; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--color-border); gap: 16px; }
+        .addon-item:last-child { border-bottom: none; }
+        .addon-info { flex: 1; }
+        .addon-name { font-size: 0.95rem; font-weight: 500; margin-bottom: 4px; }
+        .addon-desc { font-size: 0.8rem; color: var(--color-text-muted); font-style: italic; }
+        .addon-controls { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+        .addon-price-display { font-size: 0.9rem; color: var(--color-accent); min-width: 60px; text-align: right; }
+        
+        .slider-container { display: flex; align-items: center; gap: 12px; }
+        .slider { width: 120px; height: 6px; -webkit-appearance: none; appearance: none; background: var(--color-border); border-radius: 3px; outline: none; }
+        .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: var(--color-accent); border-radius: 50%; cursor: pointer; }
+        .slider::-moz-range-thumb { width: 20px; height: 20px; background: var(--color-accent); border-radius: 50%; cursor: pointer; border: none; }
+        .slider-value { min-width: 50px; font-size: 0.85rem; }
+        
+        .recordings-options { display: flex; gap: 16px; margin-top: 8px; }
+        .recordings-options label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.85rem; }
+        
+        .toggle-switch { position: relative; width: 48px; height: 26px; cursor: pointer; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: var(--color-border); border-radius: 26px; transition: 0.3s; }
+        .toggle-slider::before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2); }
+        .toggle-switch input:checked + .toggle-slider { background: var(--color-accent); }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(22px); }
+        
+        .couples-pricing-note { font-size: 0.8rem; color: var(--color-success); margin-top: 4px; }
+        .documentary-note { font-size: 0.85rem; color: var(--color-text-muted); font-style: italic; }
+        .free-badge { background: var(--color-success); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: 500; }
+        
+        .calc-summary { background: var(--color-card); border-radius: var(--radius-lg); padding: 28px; border: 2px solid var(--color-accent); }
+        .summary-items { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; min-height: 60px; }
+        .summary-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; }
+        .summary-item-name { font-size: 0.9rem; }
+        .summary-item-detail { font-size: 0.75rem; color: var(--color-text-muted); }
+        .summary-item-price { font-size: 0.9rem; font-weight: 500; }
+        .summary-empty { color: var(--color-text-muted); text-align: center; font-style: italic; padding: 20px 0; }
+        .summary-divider { height: 1px; background: var(--color-border); margin: 16px 0; }
+        .summary-line { display: flex; justify-content: space-between; padding: 6px 0; font-size: 0.9rem; }
+        .summary-line.subtotal { color: var(--color-text-muted); }
+        .summary-line.gst { color: var(--color-text-muted); font-size: 0.85rem; }
+        .summary-line.total { font-size: 1.2rem; font-weight: 600; padding-top: 12px; border-top: 2px solid var(--color-accent); margin-top: 8px; }
+        .quote-note { background: #FFF8E7; border: 1px solid #E8D4A8; border-radius: var(--radius-md); padding: 10px 14px; font-size: 0.8rem; color: #8B7355; margin-top: 16px; text-align: center; font-style: italic; }
+        
+        @media (max-width: 768px) {
+            .calc-card { padding: 20px; }
+            .service-name { font-size: 0.95rem; }
+            .service-options { margin-left: 0; margin-top: 12px; }
+            .duration-toggle { flex-direction: column; }
+            .addon-item { flex-direction: column; align-items: flex-start; }
+            .addon-controls { width: 100%; justify-content: space-between; margin-top: 12px; }
+            .recordings-options { flex-direction: column; gap: 10px; }
+            .slider { width: 100px; }
+            .photo-slider-container { flex-direction: column; align-items: stretch; }
+            .photo-count-display { text-align: left; }
         }
 
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+        /* Contact Section */
+        .contact-section { background: var(--color-bg-dark); color: var(--color-text-light); }
+        .contact-header { text-align: center; margin-bottom: var(--space-xl); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); max-width: 900px; margin: 0 auto; }
+        .contact-info p { margin-bottom: var(--space-sm); opacity: 0.9; }
+        .contact-email { font-size: 1.2rem; font-weight: 500; }
+        .contact-form { display: flex; flex-direction: column; gap: var(--space-sm); }
+        .form-input, .form-textarea { width: 100%; padding: var(--space-sm); background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: var(--radius-md); color: var(--color-text-light); font-family: inherit; font-size: 1rem; transition: border-color var(--transition-fast); }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: rgba(255,255,255,0.5); }
+        .form-textarea { min-height: 120px; resize: vertical; }
+        .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.5); }
+        .btn-submit { width: 100%; padding: var(--space-sm) var(--space-lg); background: var(--color-text-light); color: var(--color-bg-dark); border-radius: var(--radius-md); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; transition: all var(--transition-fast); }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 4px 15px rgba(255,255,255,0.2); }
 
-        body {
-            font-family: var(--font-primary);
-            background-color: var(--color-bg);
-            color: var(--color-text);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+        /* Footer */
+        .footer { background: #050505; color: var(--color-text-light); padding: var(--space-xl) 0 var(--space-lg); }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); }
+        .footer-brand { font-family: var(--font-serif); font-size: 1.3rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+        .footer-text { font-size: 0.85rem; opacity: 0.6; }
+        .footer-socials { display: flex; gap: var(--space-sm); }
+        .social-link { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-full); background: rgba(255,255,255,0.1); transition: background var(--transition-fast); }
+        .social-link:hover { background: rgba(255,255,255,0.2); }
+        .social-link svg { width: 20px; height: 20px; fill: currentColor; }
+        .footer-bottom { margin-top: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid rgba(255,255,255,0.1); text-align: center; }
+        .footer-copyright { font-size: 0.8rem; opacity: 0.5; }
+        .footer-powered { margin-top: var(--space-xs); font-size: 0.75rem; opacity: 0.4; }
+        .footer-powered a { text-decoration: underline; }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        img, video {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        button {
-            font-family: inherit;
-            cursor: pointer;
-            border: none;
-            background: none;
-        }
-
-        /* ========================================
-           TYPOGRAPHY
-           ======================================== */
-        h1, h2, h3, h4, h5, h6 {
-            font-weight: 400;
-            line-height: 1.2;
-        }
-
-        .heading-hero {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            letter-spacing: -0.02em;
-        }
-
-        .heading-section {
-            font-family: var(--font-serif);
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            letter-spacing: -0.01em;
-        }
-
-        .heading-card {
-            font-size: clamp(1.25rem, 3vw, 1.75rem);
-            font-weight: 500;
-        }
-
-        .text-large {
-            font-size: clamp(1.1rem, 2vw, 1.25rem);
-        }
-
-        .text-body {
-            font-size: 1rem;
-        }
-
-        .text-small {
-            font-size: 0.875rem;
-        }
-
-        .text-muted {
-            color: var(--color-text-muted);
-        }
-
-        .text-italic {
-            font-style: italic;
-        }
-
-        /* ========================================
-           LAYOUT
-           ======================================== */
-        .container {
-            width: 100%;
-            max-width: var(--container-max);
-            margin: 0 auto;
-            padding: 0 var(--space-md);
-        }
-
-        .container-narrow {
-            max-width: var(--container-narrow);
-        }
-
-        .section {
-            padding: var(--space-xxl) 0;
-        }
-
-        .section-dark {
-            background-color: var(--color-bg-dark);
-            color: var(--color-text-light);
-        }
-
-        /* ========================================
-           NAVIGATION
-           ======================================== */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: var(--nav-height);
-            z-index: 1000;
-            transition: background-color var(--transition-base), backdrop-filter var(--transition-base);
-        }
-
-        .navbar.scrolled {
-            background-color: rgba(250, 250, 250, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 1px 0 var(--color-border);
-        }
-
-        .navbar-inner {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 100%;
-        }
-
-        .logo {
-            font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-weight: 400;
-            z-index: 1001;
-        }
-
-        .logo-img {
-            height: 28px;
-            width: auto;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: var(--space-lg);
-        }
-
-        .nav-link {
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            transition: opacity var(--transition-fast);
-        }
-
-        .nav-link:hover {
-            opacity: 0.7;
-        }
-
-        .nav-cta {
-            padding: 0.6rem 1.25rem;
-            background-color: var(--color-accent);
-            color: var(--color-text-light);
-            border-radius: var(--radius-sm);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: transform var(--transition-fast), opacity var(--transition-fast);
-        }
-
-        .nav-cta:hover {
-            transform: translateY(-1px);
-            opacity: 0.9;
-        }
+        /* Video Modal */
+        .video-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all var(--transition-base); }
+        .video-modal.open { opacity: 1; visibility: visible; }
+        .video-modal-content { width: 90%; max-width: 1000px; aspect-ratio: 16/9; }
+        .video-modal-content iframe { width: 100%; height: 100%; border: none; }
+        .video-modal-close { position: absolute; top: var(--space-md); right: var(--space-md); width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; cursor: pointer; }
 
         /* Mobile Nav */
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            padding: 10px;
-            z-index: 1001;
-        }
-
-        .nav-toggle span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background-color: var(--color-text);
-            transition: transform var(--transition-base), opacity var(--transition-base);
-        }
-
-        .nav-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .nav-toggle.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .nav-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* ========================================
-           HERO SECTION
-           ======================================== */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            min-height: 100dvh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--color-text-light);
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            z-index: -2;
-        }
-
-        .hero-bg video,
-        .hero-bg img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: var(--color-overlay);
-            z-index: -1;
-        }
-
-        .hero-content {
-            padding: var(--space-xl);
-            max-width: 900px;
-        }
-
-        .hero-title {
-            margin-bottom: var(--space-md);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .hero-subtitle {
-            font-style: italic;
-            font-size: clamp(1rem, 2.5vw, 1.25rem);
-            opacity: 0.9;
-            margin-bottom: var(--space-lg);
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: var(--space-sm);
-            justify-content: center;
-            flex-wrap: wrap;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        /* ========================================
-           BUTTONS
-           ======================================== */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.875rem 1.75rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            border-radius: var(--radius-sm);
-            transition: all var(--transition-fast);
-        }
-
-        .btn-primary {
-            background-color: var(--color-text-light);
-            color: var(--color-text);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .btn-outline {
-            border: 1px solid var(--color-text-light);
-            color: var(--color-text-light);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--color-text-light);
-            color: var(--color-text);
-        }
-
-        .btn-dark {
-            background-color: var(--color-accent);
-            color: var(--color-text-light);
-        }
-
-        .btn-dark:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        /* ========================================
-           ABOUT SECTION
-           ======================================== */
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: var(--space-xl);
-            align-items: center;
-        }
-
-        .about-content {
-            padding-right: var(--space-lg);
-        }
-
-        .about-image {
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            aspect-ratio: 4/5;
-        }
-
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* ========================================
-           TESTIMONIAL SECTION
-           ======================================== */
-        .testimonial {
-            background-color: var(--color-bg-dark);
-            color: var(--color-text-light);
-        }
-
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: var(--space-xl);
-            align-items: center;
-        }
-
-        .testimonial-image {
-            aspect-ratio: 3/4;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-        }
-
-        .testimonial-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .testimonial-quote {
-            font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 3vw, 2.25rem);
-            line-height: 1.4;
-            margin-bottom: var(--space-md);
-        }
-
-        .testimonial-author {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* ========================================
-           STATEMENT SECTION
-           ======================================== */
-        .statement {
-            text-align: center;
-            padding: var(--space-xxl) 0;
-        }
-
-        .statement-text {
-            font-family: var(--font-serif);
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            line-height: 1.5;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .statement-text .word {
-            display: inline-block;
-            opacity: 0.15;
-            transition: opacity 0.3s ease;
-        }
-
-        /* ========================================
-           PORTFOLIO SECTION
-           ======================================== */
-        .portfolio-header {
-            text-align: center;
-            margin-bottom: var(--space-xl);
-        }
-
-        .portfolio-tagline {
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--color-text-muted);
-            margin-bottom: var(--space-xs);
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-md);
-        }
-
-        .portfolio-item {
-            position: relative;
-            aspect-ratio: 4/3;
-            border-radius: var(--radius-md);
-            overflow: hidden;
-            cursor: pointer;
-        }
-
-        .portfolio-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform var(--transition-slow);
-        }
-
-        .portfolio-item:hover img {
-            transform: scale(1.05);
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: var(--space-md);
-            color: var(--color-text-light);
-            opacity: 0;
-            transition: opacity var(--transition-base);
-        }
-
-        .portfolio-item:hover .portfolio-overlay {
-            opacity: 1;
-        }
-
-        .portfolio-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-        }
-
-        .portfolio-location {
-            font-size: 0.85rem;
-            opacity: 0.8;
-        }
-
-        .play-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--radius-full);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity var(--transition-base), transform var(--transition-base);
-        }
-
-        .portfolio-item:hover .play-icon {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1.1);
-        }
-
-        .play-icon svg {
-            width: 20px;
-            height: 20px;
-            margin-left: 3px;
-        }
-
-        /* ========================================
-           CTA SECTION
-           ======================================== */
-        .cta {
-            text-align: center;
-        }
-
-        .cta-content {
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: var(--space-sm);
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: var(--space-lg);
-        }
-
-        /* ========================================
-           CALCULATOR SECTION
-           ======================================== */
-        .calculator-section {
-            background-color: var(--color-bg);
-        }
-
-        .calculator-header {
-            text-align: center;
-            margin-bottom: var(--space-xl);
-        }
-
-        .calculator-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .calc-layout {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-md);
-        }
-
-        .calc-card {
-            background: var(--color-card);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            border: 1px solid var(--color-border);
-        }
-
-        .calc-card.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        .calc-card.disabled .calc-title::after {
-            content: ' (Select a service first)';
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-            font-style: italic;
-            font-weight: 400;
-        }
-
-        .calc-title {
-            font-size: 1.15rem;
-            font-weight: 500;
-            margin-bottom: var(--space-md);
-            padding-bottom: var(--space-sm);
-            border-bottom: 1px solid var(--color-border);
-            letter-spacing: 0.02em;
-        }
-
-        /* Service Group */
-        .service-group {
-            margin-bottom: var(--space-md);
-            padding-bottom: var(--space-md);
-            border-bottom: 1px solid var(--color-border);
-        }
-
-        .service-group:last-child {
-            margin-bottom: 0;
-            padding-bottom: 0;
-            border-bottom: none;
-        }
-
-        .service-header {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .service-checkbox {
-            display: none;
-        }
-
-        .service-label {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            cursor: pointer;
-            flex: 1;
-        }
-
-        .checkbox-custom {
-            width: 22px;
-            height: 22px;
-            border: 2px solid var(--color-accent);
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--transition-fast);
-            flex-shrink: 0;
-        }
-
-        .checkbox-custom::after {
-            content: '✓';
-            color: white;
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity var(--transition-fast);
-        }
-
-        .service-checkbox:checked + .service-label .checkbox-custom {
-            background: var(--color-accent);
-        }
-
-        .service-checkbox:checked + .service-label .checkbox-custom::after {
-            opacity: 1;
-        }
-
-        .service-name {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .service-price {
-            margin-left: auto;
-            font-size: 0.95rem;
-            color: var(--color-accent);
-            font-weight: 500;
-        }
-
-        .service-desc {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-            font-style: italic;
-            margin: var(--space-xs) 0 0 34px;
-        }
-
-        .service-options {
-            margin-left: 34px;
-            margin-top: var(--space-sm);
-            display: none;
-            flex-direction: column;
-            gap: var(--space-sm);
-            padding: var(--space-md);
-            background: var(--color-bg);
-            border-radius: var(--radius-md);
-        }
-
-        .service-options.show {
-            display: flex;
-        }
-
-        /* Duration Toggle */
-        .duration-toggle {
-            display: flex;
-            gap: var(--space-xs);
-        }
-
-        .duration-btn {
-            flex: 1;
-            padding: 0.6rem 1rem;
-            border: 1px solid var(--color-border);
-            background: white;
-            font-family: inherit;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border-radius: var(--radius-md);
-            transition: all var(--transition-fast);
-        }
-
-        .duration-btn:hover {
-            border-color: var(--color-accent);
-        }
-
-        .duration-btn.active {
-            background: var(--color-accent);
-            color: white;
-            border-color: var(--color-accent);
-        }
-
-        /* Photo Slider */
-        .photo-slider-section {
-            margin-top: var(--space-sm);
-            padding-top: var(--space-sm);
-            border-top: 1px solid var(--color-border);
-        }
-
-        .photo-slider-label {
-            font-size: 0.85rem;
-            margin-bottom: var(--space-xs);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .photo-slider-container {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .photo-slider {
-            flex: 1;
-            height: 6px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: var(--color-border);
-            border-radius: 3px;
-            outline: none;
-        }
-
-        .photo-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            background: var(--color-accent);
-            border-radius: var(--radius-full);
-            cursor: pointer;
-        }
-
-        .photo-slider::-moz-range-thumb {
-            width: 20px;
-            height: 20px;
-            background: var(--color-accent);
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            border: none;
-        }
-
-        .photo-count-display {
-            min-width: 90px;
-            text-align: right;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .photo-extra-cost {
-            font-size: 0.8rem;
-            color: var(--color-text-muted);
-            margin-top: var(--space-xs);
-        }
-
-        /* Addon Row */
-        .addon-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: var(--space-xs) 0;
-        }
-
-        .addon-label {
-            display: flex;
-            align-items: center;
-            gap: var(--space-xs);
-            cursor: pointer;
-            font-size: 0.9rem;
-        }
-
-        .addon-checkbox {
-            display: none;
-        }
-
-        .addon-check-custom {
-            width: 18px;
-            height: 18px;
-            border: 2px solid var(--color-accent);
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all var(--transition-fast);
-        }
-
-        .addon-check-custom::after {
-            content: '✓';
-            color: white;
-            font-size: 11px;
-            opacity: 0;
-        }
-
-        .addon-checkbox:checked + .addon-check-custom {
-            background: var(--color-accent);
-        }
-
-        .addon-checkbox:checked + .addon-check-custom::after {
-            opacity: 1;
-        }
-
-        .addon-price {
-            color: var(--color-text-muted);
-            font-size: 0.85rem;
-        }
-
-        /* Add-ons Items */
-        .addon-item {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            padding: var(--space-md) 0;
-            border-bottom: 1px solid var(--color-border);
-            gap: var(--space-md);
-        }
-
-        .addon-item:last-child {
-            border-bottom: none;
-        }
-
-        .addon-info {
-            flex: 1;
-        }
-
-        .addon-name {
-            font-size: 0.95rem;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-        }
-
-        .addon-desc {
-            font-size: 0.8rem;
-            color: var(--color-text-muted);
-            font-style: italic;
-        }
-
-        .addon-controls {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            flex-shrink: 0;
-        }
-
-        .addon-price-display {
-            font-size: 0.9rem;
-            color: var(--color-accent);
-            min-width: 60px;
-            text-align: right;
-        }
-
-        /* Toggle Switch */
-        .toggle-switch {
-            position: relative;
-            width: 48px;
-            height: 26px;
-            cursor: pointer;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            inset: 0;
-            background: var(--color-border);
-            border-radius: 26px;
-            transition: var(--transition-base);
-        }
-
-        .toggle-slider::before {
-            position: absolute;
-            content: "";
-            height: 20px;
-            width: 20px;
-            left: 3px;
-            bottom: 3px;
-            background: white;
-            border-radius: var(--radius-full);
-            transition: var(--transition-base);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-        }
-
-        .toggle-switch input:checked + .toggle-slider {
-            background: var(--color-accent);
-        }
-
-        .toggle-switch input:checked + .toggle-slider::before {
-            transform: translateX(22px);
-        }
-
-        /* Free Badge */
-        .free-badge {
-            background: var(--color-success);
-            color: white;
-            padding: 2px 8px;
-            border-radius: var(--radius-sm);
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        /* Recordings Options */
-        .recordings-options {
-            display: flex;
-            gap: var(--space-md);
-            margin-top: var(--space-xs);
-        }
-
-        .recordings-options label {
-            display: flex;
-            align-items: center;
-            gap: var(--space-xs);
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        /* Slider Controls */
-        .slider-container {
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-        }
-
-        .slider {
-            width: 100px;
-            height: 6px;
-            -webkit-appearance: none;
-            appearance: none;
-            background: var(--color-border);
-            border-radius: 3px;
-            outline: none;
-        }
-
-        .slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 18px;
-            height: 18px;
-            background: var(--color-accent);
-            border-radius: var(--radius-full);
-            cursor: pointer;
-        }
-
-        .slider::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
-            background: var(--color-accent);
-            border-radius: var(--radius-full);
-            cursor: pointer;
-            border: none;
-        }
-
-        .slider-value {
-            min-width: 55px;
-            font-size: 0.85rem;
-        }
-
-        /* Couples Note */
-        .couples-pricing-note {
-            font-size: 0.8rem;
-            color: var(--color-success);
-            margin-top: 0.25rem;
-        }
-
-        /* Summary Card */
-        .summary-card {
-            background: var(--color-card);
-            border-radius: var(--radius-lg);
-            padding: var(--space-lg);
-            border: 2px solid var(--color-accent);
-            position: sticky;
-            top: calc(var(--nav-height) + var(--space-md));
-        }
-
-        .summary-title {
-            font-size: 1.15rem;
-            font-weight: 500;
-            margin-bottom: var(--space-md);
-            text-align: center;
-            letter-spacing: 0.02em;
-        }
-
-        .summary-items {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-xs);
-            margin-bottom: var(--space-md);
-            min-height: 60px;
-        }
-
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: var(--space-xs) 0;
-        }
-
-        .summary-item-name {
-            font-size: 0.9rem;
-        }
-
-        .summary-item-detail {
-            font-size: 0.75rem;
-            color: var(--color-text-muted);
-        }
-
-        .summary-item-price {
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .summary-empty {
-            color: var(--color-text-muted);
-            text-align: center;
-            font-style: italic;
-            padding: var(--space-md) 0;
-        }
-
-        .summary-divider {
-            height: 1px;
-            background: var(--color-border);
-            margin: var(--space-md) 0;
-        }
-
-        .summary-line {
-            display: flex;
-            justify-content: space-between;
-            padding: var(--space-xs) 0;
-            font-size: 0.9rem;
-        }
-
-        .summary-line.subtotal {
-            color: var(--color-text-muted);
-        }
-
-        .summary-line.gst {
-            color: var(--color-text-muted);
-            font-size: 0.85rem;
-        }
-
-        .summary-line.total {
-            font-size: 1.2rem;
-            font-weight: 600;
-            padding-top: var(--space-sm);
-            border-top: 2px solid var(--color-accent);
-            margin-top: var(--space-xs);
-        }
-
-        .quote-note {
-            background: #FFF8E7;
-            border: 1px solid #E8D4A8;
-            border-radius: var(--radius-md);
-            padding: var(--space-sm) var(--space-md);
-            font-size: 0.8rem;
-            color: #8B7355;
-            margin-top: var(--space-md);
-            text-align: center;
-            font-style: italic;
-        }
-
-        .documentary-note {
-            font-size: 0.85rem;
-            color: var(--color-text-muted);
-            font-style: italic;
-        }
-
-        /* ========================================
-           FOOTER
-           ======================================== */
-        .footer {
-            background-color: var(--color-bg-dark);
-            color: var(--color-text-light);
-            padding: var(--space-xxl) 0 var(--space-lg);
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: var(--space-xl);
-            margin-bottom: var(--space-xl);
-        }
-
-        .footer-about p {
-            margin-bottom: var(--space-md);
-            opacity: 0.8;
-            font-size: 0.95rem;
-        }
-
-        .footer-email {
-            font-weight: 500;
-        }
-
-        .footer-heading {
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: var(--space-md);
-        }
-
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: var(--space-sm);
-        }
-
-        .footer-link {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            transition: opacity var(--transition-fast);
-        }
-
-        .footer-link:hover {
-            opacity: 1;
-        }
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: var(--space-lg);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .footer-copyright {
-            font-size: 0.85rem;
-            opacity: 0.6;
-        }
-
-        .footer-socials {
-            display: flex;
-            gap: var(--space-sm);
-        }
-
-        .social-link {
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--radius-full);
-            background: rgba(255, 255, 255, 0.1);
-            transition: background var(--transition-fast);
-        }
-
-        .social-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .social-link svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        /* ========================================
-           MOBILE NAVIGATION OVERLAY
-           ======================================== */
-        .mobile-nav {
-            position: fixed;
-            inset: 0;
-            background: var(--color-bg);
-            z-index: 999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: var(--space-lg);
-            transform: translateX(100%);
-            transition: transform var(--transition-base);
-        }
-
-        .mobile-nav.open {
-            transform: translateX(0);
-        }
-
-        .mobile-nav .nav-link {
-            font-size: 1.5rem;
-            font-family: var(--font-serif);
-        }
-
-        .mobile-nav .nav-cta {
-            font-size: 1rem;
-            padding: 1rem 2rem;
-        }
-
-        /* ========================================
-           MOBILE BOTTOM NAV (APP-LIKE)
-           ======================================== */
-        .mobile-bottom-nav {
-            display: none;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--color-bg);
-            border-top: 1px solid var(--color-border);
-            padding: var(--space-xs) 0;
-            padding-bottom: calc(var(--space-xs) + env(safe-area-inset-bottom));
-            z-index: 1000;
-        }
-
-        .mobile-bottom-nav-inner {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-        }
-
-        .bottom-nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            padding: var(--space-xs);
-            color: var(--color-text-muted);
-            transition: color var(--transition-fast);
-        }
-
-        .bottom-nav-item.active,
-        .bottom-nav-item:hover {
-            color: var(--color-accent);
-        }
-
-        .bottom-nav-item svg {
-            width: 24px;
-            height: 24px;
-        }
-
-        .bottom-nav-item span {
-            font-size: 0.7rem;
-            font-weight: 500;
-        }
-
-        /* ========================================
-           VIDEO MODAL
-           ======================================== */
-        .video-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all var(--transition-base);
-        }
-
-        .video-modal.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .video-modal-content {
-            width: 90%;
-            max-width: 1000px;
-            aspect-ratio: 16/9;
-        }
-
-        .video-modal-content iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .video-modal-close {
-            position: absolute;
-            top: var(--space-md);
-            right: var(--space-md);
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: transform var(--transition-fast);
-        }
-
-        .video-modal-close:hover {
-            transform: scale(1.1);
-        }
-
-        /* ========================================
-           RESPONSIVE STYLES
-           ======================================== */
+        .mobile-nav { position: fixed; inset: 0; background: var(--color-bg); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-lg); transform: translateX(100%); transition: transform var(--transition-base); }
+        .mobile-nav.open { transform: translateX(0); }
+        .mobile-nav .nav-link { font-size: 1.5rem; font-family: var(--font-serif); color: var(--color-text); }
+        .mobile-nav-close { position: absolute; top: var(--space-md); right: var(--space-md); font-size: 2rem; color: var(--color-text); }
+
+        /* Mobile Bottom Nav */
+        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--color-bg); border-top: 1px solid var(--color-border); padding: var(--space-xs) 0 calc(var(--space-xs) + env(safe-area-inset-bottom)); z-index: 1000; }
+        .mobile-bottom-nav-inner { display: flex; justify-content: space-around; }
+        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: var(--space-xs); color: var(--color-text-muted); transition: color var(--transition-fast); }
+        .bottom-nav-item:hover, .bottom-nav-item.active { color: var(--color-accent); }
+        .bottom-nav-item svg { width: 24px; height: 24px; }
+        .bottom-nav-item span { font-size: 0.65rem; font-weight: 500; }
+
+        /* Responsive */
         @media (max-width: 991px) {
-            .nav-links {
-                display: none;
-            }
-
-            .nav-toggle {
-                display: flex;
-            }
-
-            .about-grid,
-            .testimonial-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .about-content {
-                padding-right: 0;
-                order: 2;
-            }
-
-            .about-image {
-                order: 1;
-                aspect-ratio: 16/9;
-            }
-
-            .testimonial-image {
-                aspect-ratio: 16/9;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .footer-about {
-                grid-column: 1 / -1;
-            }
+            .nav-links { display: none; }
+            .nav-toggle { display: flex; }
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .about-content { padding-right: 0; order: 2; }
+            .about-image { order: 1; aspect-ratio: 16/9; }
+            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        @media (max-width: 767px) {
-            :root {
-                --nav-height: var(--nav-height-mobile);
-            }
-
-            .section {
-                padding: var(--space-xl) 0;
-            }
-
-            .hero-content {
-                padding: var(--space-md);
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: var(--space-lg);
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: var(--space-md);
-                text-align: center;
-            }
-
-            /* Calculator Mobile */
-            .duration-toggle {
-                flex-direction: column;
-            }
-
-            .addon-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .addon-controls {
-                width: 100%;
-                justify-content: space-between;
-                margin-top: var(--space-sm);
-            }
-
-            .recordings-options {
-                flex-direction: column;
-                gap: var(--space-xs);
-            }
-
-            .slider {
-                width: 80px;
-            }
-
-            .photo-slider-container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .photo-count-display {
-                text-align: left;
-            }
-
-            .summary-card {
-                position: static;
-            }
-
-            /* Mobile Bottom Nav */
-            .mobile-bottom-nav {
-                display: block;
-            }
-
-            body {
-                padding-bottom: 70px;
-            }
-
-            .footer {
-                padding-bottom: calc(var(--space-lg) + 70px);
-            }
+        @media (max-width: 768px) {
+            .mobile-bottom-nav { display: block; }
+            body { padding-bottom: 70px; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 280px; text-align: center; }
         }
 
-        /* PWA Standalone Mode */
-        @media (display-mode: standalone) {
-            .navbar {
-                padding-top: env(safe-area-inset-top);
-                height: calc(var(--nav-height) + env(safe-area-inset-top));
-            }
-
-            .hero {
-                padding-top: env(safe-area-inset-top);
-            }
-        }
-
-        /* Animation Classes */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Preloader */
-        .preloader {
-            position: fixed;
-            inset: 0;
-            background: var(--color-bg);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease, visibility 0.5s ease;
-        }
-
-        .preloader.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .preloader-logo {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 1; }
-        }
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-logo">{{SITE_NAME}}</div>
-    </div>
-
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <div class="navbar-inner">
-                <a href="#" class="logo">
-                    <!-- Replace with logo image if available -->
-                    <!-- <img src="assets/logo.svg" alt="{{SITE_NAME}}" class="logo-img"> -->
-                    {{SITE_NAME}}
-                </a>
-                
+                <a href="#" class="logo">Storybook</a>
                 <div class="nav-links">
-                    <a href="#portfolio" class="nav-link">{{NAV_LINK_1}}</a>
-                    <a href="#about" class="nav-link">{{NAV_LINK_2}}</a>
-                    <a href="#packages" class="nav-link">{{NAV_LINK_3}}</a>
-                    <a href="#calculator" class="nav-link">{{NAV_LINK_4}}</a>
-                    <a href="#contact" class="nav-cta">{{NAV_CTA}}</a>
+                    <a href="#portfolio" class="nav-link">Gallery</a>
+                    <a href="#about" class="nav-link">Who We Are</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                    <a href="#calculator" class="nav-link">Packages</a>
+                    <a href="#contact" class="nav-cta">Contact</a>
                 </div>
-
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span></span><span></span><span></span>
                 </button>
             </div>
         </div>
@@ -1569,45 +355,31 @@
 
     <!-- Mobile Navigation -->
     <div class="mobile-nav" id="mobileNav">
-        <a href="#portfolio" class="nav-link">{{NAV_LINK_1}}</a>
-        <a href="#about" class="nav-link">{{NAV_LINK_2}}</a>
-        <a href="#packages" class="nav-link">{{NAV_LINK_3}}</a>
-        <a href="#calculator" class="nav-link">{{NAV_LINK_4}}</a>
-        <a href="#contact" class="nav-cta">{{NAV_CTA}}</a>
+        <button class="mobile-nav-close" id="mobileNavClose">&times;</button>
+        <a href="#portfolio" class="nav-link">Gallery</a>
+        <a href="#about" class="nav-link">Who We Are</a>
+        <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#calculator" class="nav-link">Packages</a>
+        <a href="#contact" class="nav-cta" style="background: var(--color-accent); color: white; padding: 1rem 2rem; border-radius: var(--radius-md);">Contact</a>
     </div>
 
     <!-- Mobile Bottom Navigation -->
     <nav class="mobile-bottom-nav">
         <div class="mobile-bottom-nav-inner">
             <a href="#" class="bottom-nav-item active">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
                 <span>Home</span>
             </a>
             <a href="#portfolio" class="bottom-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="3" width="7" height="7"/>
-                    <rect x="14" y="3" width="7" height="7"/>
-                    <rect x="3" y="14" width="7" height="7"/>
-                    <rect x="14" y="14" width="7" height="7"/>
-                </svg>
-                <span>Portfolio</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+                <span>Gallery</span>
             </a>
             <a href="#calculator" class="bottom-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <rect x="4" y="2" width="16" height="20" rx="2"/>
-                    <line x1="8" y1="6" x2="16" y2="6"/>
-                    <line x1="8" y1="10" x2="16" y2="10"/>
-                    <line x1="8" y1="14" x2="12" y2="14"/>
-                    <line x1="8" y1="18" x2="12" y2="18"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/></svg>
                 <span>Quote</span>
             </a>
             <a href="#contact" class="bottom-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-                </svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
                 <span>Contact</span>
             </a>
         </div>
@@ -1616,21 +388,18 @@
     <!-- Hero Section -->
     <header class="hero" id="hero">
         <div class="hero-bg">
-            <!-- Video Background -->
-            <video autoplay muted loop playsinline poster="{{HERO_POSTER_IMAGE}}">
-                <source src="{{HERO_VIDEO_MP4}}" type="video/mp4">
-                <source src="{{HERO_VIDEO_WEBM}}" type="video/webm">
-                <!-- Fallback Image -->
-                <img src="{{HERO_POSTER_IMAGE}}" alt="{{SITE_NAME}}">
+            <video autoplay muted loop playsinline poster="assets/videos/hero-poster.jpg">
+                <source src="assets/videos/hero.mp4" type="video/mp4">
+                <img src="assets/videos/hero-poster.jpg" alt="Storybook Weddings">
             </video>
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1 class="heading-hero hero-title">{{HERO_TITLE_LINE_1}}<br>{{HERO_TITLE_LINE_2}}</h1>
-            <p class="hero-subtitle">{{HERO_SUBTITLE}}</p>
+            <h1 class="heading-hero hero-title">Storybook<br>Weddings</h1>
+            <p class="hero-subtitle">Photography & Videography</p>
             <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">{{HERO_BTN_PRIMARY}}</a>
-                <a href="#calculator" class="btn btn-outline">{{HERO_BTN_SECONDARY}}</a>
+                <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                <a href="#calculator" class="btn btn-outline">View Packages</a>
             </div>
         </div>
     </header>
@@ -1641,36 +410,57 @@
             <div class="container">
                 <div class="about-grid">
                     <div class="about-content fade-in">
-                        <h2 class="heading-section" style="margin-bottom: var(--space-md);">{{ABOUT_TITLE}}</h2>
-                        <p class="text-large" style="margin-bottom: var(--space-md);">{{ABOUT_TEXT_1}}</p>
-                        <p class="text-body text-muted">{{ABOUT_TEXT_2}}</p>
+                        <h2 class="heading-section" style="margin-bottom: var(--space-md);">The Story of Storybook</h2>
+                        <p class="text-large" style="margin-bottom: var(--space-md);">Joel is a creative consultant and videographer with 8 years in the wedding business. With a fun storytelling style and an eye for small details, he loves every moment of creating unique, vibrant and exciting wedding content.</p>
+                        <p class="text-muted" style="margin-bottom: var(--space-md);">Rachel is a writer and photographer who brings her own keen eye to the table. She sees things others miss and balances Joel's creative flare perfectly. They got married in 2022 and have been a dynamic photo/video duo ever since.</p>
+                        <p class="text-muted">Together, they are a powerhouse of creativity and fun, passionate about creating magical memories that are everlasting. <strong>Storybook Weddings</strong> is under the umbrella of <strong>Tempero Creative</strong>, covering a wide range of digital content and creative solutions.</p>
                     </div>
                     <div class="about-image fade-in">
-                        <img src="{{ABOUT_IMAGE}}" alt="{{ABOUT_IMAGE_ALT}}" loading="lazy">
+                        <img src="assets/images/joel-rachel.jpg" alt="Joel & Rachel Tempero" loading="lazy">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Testimonial Section -->
-        <section class="section testimonial" id="testimonial">
+        <!-- Testimonials Section -->
+        <section class="section testimonial-section" id="testimonials">
             <div class="container">
-                <div class="testimonial-grid">
-                    <div class="testimonial-image fade-in">
-                        <img src="{{TESTIMONIAL_IMAGE}}" alt="{{TESTIMONIAL_AUTHOR}}" loading="lazy">
-                    </div>
-                    <div class="fade-in">
-                        <blockquote class="testimonial-quote">"{{TESTIMONIAL_QUOTE}}"</blockquote>
-                        <p class="testimonial-author">{{TESTIMONIAL_AUTHOR}}</p>
-                    </div>
+                <div class="testimonial-header fade-in">
+                    <h2 class="heading-section">What Couples Say</h2>
                 </div>
-            </div>
-        </section>
-
-        <!-- Statement Section -->
-        <section class="section statement">
-            <div class="container">
-                <p class="statement-text" id="statementText">{{STATEMENT_TEXT}}</p>
+                <div class="testimonial-carousel">
+                    <div class="testimonial-track" id="testimonialTrack">
+                        <div class="testimonial-slide">
+                            <p class="testimonial-quote">"Joel and Rachel are the most amazing videographers we could have ever asked for. The whole process was made simple and easy and they tailored the end result to our exact wishes. We ended up with a video that captured our day perfectly."</p>
+                            <p class="testimonial-author">— Brittany & Matt</p>
+                        </div>
+                        <div class="testimonial-slide">
+                            <p class="testimonial-quote">"The video is absolutely INCREDIBLE! I cried so much, it is exactly what I wanted!!"</p>
+                            <p class="testimonial-author">— Kelly & Rick</p>
+                        </div>
+                        <div class="testimonial-slide">
+                            <p class="testimonial-quote">"Joel was the videographer for our wedding and provided exceptional service! He went above and beyond to make the day relaxed and fun! We are so happy with how the videos turned out as he captured our day perfectly."</p>
+                            <p class="testimonial-author">— Brooke & Mark</p>
+                        </div>
+                        <div class="testimonial-slide">
+                            <p class="testimonial-quote">"Phenomenal. Personable. Skilled. These are 3 words I'll use to describe our amazing editor, Joel! He took our whole day and made it into a crafted masterpiece that we'll cherish forever."</p>
+                            <p class="testimonial-author">— Leah & Greg</p>
+                        </div>
+                        <div class="testimonial-slide">
+                            <p class="testimonial-quote">"We are so in love with our wedding videography, the most beautiful way to relive the day. Joel and the team managed to beautifully capture the whole feeling and emotions of the day without us even noticing their presence."</p>
+                            <p class="testimonial-author">— Lou & James</p>
+                        </div>
+                        <div class="testimonial-slide">
+                            <p class="testimonial-quote">"Very easy to have at the wedding, felt like having a friend there. Very impressed by the quality of the short and long films we received. Definitely recommend!"</p>
+                            <p class="testimonial-author">— Steven & Buzzy</p>
+                        </div>
+                        <div class="testimonial-slide">
+                            <p class="testimonial-quote">"A big thank you to Storybook NZ for their videography services and free wedding website! We're so stoked."</p>
+                            <p class="testimonial-author">— Josh & Gloria</p>
+                        </div>
+                    </div>
+                    <div class="testimonial-nav" id="testimonialNav"></div>
+                </div>
             </div>
         </section>
 
@@ -1678,75 +468,104 @@
         <section class="section" id="portfolio">
             <div class="container">
                 <div class="portfolio-header fade-in">
-                    <p class="portfolio-tagline">{{PORTFOLIO_TAGLINE}}</p>
-                    <h2 class="heading-section">{{PORTFOLIO_TITLE}}</h2>
+                    <p class="portfolio-tagline">Our Work</p>
+                    <h2 class="heading-section">Gallery</h2>
                 </div>
                 <div class="portfolio-grid">
-                    <!-- Portfolio Item 1 -->
-                    <div class="portfolio-item fade-in" data-video="{{PORTFOLIO_1_VIDEO}}">
-                        <img src="{{PORTFOLIO_1_IMAGE}}" alt="{{PORTFOLIO_1_TITLE}}" loading="lazy">
+                    <div class="portfolio-item fade-in" data-video="DKF8wwDFpKQ">
+                        <img src="https://img.youtube.com/vi/DKF8wwDFpKQ/maxresdefault.jpg" alt="Brooke & Mark" loading="lazy">
                         <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">{{PORTFOLIO_1_TITLE}}</h3>
-                            <p class="portfolio-location">{{PORTFOLIO_1_LOCATION}}</p>
+                            <h3 class="portfolio-title">Brooke & Mark</h3>
+                            <p class="portfolio-location">Christchurch, NZ</p>
                         </div>
-                        <div class="play-icon">
-                            <svg viewBox="0 0 18 20" fill="currentColor">
-                                <path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/>
-                            </svg>
-                        </div>
+                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
                     </div>
-                    <!-- Portfolio Item 2 -->
-                    <div class="portfolio-item fade-in" data-video="{{PORTFOLIO_2_VIDEO}}">
-                        <img src="{{PORTFOLIO_2_IMAGE}}" alt="{{PORTFOLIO_2_TITLE}}" loading="lazy">
+                    <div class="portfolio-item fade-in" data-video="tF1GRmFhpdE">
+                        <img src="https://img.youtube.com/vi/tF1GRmFhpdE/maxresdefault.jpg" alt="James & Lou" loading="lazy">
                         <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">{{PORTFOLIO_2_TITLE}}</h3>
-                            <p class="portfolio-location">{{PORTFOLIO_2_LOCATION}}</p>
+                            <h3 class="portfolio-title">James & Lou</h3>
+                            <p class="portfolio-location">Christchurch, NZ</p>
                         </div>
-                        <div class="play-icon">
-                            <svg viewBox="0 0 18 20" fill="currentColor">
-                                <path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/>
-                            </svg>
-                        </div>
+                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
                     </div>
-                    <!-- Portfolio Item 3 -->
-                    <div class="portfolio-item fade-in" data-video="{{PORTFOLIO_3_VIDEO}}">
-                        <img src="{{PORTFOLIO_3_IMAGE}}" alt="{{PORTFOLIO_3_TITLE}}" loading="lazy">
+                    <div class="portfolio-item fade-in" data-video="MTwfbCnKekI">
+                        <img src="https://img.youtube.com/vi/MTwfbCnKekI/maxresdefault.jpg" alt="Kathleen & Theo" loading="lazy">
                         <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">{{PORTFOLIO_3_TITLE}}</h3>
-                            <p class="portfolio-location">{{PORTFOLIO_3_LOCATION}}</p>
+                            <h3 class="portfolio-title">Kathleen & Theo</h3>
+                            <p class="portfolio-location">Christchurch, NZ</p>
                         </div>
-                        <div class="play-icon">
-                            <svg viewBox="0 0 18 20" fill="currentColor">
-                                <path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/>
-                            </svg>
-                        </div>
+                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
                     </div>
-                    <!-- Portfolio Item 4 -->
-                    <div class="portfolio-item fade-in" data-video="{{PORTFOLIO_4_VIDEO}}">
-                        <img src="{{PORTFOLIO_4_IMAGE}}" alt="{{PORTFOLIO_4_TITLE}}" loading="lazy">
+                    <div class="portfolio-item fade-in" data-video="ddqn1kHawT0">
+                        <img src="https://img.youtube.com/vi/ddqn1kHawT0/maxresdefault.jpg" alt="Amber & Isaac" loading="lazy">
                         <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">{{PORTFOLIO_4_TITLE}}</h3>
-                            <p class="portfolio-location">{{PORTFOLIO_4_LOCATION}}</p>
+                            <h3 class="portfolio-title">Amber & Isaac</h3>
+                            <p class="portfolio-location">Christchurch, NZ</p>
                         </div>
-                        <div class="play-icon">
-                            <svg viewBox="0 0 18 20" fill="currentColor">
-                                <path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/>
-                            </svg>
+                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
+                    </div>
+                    <div class="portfolio-item fade-in" data-video="6EDxMN33z2w">
+                        <img src="https://img.youtube.com/vi/6EDxMN33z2w/maxresdefault.jpg" alt="Josh & Gloria" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <h3 class="portfolio-title">Josh & Gloria</h3>
+                            <p class="portfolio-location">Christchurch, NZ</p>
                         </div>
+                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
+                    </div>
+                    <div class="portfolio-item fade-in" data-video="90bfKDliPxw">
+                        <img src="https://img.youtube.com/vi/90bfKDliPxw/maxresdefault.jpg" alt="Steven & Buzzy" loading="lazy">
+                        <div class="portfolio-overlay">
+                            <h3 class="portfolio-title">Steven & Buzzy</h3>
+                            <p class="portfolio-location">Christchurch, NZ</p>
+                        </div>
+                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section class="section section-dark cta" id="contact">
+        <!-- FAQ Section -->
+        <section class="section faq-section" id="faq">
             <div class="container">
-                <div class="cta-content fade-in">
-                    <h2 class="heading-section" style="margin-bottom: var(--space-sm);">{{CTA_TITLE}}</h2>
-                    <p class="text-large" style="opacity: 0.85;">{{CTA_SUBTITLE}}</p>
-                    <div class="cta-buttons">
-                        <a href="#calculator" class="btn btn-primary">{{CTA_BTN_PRIMARY}}</a>
-                        <a href="mailto:{{EMAIL}}" class="btn btn-outline">{{CTA_BTN_SECONDARY}}</a>
+                <div class="faq-header fade-in">
+                    <h2 class="heading-section">Common Questions</h2>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-item fade-in">
+                        <button class="faq-question">How long are the highlights videos?</button>
+                        <div class="faq-answer">
+                            <p>Most of our highlights videos range from 3-8 minutes. It often depends on how long we are there for the day and how many details you would like us to include. As of 2025 we have stopped selling specific length products, as we were often gutted to be cutting out awesome shots from the day.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item fade-in">
+                        <button class="faq-question">Can I choose the music for our video?</button>
+                        <div class="faq-answer">
+                            <p>Music licensing can be a tricky thing. We endeavour to accommodate ideas wherever possible, but sometimes it just won't be possible. We will work this through with you during our initial discussions - we love having the couple be a part of our creative process!</p>
+                        </div>
+                    </div>
+                    <div class="faq-item fade-in">
+                        <button class="faq-question">Half day vs. full day?</button>
+                        <div class="faq-answer">
+                            <p>A full day shoot means we're there when the girls start getting their hair and makeup done and we finish when we feel we have enough of the evening dancing. A half day typically looks like either morning prep + ceremony or ceremony + reception. If you're after just a ceremony shoot this will still be considered a half day.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item fade-in">
+                        <button class="faq-question">Will you travel?</button>
+                        <div class="faq-answer">
+                            <p>For sure! Travel fees will apply for anything outside of Christchurch. We can quote for this on request. Send us anywhere you want us to be!</p>
+                        </div>
+                    </div>
+                    <div class="faq-item fade-in">
+                        <button class="faq-question">Who does video and who does photo?</button>
+                        <div class="faq-answer">
+                            <p>Typically Joel is shooting video and Rachel is on photography. If you order just video or photo then we will both cover it for you on the day. Sometimes we may swap for specific moments or ideas. We're happy to report that we can be quite flexible!</p>
+                        </div>
+                    </div>
+                    <div class="faq-item fade-in">
+                        <button class="faq-question">Deposit?</button>
+                        <div class="faq-answer">
+                            <p>A deposit of at least 1/3rd of your overall quote will be required after booking. This is to protect us from any sudden cancellations.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1756,11 +575,11 @@
         <section class="section calculator-section" id="calculator">
             <div class="container">
                 <div class="calculator-header fade-in">
-                    <p class="portfolio-tagline">{{CALCULATOR_TAGLINE}}</p>
-                    <h2 class="heading-section">{{CALCULATOR_TITLE}}</h2>
+                    <h2 class="heading-section">Pricing Calculator</h2>
                 </div>
-                
-                <div class="calculator-container">
+                <p class="calculator-note fade-in">These costs are estimates only for your convenience. Once you're ready to discuss, please contact us using the form below and we will help confirm pricing for our services.</p>
+                <!-- Embedded Calculator -->
+                <div class="calculator-embed fade-in">
                     <div class="calc-layout">
                         
                         <!-- Services Section -->
@@ -1777,19 +596,19 @@
                                         <span class="service-price" id="photography-price">$2,000</span>
                                     </label>
                                 </div>
-                                <p class="service-desc">{{CALC_PHOTO_DESC}}</p>
-                                <div class="service-options" id="photography-options">
+                                <p class="service-description">Let's capture the memories!</p>
+                                <div class="service-options">
                                     <div class="duration-toggle">
-                                        <button type="button" class="duration-btn active" data-service="photography" data-duration="half" onclick="setDuration('photography', 'half')">Half Day – ${{PRICE_PHOTO_HALF}}</button>
-                                        <button type="button" class="duration-btn" data-service="photography" data-duration="full" onclick="setDuration('photography', 'full')">Full Day – ${{PRICE_PHOTO_FULL}}</button>
+                                        <button type="button" class="duration-btn active" data-service="photography" data-duration="half" onclick="setDuration('photography', 'half')">Half Day – $2,000</button>
+                                        <button type="button" class="duration-btn" data-service="photography" data-duration="full" onclick="setDuration('photography', 'full')">Full Day – $2,850</button>
                                     </div>
                                     <div class="photo-slider-section">
                                         <div class="photo-slider-label">
                                             <span>Number of edited photos</span>
-                                            <span class="photo-count-display" id="photo-count-display">{{PHOTO_BASE_HALF}} photos</span>
+                                            <span class="photo-count-display" id="photo-count-display">650 photos</span>
                                         </div>
                                         <div class="photo-slider-container">
-                                            <input type="range" id="photo-slider" class="photo-slider" min="{{PHOTO_BASE_HALF}}" max="{{PHOTO_MAX}}" step="50" value="{{PHOTO_BASE_HALF}}" oninput="updateCalculator()">
+                                            <input type="range" id="photo-slider" class="photo-slider" min="650" max="2000" step="50" value="650" oninput="updateCalculator()">
                                         </div>
                                         <div class="photo-extra-cost" id="photo-extra-cost">Base amount included</div>
                                     </div>
@@ -1799,7 +618,7 @@
                                             <span class="addon-check-custom"></span>
                                             <span>Add 2nd Photographer</span>
                                         </label>
-                                        <span class="addon-price">+${{PRICE_2ND_SHOOTER}}</span>
+                                        <span class="addon-price">+$550</span>
                                     </div>
                                 </div>
                             </div>
@@ -1814,11 +633,11 @@
                                         <span class="service-price" id="videography-price">$2,450</span>
                                     </label>
                                 </div>
-                                <p class="service-desc">{{CALC_VIDEO_DESC}}</p>
-                                <div class="service-options" id="videography-options">
+                                <p class="service-description">Memories in motion!</p>
+                                <div class="service-options">
                                     <div class="duration-toggle">
-                                        <button type="button" class="duration-btn active" data-service="videography" data-duration="half" onclick="setDuration('videography', 'half')">Half Day – ${{PRICE_VIDEO_HALF}}</button>
-                                        <button type="button" class="duration-btn" data-service="videography" data-duration="full" onclick="setDuration('videography', 'full')">Full Day – ${{PRICE_VIDEO_FULL}}</button>
+                                        <button type="button" class="duration-btn active" data-service="videography" data-duration="half" onclick="setDuration('videography', 'half')">Half Day – $2,450</button>
+                                        <button type="button" class="duration-btn" data-service="videography" data-duration="full" onclick="setDuration('videography', 'full')">Full Day – $3,450</button>
                                     </div>
                                     <div class="addon-row">
                                         <label class="addon-label">
@@ -1826,12 +645,12 @@
                                             <span class="addon-check-custom"></span>
                                             <span>Add 2nd Videographer</span>
                                         </label>
-                                        <span class="addon-price">+${{PRICE_2ND_SHOOTER}}</span>
+                                        <span class="addon-price">+$550</span>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Photo + Video Package -->
+                            <!-- Photo/Video Package -->
                             <div class="service-group">
                                 <div class="service-header">
                                     <input type="checkbox" id="combo" class="service-checkbox" onchange="handleServiceChange()">
@@ -1841,38 +660,38 @@
                                         <span class="service-price" id="combo-price">$3,350</span>
                                     </label>
                                 </div>
-                                <p class="service-desc">{{CALC_COMBO_DESC}}</p>
-                                <div class="service-options" id="combo-options">
+                                <p class="service-description">1 Photographer and 1 Videographer for your day. Save over $1,000!</p>
+                                <div class="service-options">
                                     <div class="duration-toggle">
-                                        <button type="button" class="duration-btn active" data-service="combo" data-duration="half" onclick="setDuration('combo', 'half')">Half Day – ${{PRICE_COMBO_HALF}}</button>
-                                        <button type="button" class="duration-btn" data-service="combo" data-duration="full" onclick="setDuration('combo', 'full')">Full Day – ${{PRICE_COMBO_FULL}}</button>
+                                        <button type="button" class="duration-btn active" data-service="combo" data-duration="half" onclick="setDuration('combo', 'half')">Half Day – $3,350</button>
+                                        <button type="button" class="duration-btn" data-service="combo" data-duration="full" onclick="setDuration('combo', 'full')">Full Day – $5,000</button>
                                     </div>
                                     <div class="photo-slider-section">
                                         <div class="photo-slider-label">
                                             <span>Number of edited photos</span>
-                                            <span class="photo-count-display" id="combo-photo-count-display">{{PHOTO_BASE_HALF}} photos</span>
+                                            <span class="photo-count-display" id="combo-photo-count-display">650 photos</span>
                                         </div>
                                         <div class="photo-slider-container">
-                                            <input type="range" id="combo-photo-slider" class="photo-slider" min="{{PHOTO_BASE_HALF}}" max="{{PHOTO_MAX}}" step="50" value="{{PHOTO_BASE_HALF}}" oninput="updateCalculator()">
+                                            <input type="range" id="combo-photo-slider" class="photo-slider" min="650" max="2000" step="50" value="650" oninput="updateCalculator()">
                                         </div>
                                         <div class="photo-extra-cost" id="combo-photo-extra-cost">Base amount included</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Documentary -->
+                            <!-- Documentaries -->
                             <div class="service-group">
                                 <div class="service-header">
                                     <input type="checkbox" id="documentary" class="service-checkbox" onchange="handleServiceChange()">
                                     <label for="documentary" class="service-label">
                                         <span class="checkbox-custom"></span>
                                         <span class="service-name">Wedding Documentary</span>
-                                        <span class="service-price">From ${{PRICE_DOCUMENTARY}}</span>
+                                        <span class="service-price">From $6,500</span>
                                     </label>
                                 </div>
-                                <p class="service-desc">{{CALC_DOC_DESC}}</p>
-                                <div class="service-options" id="documentary-options">
-                                    <p class="documentary-note">{{CALC_DOC_NOTE}}</p>
+                                <p class="service-description">25-45 minutes of phenomenal detail including interviews, rehearsal videography & photography.</p>
+                                <div class="service-options">
+                                    <p class="documentary-note">Documentaries are custom quoted based on your vision. Selecting this will add a note to your enquiry.</p>
                                 </div>
                             </div>
                         </div>
@@ -1881,11 +700,11 @@
                         <div class="calc-card disabled" id="addons-section">
                             <h3 class="calc-title">Add-ons</h3>
 
-                            <!-- Wedding Website -->
+                            <!-- Wedding Website (FREE) -->
                             <div class="addon-item">
                                 <div class="addon-info">
                                     <div class="addon-name">Wedding Website</div>
-                                    <div class="addon-desc">{{ADDON_WEBSITE_DESC}}</div>
+                                    <div class="addon-desc">Showcase your day with a customisable website to share with friends and family.</div>
                                 </div>
                                 <div class="addon-controls">
                                     <span class="free-badge">FREE</span>
@@ -1900,10 +719,10 @@
                             <div class="addon-item">
                                 <div class="addon-info">
                                     <div class="addon-name">Screensaver</div>
-                                    <div class="addon-desc">{{ADDON_SCREENSAVER_DESC}}</div>
+                                    <div class="addon-desc">Your entire day in slow motion, perfect for looping on your TV.</div>
                                 </div>
                                 <div class="addon-controls">
-                                    <span class="addon-price-display">${{PRICE_SCREENSAVER}}</span>
+                                    <span class="addon-price-display">$150</span>
                                     <label class="toggle-switch">
                                         <input type="checkbox" id="screensaver" onchange="updateCalculator()">
                                         <span class="toggle-slider"></span>
@@ -1915,17 +734,17 @@
                             <div class="addon-item">
                                 <div class="addon-info">
                                     <div class="addon-name">Recordings</div>
-                                    <div class="addon-desc">{{ADDON_RECORDINGS_DESC}}</div>
+                                    <div class="addon-desc">Archive camera for ceremony & speeches.</div>
                                     <div class="recordings-options">
                                         <label>
                                             <input type="checkbox" class="addon-checkbox" id="recording-ceremony" onchange="updateCalculator()">
                                             <span class="addon-check-custom"></span>
-                                            Ceremony (${{PRICE_REC_CEREMONY}})
+                                            Ceremony ($400)
                                         </label>
                                         <label>
                                             <input type="checkbox" class="addon-checkbox" id="recording-speeches" onchange="updateCalculator()">
                                             <span class="addon-check-custom"></span>
-                                            Speeches (${{PRICE_REC_SPEECHES}})
+                                            Speeches ($300)
                                         </label>
                                     </div>
                                 </div>
@@ -1938,7 +757,7 @@
                             <div class="addon-item">
                                 <div class="addon-info">
                                     <div class="addon-name">Social Videos</div>
-                                    <div class="addon-desc">{{ADDON_SOCIAL_DESC}}</div>
+                                    <div class="addon-desc">15-30 second highlights for Instagram, Facebook or TikTok.</div>
                                 </div>
                                 <div class="addon-controls">
                                     <span class="addon-price-display" id="social-price">$0</span>
@@ -1953,10 +772,10 @@
                             <div class="addon-item">
                                 <div class="addon-info">
                                     <div class="addon-name">Events</div>
-                                    <div class="addon-desc">{{ADDON_EVENTS_DESC}}</div>
+                                    <div class="addon-desc">Birthday parties, commercial events, school formals & more.</div>
                                 </div>
                                 <div class="addon-controls">
-                                    <span class="addon-price-display" style="font-size: 0.8rem; color: var(--color-text-muted);">Quote on request</span>
+                                    <span class="addon-price-display" style="font-size: 0.85rem; color: var(--color-text-muted);">Quote on request</span>
                                     <label class="toggle-switch">
                                         <input type="checkbox" id="events" onchange="updateCalculator()">
                                         <span class="toggle-slider"></span>
@@ -1965,18 +784,19 @@
                             </div>
                         </div>
 
-                        <!-- Standalone Services -->
+                        <!-- Standalone Services Section -->
                         <div class="calc-card">
                             <h3 class="calc-title">Standalone Services</h3>
 
+                            <!-- Couples Photography -->
                             <div class="addon-item" style="border-bottom: none;">
                                 <div class="addon-info">
                                     <div class="addon-name">Couples Photography</div>
-                                    <div class="addon-desc">{{ADDON_COUPLES_DESC}}</div>
-                                    <div class="couples-pricing-note" id="couples-note">${{PRICE_COUPLES_STANDALONE}} standalone or ${{PRICE_COUPLES_PACKAGE}} with a wedding package</div>
+                                    <div class="addon-desc">Engagement shoot or announcement photos.</div>
+                                    <div class="couples-pricing-note" id="couples-note">$850 standalone or $450 with a wedding package</div>
                                 </div>
                                 <div class="addon-controls">
-                                    <span class="addon-price-display" id="couples-price">${{PRICE_COUPLES_STANDALONE}}</span>
+                                    <span class="addon-price-display" id="couples-price">$850</span>
                                     <label class="toggle-switch">
                                         <input type="checkbox" id="couples" onchange="updateCalculator()">
                                         <span class="toggle-slider"></span>
@@ -1985,9 +805,9 @@
                             </div>
                         </div>
 
-                        <!-- Summary Card -->
-                        <div class="summary-card">
-                            <h3 class="summary-title">Your Quote</h3>
+                        <!-- Summary Section -->
+                        <div class="calc-summary">
+                            <h3 class="calc-title" style="text-align: center;">Your Quote</h3>
                             
                             <div class="summary-items" id="summary-items">
                                 <div class="summary-empty">Select services to build your quote</div>
@@ -2016,72 +836,190 @@
                 </div>
             </div>
         </section>
+
+        <!-- Contact Section -->
+        <section class="section contact-section" id="contact">
+            <div class="container">
+                <div class="contact-header fade-in">
+                    <h2 class="heading-section">Let's Create Something Beautiful</h2>
+                </div>
+                <div class="contact-grid">
+                    <div class="contact-info fade-in">
+                        <p>Storybook Weddings is based in Christchurch, NZ — but we'll go anywhere!</p>
+                        <p class="contact-email">hello@storybook.nz</p>
+                        <div class="footer-socials" style="margin-top: var(--space-md);">
+                            <a href="https://www.facebook.com/storybook.nz" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
+                                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            </a>
+                            <a href="https://www.youtube.com/@storybookweddingsnz" class="social-link" target="_blank" rel="noopener" aria-label="YouTube">
+                                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <form class="contact-form fade-in" id="contactForm">
+                        <input type="text" class="form-input" name="name" placeholder="Name" required>
+                        <input type="email" class="form-input" name="email" placeholder="Email" required>
+                        <textarea class="form-textarea" name="message" placeholder="Tell us about your special day..." required></textarea>
+                        <input type="text" class="form-input" name="discount" placeholder="Discount Code (optional)">
+                        <button type="submit" class="btn-submit">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-about">
-                    <p>{{FOOTER_ABOUT}}</p>
-                    <a href="mailto:{{EMAIL}}" class="footer-email">{{EMAIL}}</a>
-                </div>
-                <div>
-                    <h4 class="footer-heading">Navigate</h4>
-                    <div class="footer-links">
-                        <a href="#" class="footer-link">Home</a>
-                        <a href="#portfolio" class="footer-link">{{NAV_LINK_1}}</a>
-                        <a href="#about" class="footer-link">{{NAV_LINK_2}}</a>
-                        <a href="#calculator" class="footer-link">{{NAV_LINK_4}}</a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="footer-heading">More</h4>
-                    <div class="footer-links">
-                        <a href="#" class="footer-link">{{FOOTER_LINK_1}}</a>
-                        <a href="#" class="footer-link">{{FOOTER_LINK_2}}</a>
-                        <a href="#contact" class="footer-link">Contact</a>
-                    </div>
+            <div class="footer-content">
+                <div class="footer-brand">Storybook Weddings</div>
+                <div class="footer-socials">
+                    <a href="https://www.facebook.com/storybook.nz" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
+                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://www.youtube.com/@storybookweddingsnz" class="social-link" target="_blank" rel="noopener" aria-label="YouTube">
+                        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                    </a>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p class="footer-copyright">© <span id="currentYear">2025</span> {{SITE_NAME}}. All rights reserved.</p>
-                <div class="footer-socials">
-                    <a href="{{SOCIAL_INSTAGRAM}}" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="2" y="2" width="20" height="20" rx="5"/>
-                            <circle cx="12" cy="12" r="4"/>
-                            <circle cx="18" cy="6" r="1.5" fill="currentColor" stroke="none"/>
-                        </svg>
-                    </a>
-                    <a href="{{SOCIAL_YOUTUBE}}" class="social-link" target="_blank" rel="noopener" aria-label="YouTube">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M23.5 6.2c-.3-1-.9-1.8-1.9-2.1C19.9 3.5 12 3.5 12 3.5s-7.9 0-9.6.6c-1 .3-1.6 1.1-1.9 2.1-.5 1.7-.5 5.3-.5 5.3s0 3.6.5 5.3c.3 1 .9 1.8 1.9 2.1 1.7.6 9.6.6 9.6.6s7.9 0 9.6-.6c1-.3 1.6-1.1 1.9-2.1.5-1.7.5-5.3.5-5.3s0-3.6-.5-5.3zM9.8 15.5V8l6.4 3.7-6.4 3.8z"/>
-                        </svg>
-                    </a>
-                    <a href="{{SOCIAL_LINKEDIN}}" class="social-link" target="_blank" rel="noopener" aria-label="LinkedIn">
-                        <svg viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M19 0H5C2.2 0 0 2.2 0 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5V5c0-2.8-2.2-5-5-5zM8 19H5V8h3v11zM6.5 6.7c-1 0-1.7-.8-1.7-1.7S5.5 3.3 6.5 3.3s1.7.8 1.7 1.7-.8 1.7-1.7 1.7zM20 19h-3v-5.6c0-3.4-4-3.1-4 0V19h-3V8h3v1.8c1.4-2.6 7-2.8 7 2.5V19z"/>
-                        </svg>
-                    </a>
-                </div>
+                <p class="footer-copyright">© Storybook NZ 2025. All rights reserved.</p>
+                <p class="footer-powered">Powered by <a href="https://tempero.nz" target="_blank">tempero.nz</a></p>
             </div>
         </div>
     </footer>
 
     <!-- Video Modal -->
     <div class="video-modal" id="videoModal">
-        <div class="video-modal-close" onclick="closeVideoModal()">×</div>
+        <button class="video-modal-close" id="videoModalClose">&times;</button>
         <div class="video-modal-content">
-            <iframe id="videoIframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+            <iframe id="videoFrame" src="" allowfullscreen allow="autoplay"></iframe>
         </div>
     </div>
 
-    <!-- JavaScript -->
     <script>
-        // ========================================
-        // PRICING DATA - CUSTOMIZE HERE
-        // ========================================
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile navigation
+        const navToggle = document.getElementById('navToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const mobileNavClose = document.getElementById('mobileNavClose');
+        
+        navToggle.addEventListener('click', () => mobileNav.classList.add('open'));
+        mobileNavClose.addEventListener('click', () => mobileNav.classList.remove('open'));
+        mobileNav.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+            link.addEventListener('click', () => mobileNav.classList.remove('open'));
+        });
+
+        // Video modal
+        const videoModal = document.getElementById('videoModal');
+        const videoFrame = document.getElementById('videoFrame');
+        const videoModalClose = document.getElementById('videoModalClose');
+        
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const videoId = item.dataset.video;
+                videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+                videoModal.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        function closeVideoModal() {
+            videoFrame.src = '';
+            videoModal.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+        
+        videoModalClose.addEventListener('click', closeVideoModal);
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) closeVideoModal();
+        });
+
+        // Testimonial carousel
+        const track = document.getElementById('testimonialTrack');
+        const nav = document.getElementById('testimonialNav');
+        const slides = track.querySelectorAll('.testimonial-slide');
+        let currentSlide = 0;
+
+        // Create dots
+        slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToSlide(i));
+            nav.appendChild(dot);
+        });
+
+        function goToSlide(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${index * 100}%)`;
+            nav.querySelectorAll('.testimonial-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Auto-advance every 6 seconds
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            goToSlide(currentSlide);
+        }, 6000);
+
+        // FAQ accordion
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+
+        // Fade-in on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Contact form (basic - you'd connect this to your backend)
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thanks for your message! We\'ll be in touch soon.');
+            e.target.reset();
+        });
+
+        // Bottom nav active state
+        const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
+        const sections = document.querySelectorAll('section[id]');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            bottomNavItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('href') === '#' + current || 
+                    (current === '' && item.getAttribute('href') === '#')) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // ========== CALCULATOR FUNCTIONS ==========
         const pricing = {
             photography: { half: 2000, full: 2850, second: 550 },
             videography: { half: 2450, full: 3450, second: 550 },
@@ -2098,224 +1036,93 @@
             photoMax: 2000
         };
 
-        // State management
-        const state = {
-            photography: { duration: 'half' },
-            videography: { duration: 'half' },
-            combo: { duration: 'half' }
+        const calcState = {
+            photography: { selected: false, duration: 'half', second: false, photos: 650 },
+            videography: { selected: false, duration: 'half', second: false },
+            combo: { selected: false, duration: 'half', photos: 650 },
+            documentary: { selected: false }
         };
-
-        // ========================================
-        // PRELOADER
-        // ========================================
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('hidden');
-                animateHero();
-            }, 500);
-        });
-
-        // ========================================
-        // NAVIGATION
-        // ========================================
-        const navbar = document.getElementById('navbar');
-        const navToggle = document.getElementById('navToggle');
-        const mobileNav = document.getElementById('mobileNav');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        navToggle.addEventListener('click', () => {
-            navToggle.classList.toggle('active');
-            mobileNav.classList.toggle('open');
-            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
-        });
-
-        // Close mobile nav on link click
-        document.querySelectorAll('.mobile-nav .nav-link, .mobile-nav .nav-cta').forEach(link => {
-            link.addEventListener('click', () => {
-                navToggle.classList.remove('active');
-                mobileNav.classList.remove('open');
-                document.body.style.overflow = '';
-            });
-        });
-
-        // ========================================
-        // HERO ANIMATION
-        // ========================================
-        function animateHero() {
-            const tl = gsap.timeline();
-            tl.to('.hero-title', { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' })
-              .to('.hero-subtitle', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
-              .to('.hero-buttons', { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4');
-        }
-
-        // ========================================
-        // SCROLL ANIMATIONS
-        // ========================================
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-
-        // ========================================
-        // STATEMENT TEXT ANIMATION
-        // ========================================
-        document.addEventListener('DOMContentLoaded', () => {
-            const statementText = document.getElementById('statementText');
-            if (statementText && typeof gsap !== 'undefined') {
-                const text = statementText.textContent;
-                const words = text.split(' ');
-                statementText.innerHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
-
-                gsap.registerPlugin(ScrollTrigger);
-                
-                gsap.to('.statement-text .word', {
-                    opacity: 1,
-                    stagger: 0.05,
-                    scrollTrigger: {
-                        trigger: '.statement',
-                        start: 'top 70%',
-                        end: 'bottom 50%',
-                        scrub: 1
-                    }
-                });
-            }
-        });
-
-        // ========================================
-        // VIDEO MODAL
-        // ========================================
-        const videoModal = document.getElementById('videoModal');
-        const videoIframe = document.getElementById('videoIframe');
-
-        document.querySelectorAll('.portfolio-item[data-video]').forEach(item => {
-            item.addEventListener('click', () => {
-                const videoUrl = item.dataset.video;
-                if (videoUrl) {
-                    let embedUrl = videoUrl;
-                    if (videoUrl.includes('youtube.com/watch')) {
-                        const videoId = new URL(videoUrl).searchParams.get('v');
-                        embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                    } else if (videoUrl.includes('youtu.be')) {
-                        const videoId = videoUrl.split('/').pop();
-                        embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                    } else if (videoUrl.includes('vimeo.com')) {
-                        const videoId = videoUrl.split('/').pop();
-                        embedUrl = `https://player.vimeo.com/video/${videoId}?autoplay=1`;
-                    }
-                    videoIframe.src = embedUrl;
-                    videoModal.classList.add('open');
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-        });
-
-        function closeVideoModal() {
-            videoModal.classList.remove('open');
-            videoIframe.src = '';
-            document.body.style.overflow = '';
-        }
-
-        videoModal.addEventListener('click', (e) => {
-            if (e.target === videoModal) closeVideoModal();
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeVideoModal();
-        });
-
-        // ========================================
-        // CALCULATOR FUNCTIONS
-        // ========================================
-        function hasMainPackage() {
-            return document.getElementById('photography').checked || 
-                   document.getElementById('videography').checked || 
-                   document.getElementById('combo').checked;
-        }
 
         function handleServiceChange() {
-            const hasPackage = hasMainPackage();
-            const addonsSection = document.getElementById('addons-section');
-            const websiteCheckbox = document.getElementById('website');
-            
-            if (hasPackage) {
-                addonsSection.classList.remove('disabled');
-                websiteCheckbox.checked = true;
-            } else {
-                addonsSection.classList.add('disabled');
-                websiteCheckbox.checked = false;
-            }
-
-            // Photography mutual exclusivity with combo
-            if (document.getElementById('photography').checked || document.getElementById('videography').checked) {
-                document.getElementById('combo').checked = false;
-                document.getElementById('combo-options').classList.remove('show');
-            }
-            if (document.getElementById('combo').checked) {
-                document.getElementById('photography').checked = false;
-                document.getElementById('videography').checked = false;
-                document.getElementById('photography-options').classList.remove('show');
-                document.getElementById('videography-options').classList.remove('show');
-            }
-
-            // Toggle options visibility
-            ['photography', 'videography', 'combo', 'documentary'].forEach(service => {
+            const services = ['photography', 'videography', 'combo', 'documentary'];
+            services.forEach(service => {
                 const checkbox = document.getElementById(service);
-                const options = document.getElementById(`${service}-options`);
-                if (checkbox && options) {
-                    options.classList.toggle('show', checkbox.checked);
+                if (!checkbox) return;
+                const options = checkbox.closest('.service-group').querySelector('.service-options');
+                if (checkbox.checked) {
+                    options.classList.add('show');
+                } else {
+                    options.classList.remove('show');
                 }
             });
 
+            const hasService = hasMainPackage();
+            const addonsSection = document.getElementById('addons-section');
+            
+            if (hasService) {
+                addonsSection.classList.remove('disabled');
+                document.getElementById('website').checked = true;
+            } else {
+                addonsSection.classList.add('disabled');
+                document.getElementById('website').checked = false;
+                document.getElementById('screensaver').checked = false;
+                document.getElementById('recording-ceremony').checked = false;
+                document.getElementById('recording-speeches').checked = false;
+                document.getElementById('social-slider').value = 0;
+                document.getElementById('events').checked = false;
+            }
+
+            updatePhotoSliderBases();
             updateCalculator();
         }
 
         function setDuration(service, duration) {
-            state[service].duration = duration;
+            calcState[service].duration = duration;
             
             document.querySelectorAll(`[data-service="${service}"]`).forEach(btn => {
                 btn.classList.toggle('active', btn.dataset.duration === duration);
             });
 
-            // Update price display
             const priceEl = document.getElementById(`${service}-price`);
             if (priceEl && pricing[service]) {
-                priceEl.textContent = `$${pricing[service][duration].toLocaleString()}`;
+                const price = pricing[service][duration];
+                priceEl.textContent = `$${price.toLocaleString()}`;
             }
 
-            // Update photo slider for photography
-            if (service === 'photography') {
-                const slider = document.getElementById('photo-slider');
-                const newBase = pricing.photoBase[duration];
-                slider.min = newBase;
-                if (parseInt(slider.value) < newBase) slider.value = newBase;
-            }
-
-            // Update photo slider for combo
-            if (service === 'combo') {
-                const slider = document.getElementById('combo-photo-slider');
-                const newBase = pricing.photoBase[duration];
-                slider.min = newBase;
-                if (parseInt(slider.value) < newBase) slider.value = newBase;
+            if (service === 'photography' || service === 'combo') {
+                updatePhotoSliderBases();
             }
 
             updateCalculator();
+        }
+
+        function updatePhotoSliderBases() {
+            const photoDuration = calcState.photography.duration;
+            const photoBase = pricing.photoBase[photoDuration];
+            const photoSlider = document.getElementById('photo-slider');
+            if (photoSlider) {
+                photoSlider.min = photoBase;
+                if (parseInt(photoSlider.value) < photoBase) {
+                    photoSlider.value = photoBase;
+                }
+            }
+
+            const comboDuration = calcState.combo.duration;
+            const comboBase = pricing.photoBase[comboDuration];
+            const comboSlider = document.getElementById('combo-photo-slider');
+            if (comboSlider) {
+                comboSlider.min = comboBase;
+                if (parseInt(comboSlider.value) < comboBase) {
+                    comboSlider.value = comboBase;
+                }
+            }
+        }
+
+        function hasMainPackage() {
+            return document.getElementById('photography')?.checked || 
+                   document.getElementById('videography')?.checked || 
+                   document.getElementById('combo')?.checked ||
+                   document.getElementById('documentary')?.checked;
         }
 
         function updateCalculator() {
@@ -2324,14 +1131,14 @@
             let hasQuoteItems = false;
 
             // Photography
-            if (document.getElementById('photography').checked) {
-                const duration = state.photography.duration;
+            if (document.getElementById('photography')?.checked) {
+                const duration = calcState.photography.duration;
                 const basePrice = pricing.photography[duration];
                 const durationLabel = duration === 'half' ? 'Half Day' : 'Full Day';
                 
                 const photoBase = pricing.photoBase[duration];
-                const slider = document.getElementById('photo-slider');
-                const photoCount = parseInt(slider.value);
+                const photoSlider = document.getElementById('photo-slider');
+                const photoCount = parseInt(photoSlider.value);
                 const extraPhotos = photoCount - photoBase;
                 const photoExtraCost = (extraPhotos / 50) * pricing.photoExtra;
                 
@@ -2343,57 +1150,31 @@
                 const totalPhotoPrice = basePrice + photoExtraCost;
                 subtotal += totalPhotoPrice;
                 
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div>
-                            <div class="summary-item-name">Photography</div>
-                            <div class="summary-item-detail">${durationLabel} · ${photoCount} photos</div>
-                        </div>
-                        <span class="summary-item-price">$${totalPhotoPrice.toLocaleString()}</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Photography</div><div class="summary-item-detail">${durationLabel} · ${photoCount} photos</div></div><span class="summary-item-price">$${totalPhotoPrice.toLocaleString()}</span></div>`;
 
-                if (document.getElementById('photography-2nd').checked) {
+                if (document.getElementById('photography-2nd')?.checked) {
                     subtotal += pricing.photography.second;
-                    summaryHTML += `
-                        <div class="summary-item">
-                            <div><div class="summary-item-name">2nd Photographer</div></div>
-                            <span class="summary-item-price">$${pricing.photography.second}</span>
-                        </div>
-                    `;
+                    summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">2nd Photographer</div></div><span class="summary-item-price">$${pricing.photography.second}</span></div>`;
                 }
             }
 
             // Videography
-            if (document.getElementById('videography').checked) {
-                const duration = state.videography.duration;
+            if (document.getElementById('videography')?.checked) {
+                const duration = calcState.videography.duration;
                 const price = pricing.videography[duration];
                 const durationLabel = duration === 'half' ? 'Half Day' : 'Full Day';
                 subtotal += price;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div>
-                            <div class="summary-item-name">Videography</div>
-                            <div class="summary-item-detail">${durationLabel}</div>
-                        </div>
-                        <span class="summary-item-price">$${price.toLocaleString()}</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Videography</div><div class="summary-item-detail">${durationLabel}</div></div><span class="summary-item-price">$${price.toLocaleString()}</span></div>`;
 
-                if (document.getElementById('videography-2nd').checked) {
+                if (document.getElementById('videography-2nd')?.checked) {
                     subtotal += pricing.videography.second;
-                    summaryHTML += `
-                        <div class="summary-item">
-                            <div><div class="summary-item-name">2nd Videographer</div></div>
-                            <span class="summary-item-price">$${pricing.videography.second}</span>
-                        </div>
-                    `;
+                    summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">2nd Videographer</div></div><span class="summary-item-price">$${pricing.videography.second}</span></div>`;
                 }
             }
 
             // Combo Package
-            if (document.getElementById('combo').checked) {
-                const duration = state.combo.duration;
+            if (document.getElementById('combo')?.checked) {
+                const duration = calcState.combo.duration;
                 const basePrice = pricing.combo[duration];
                 const durationLabel = duration === 'half' ? 'Half Day' : 'Full Day';
                 
@@ -2411,56 +1192,30 @@
                 const totalComboPrice = basePrice + photoExtraCost;
                 subtotal += totalComboPrice;
                 
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div>
-                            <div class="summary-item-name">Photo + Video Package</div>
-                            <div class="summary-item-detail">${durationLabel} · ${photoCount} photos</div>
-                        </div>
-                        <span class="summary-item-price">$${totalComboPrice.toLocaleString()}</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Photo + Video Package</div><div class="summary-item-detail">${durationLabel} · ${photoCount} photos</div></div><span class="summary-item-price">$${totalComboPrice.toLocaleString()}</span></div>`;
             }
 
             // Documentary
-            if (document.getElementById('documentary').checked) {
+            if (document.getElementById('documentary')?.checked) {
                 hasQuoteItems = true;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div>
-                            <div class="summary-item-name">Wedding Documentary</div>
-                            <div class="summary-item-detail">Custom quote required</div>
-                        </div>
-                        <span class="summary-item-price" style="color: var(--color-text-muted);">TBD</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Wedding Documentary</div><div class="summary-item-detail">Custom quote required</div></div><span class="summary-item-price" style="color: var(--color-text-muted);">TBD</span></div>`;
             }
 
-            // Website
-            if (document.getElementById('website').checked) {
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div><div class="summary-item-name">Wedding Website</div></div>
-                        <span class="summary-item-price" style="color: var(--color-success);">FREE</span>
-                    </div>
-                `;
+            // Website (FREE)
+            if (document.getElementById('website')?.checked) {
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Wedding Website</div></div><span class="summary-item-price" style="color: var(--color-success);">FREE</span></div>`;
             }
 
             // Screensaver
-            if (document.getElementById('screensaver').checked) {
+            if (document.getElementById('screensaver')?.checked) {
                 subtotal += pricing.screensaver;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div><div class="summary-item-name">Screensaver</div></div>
-                        <span class="summary-item-price">$${pricing.screensaver}</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Screensaver</div></div><span class="summary-item-price">$${pricing.screensaver}</span></div>`;
             }
 
             // Recordings
             let recordingsTotal = 0;
-            if (document.getElementById('recording-ceremony').checked) recordingsTotal += pricing.recordingCeremony;
-            if (document.getElementById('recording-speeches').checked) recordingsTotal += pricing.recordingSpeeches;
+            if (document.getElementById('recording-ceremony')?.checked) recordingsTotal += pricing.recordingCeremony;
+            if (document.getElementById('recording-speeches')?.checked) recordingsTotal += pricing.recordingSpeeches;
             document.getElementById('recordings-price').textContent = `$${recordingsTotal}`;
             
             if (recordingsTotal > 0) {
@@ -2468,48 +1223,24 @@
                 const parts = [];
                 if (document.getElementById('recording-ceremony').checked) parts.push('Ceremony');
                 if (document.getElementById('recording-speeches').checked) parts.push('Speeches');
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div>
-                            <div class="summary-item-name">Recordings</div>
-                            <div class="summary-item-detail">${parts.join(' + ')}</div>
-                        </div>
-                        <span class="summary-item-price">$${recordingsTotal}</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Recordings</div><div class="summary-item-detail">${parts.join(' + ')}</div></div><span class="summary-item-price">$${recordingsTotal}</span></div>`;
             }
 
             // Social Videos
-            const socialCount = parseInt(document.getElementById('social-slider').value);
+            const socialCount = parseInt(document.getElementById('social-slider')?.value || 0);
             document.getElementById('social-value').textContent = `${socialCount} reel${socialCount !== 1 ? 's' : ''}`;
             const socialTotal = socialCount * pricing.socialVideo;
             document.getElementById('social-price').textContent = `$${socialTotal}`;
             
             if (socialCount > 0) {
                 subtotal += socialTotal;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div>
-                            <div class="summary-item-name">Social Videos</div>
-                            <div class="summary-item-detail">${socialCount} reel${socialCount !== 1 ? 's' : ''}</div>
-                        </div>
-                        <span class="summary-item-price">$${socialTotal}</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Social Videos</div><div class="summary-item-detail">${socialCount} reel${socialCount !== 1 ? 's' : ''}</div></div><span class="summary-item-price">$${socialTotal}</span></div>`;
             }
 
             // Events
-            if (document.getElementById('events').checked) {
+            if (document.getElementById('events')?.checked) {
                 hasQuoteItems = true;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div>
-                            <div class="summary-item-name">Events</div>
-                            <div class="summary-item-detail">Quote on request</div>
-                        </div>
-                        <span class="summary-item-price" style="color: var(--color-text-muted);">TBD</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Events</div><div class="summary-item-detail">Quote on request</div></div><span class="summary-item-price" style="color: var(--color-text-muted);">TBD</span></div>`;
             }
 
             // Couples Photography
@@ -2517,20 +1248,12 @@
             const couplesPrice = hasPackage ? pricing.couplesWithPackage : pricing.couplesStandalone;
             document.getElementById('couples-price').textContent = `$${couplesPrice}`;
             document.getElementById('couples-note').textContent = hasPackage 
-                ? `$${pricing.couplesWithPackage} with your wedding package (save $${pricing.couplesStandalone - pricing.couplesWithPackage}!)` 
-                : `$${pricing.couplesStandalone} standalone or $${pricing.couplesWithPackage} with a wedding package`;
+                ? '$450 with your wedding package (save $400!)' 
+                : '$850 standalone or $450 with a wedding package';
             
-            if (document.getElementById('couples').checked) {
+            if (document.getElementById('couples')?.checked) {
                 subtotal += couplesPrice;
-                summaryHTML += `
-                    <div class="summary-item">
-                        <div>
-                            <div class="summary-item-name">Couples Photography</div>
-                            ${hasPackage ? '<div class="summary-item-detail">Package discount applied</div>' : ''}
-                        </div>
-                        <span class="summary-item-price">$${couplesPrice}</span>
-                    </div>
-                `;
+                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Couples Photography</div>${hasPackage ? '<div class="summary-item-detail">Package discount applied</div>' : ''}</div><span class="summary-item-price">$${couplesPrice}</span></div>`;
             }
 
             // Update summary display
@@ -2548,18 +1271,8 @@
             document.getElementById('quote-note').style.display = hasQuoteItems ? 'block' : 'none';
         }
 
-        // Initialize
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        // Initialize calculator
         updateCalculator();
-
-        // Service Worker Registration
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('Service Worker registered'))
-                    .catch(err => console.log('Service Worker registration failed'));
-            });
-        }
     </script>
 </body>
 </html>
