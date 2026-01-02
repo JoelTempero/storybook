@@ -124,7 +124,7 @@
         .navbar.scrolled .nav-toggle span { background: var(--color-text); }
 
         /* Hero - CINEMATIC EDITION */
-        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-text-light); overflow: hidden; }
+        .hero { position: sticky; top: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-text-light); overflow: hidden; z-index: 1; }
         .hero-bg { position: absolute; inset: 0; z-index: -2; }
         .hero-bg video, .hero-bg img { width: 100%; height: 100%; object-fit: cover; animation: kenburns 20s ease-in-out infinite alternate; }
         .hero-overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(20,20,20,0.3) 40%, rgba(0,0,0,0.7) 100%); }
@@ -159,8 +159,8 @@
         .testimonial-carousel { position: relative; max-width: 900px; margin: 0 auto; overflow: hidden; }
         .testimonial-track { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         .testimonial-slide { min-width: 100%; padding: 0 var(--space-md); text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .testimonial-image { width: 100px; height: 100px; border-radius: var(--radius-full); overflow: hidden; margin-bottom: var(--space-md); border: 3px solid rgba(218,165,32,0.5); box-shadow: 0 0 30px rgba(218,165,32,0.2); transition: all 0.4s ease; }
-        .testimonial-image:hover { transform: scale(1.1); border-color: #DAA520; }
+        .testimonial-image { width: 200px; height: 140px; border-radius: 12px; overflow: hidden; margin-bottom: var(--space-md); border: 3px solid rgba(218,165,32,0.5); box-shadow: 0 10px 40px rgba(0,0,0,0.3); transition: all 0.4s ease; }
+        .testimonial-image:hover { transform: scale(1.05); border-color: #DAA520; }
         .testimonial-image img { width: 100%; height: 100%; object-fit: cover; }
         .testimonial-stars { color: #DAA520; font-size: 1.4rem; letter-spacing: 4px; margin-bottom: var(--space-sm); text-shadow: 0 0 20px rgba(218,165,32,0.5); }
         .testimonial-quote { font-family: var(--font-serif); font-size: clamp(1.2rem, 3vw, 1.7rem); font-style: italic; line-height: 1.7; margin-bottom: var(--space-md); opacity: 0.95; position: relative; }
@@ -171,24 +171,23 @@
         .testimonial-dot:hover { background: rgba(218,165,32,0.5); }
         .testimonial-dot.active { background: #DAA520; border-color: rgba(218,165,32,0.5); box-shadow: 0 0 15px rgba(218,165,32,0.5); transform: scale(1.2); }
 
-        /* Portfolio Grid - GALLERY EDITION */
-        .portfolio-header { text-align: center; margin-bottom: var(--space-xl); }
-        .portfolio-tagline { font-size: 0.9rem; letter-spacing: 0.2em; text-transform: uppercase; color: #DAA520; margin-bottom: var(--space-sm); font-weight: 500; }
-        .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-        .portfolio-item { position: relative; aspect-ratio: 16/9; overflow: hidden; cursor: pointer; border-radius: 8px; }
-        .portfolio-item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(218,165,32,0.2) 0%, transparent 50%); opacity: 0; transition: opacity 0.4s ease; z-index: 1; }
-        .portfolio-item:hover::before { opacity: 1; }
-        .portfolio-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease; }
-        .portfolio-item:hover img { transform: scale(1.1); }
-        .portfolio-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 40%, transparent 70%); display: flex; flex-direction: column; justify-content: flex-end; padding: var(--space-md); color: white; opacity: 0; transition: opacity 0.4s ease; z-index: 2; }
-        .portfolio-item:hover .portfolio-overlay { opacity: 1; }
-        .portfolio-title { font-size: 1.2rem; font-weight: 600; margin-bottom: 4px; transform: translateY(20px); transition: transform 0.4s ease 0.1s; }
-        .portfolio-item:hover .portfolio-title { transform: translateY(0); }
-        .portfolio-location { font-size: 0.85rem; opacity: 0.7; transform: translateY(20px); transition: transform 0.4s ease 0.15s; }
-        .portfolio-item:hover .portfolio-location { transform: translateY(0); }
-        .play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.8); width: 70px; height: 70px; background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 3; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .portfolio-item:hover .play-icon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        .play-icon svg { width: 24px; height: 24px; margin-left: 4px; fill: white; }
+        /* Photo Gallery - MASONRY STYLE */
+        .photo-gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 12px; padding: var(--space-lg) 0; }
+        .photo-gallery-item { position: relative; overflow: hidden; border-radius: 12px; cursor: pointer; }
+        .photo-gallery-item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(218,165,32,0.3) 0%, rgba(0,0,0,0.5) 100%); opacity: 0; transition: opacity 0.5s ease; z-index: 1; }
+        .photo-gallery-item:hover::before { opacity: 1; }
+        .photo-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .photo-gallery-item:hover img { transform: scale(1.15); }
+        .photo-gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+        .photo-gallery-item:nth-child(5) { grid-column: span 2; }
+        .photo-gallery-item:nth-child(8) { grid-column: span 2; grid-row: span 1; }
+        .photo-gallery-item .gallery-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; z-index: 2; }
+        .photo-gallery-item:hover .gallery-overlay { opacity: 1; }
+        .gallery-icon { width: 60px; height: 60px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .photo-gallery-item:hover .gallery-icon { transform: scale(1); }
+        .gallery-icon svg { width: 24px; height: 24px; stroke: #B8860B; }
+        @media (max-width: 991px) { .photo-gallery { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 150px); } .photo-gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; } .photo-gallery-item:nth-child(5), .photo-gallery-item:nth-child(8) { grid-column: span 1; } }
+        @media (max-width: 768px) { .photo-gallery { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; gap: 8px; } .photo-gallery-item { aspect-ratio: 4/3; } .photo-gallery-item:nth-child(1), .photo-gallery-item:nth-child(5), .photo-gallery-item:nth-child(8) { grid-column: span 1; grid-row: span 1; } }
 
         /* FAQ Section - REFINED EDITION */
         .faq-section { background: linear-gradient(180deg, var(--color-bg) 0%, #F0F0F0 100%); }
@@ -324,8 +323,8 @@
             .photo-count-display { text-align: left; }
         }
 
-        /* Contact Section - ELEGANT EDITION */
-        .contact-section { background: linear-gradient(135deg, #0A0A0A 0%, #151515 50%, #0A0A0A 100%); color: var(--color-text-light); position: relative; overflow: hidden; }
+        /* Contact Section - ELEGANT EDITION (STICKY) */
+        .contact-section { background: linear-gradient(135deg, #0A0A0A 0%, #151515 50%, #0A0A0A 100%); color: var(--color-text-light); position: sticky; bottom: 0; overflow: hidden; z-index: 2; }
         .contact-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(218,165,32,0.5), transparent); }
         .contact-section::after { content: ''; position: absolute; bottom: -50%; right: -20%; width: 60%; height: 100%; background: radial-gradient(circle, rgba(218,165,32,0.05) 0%, transparent 60%); pointer-events: none; }
         .contact-header { text-align: center; margin-bottom: var(--space-xl); }
@@ -343,6 +342,20 @@
         .btn-submit::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.6s ease; }
         .btn-submit:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(218,165,32,0.5); }
         .btn-submit:hover::before { left: 100%; }
+
+        /* About Overlay */
+        .about-overlay { position: fixed; inset: 0; z-index: 2000; background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%); overflow-y: auto; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); transform: scale(0.95); }
+        .about-overlay.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .about-overlay-inner { min-height: 100vh; padding: var(--space-xxl) var(--space-md) var(--space-xl); animation: fade-up 0.6s ease-out 0.2s backwards; }
+        .about-close { position: fixed; top: 25px; right: 25px; z-index: 2001; width: 55px; height: 55px; border-radius: var(--radius-full); background: linear-gradient(135deg, #0A0A0A 0%, #333 100%); color: var(--color-text-light); font-size: 2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+        .about-close:hover { transform: scale(1.1) rotate(90deg); background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); box-shadow: 0 12px 35px rgba(218,165,32,0.4); }
+
+        /* FAQ Overlay */
+        .faq-overlay { position: fixed; inset: 0; z-index: 2000; background: linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%); overflow-y: auto; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); transform: scale(0.95); }
+        .faq-overlay.active { opacity: 1; visibility: visible; transform: scale(1); }
+        .faq-overlay-inner { min-height: 100vh; padding: var(--space-xxl) var(--space-md) var(--space-xl); animation: fade-up 0.6s ease-out 0.2s backwards; }
+        .faq-close { position: fixed; top: 25px; right: 25px; z-index: 2001; width: 55px; height: 55px; border-radius: var(--radius-full); background: linear-gradient(135deg, #0A0A0A 0%, #333 100%); color: var(--color-text-light); font-size: 2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
+        .faq-close:hover { transform: scale(1.1) rotate(90deg); background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); box-shadow: 0 12px 35px rgba(218,165,32,0.4); }
 
         /* Footer - REFINED EDITION */
         .footer { background: linear-gradient(180deg, #080808 0%, #000000 100%); color: var(--color-text-light); padding: var(--space-xl) 0 var(--space-lg); position: relative; }
@@ -369,40 +382,47 @@
         .video-modal-close { position: absolute; top: 30px; right: 30px; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.4s ease; }
         .video-modal-close:hover { background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); transform: rotate(90deg) scale(1.1); }
 
-        /* Mobile Nav - SLEEK EDITION */
-        .mobile-nav { position: fixed; inset: 0; background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%); z-index: 999; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--space-lg); transform: translateX(100%); transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .mobile-nav.open { transform: translateX(0); }
-        .mobile-nav .nav-link { font-size: 1.5rem; font-family: var(--font-serif); color: var(--color-text); }
-        .mobile-nav-close { position: absolute; top: var(--space-md); right: var(--space-md); font-size: 2rem; color: var(--color-text); }
-
-        /* Mobile Bottom Nav */
-        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; background: var(--color-bg); border-top: 1px solid var(--color-border); padding: var(--space-xs) 0 calc(var(--space-xs) + env(safe-area-inset-bottom)); z-index: 1000; }
-        .mobile-bottom-nav-inner { display: flex; justify-content: space-around; }
-        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: var(--space-xs); color: var(--color-text-muted); transition: all 0.3s ease; position: relative; }
-        .bottom-nav-item::before { content: ''; position: absolute; top: -10px; left: 50%; transform: translateX(-50%) scale(0); width: 4px; height: 4px; background: #DAA520; border-radius: 50%; transition: transform 0.3s ease; }
+        /* Mobile Bottom Nav - STUNNING EDITION */
+        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(0,0,0,0.98) 100%); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid rgba(218,165,32,0.2); }
+        .mobile-bottom-nav::before { content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 1px; background: linear-gradient(90deg, transparent, rgba(218,165,32,0.5), transparent); }
+        .mobile-bottom-nav-inner { display: flex; justify-content: space-around; gap: 8px; }
+        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 16px; color: rgba(255,255,255,0.6); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; border-radius: 16px; flex: 1; }
+        .bottom-nav-item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(218,165,32,0.2) 0%, rgba(184,134,11,0.1) 100%); border-radius: 16px; opacity: 0; transition: opacity 0.3s ease; }
         .bottom-nav-item:hover, .bottom-nav-item.active { color: #DAA520; }
-        .bottom-nav-item.active::before { transform: translateX(-50%) scale(1); }
-        .bottom-nav-item svg { width: 24px; height: 24px; transition: transform 0.3s ease; }
-        .bottom-nav-item:hover svg { transform: scale(1.15); }
-        .bottom-nav-item span { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.03em; }
+        .bottom-nav-item.active::before { opacity: 1; }
+        .bottom-nav-item svg { width: 26px; height: 26px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .bottom-nav-item:hover svg, .bottom-nav-item.active svg { transform: scale(1.15) translateY(-2px); filter: drop-shadow(0 4px 8px rgba(218,165,32,0.4)); }
+        .bottom-nav-item span { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; position: relative; z-index: 1; }
+
+        /* Download App Button (Mobile Only, Not PWA) */
+        .download-app-btn { display: none; position: fixed; top: 16px; right: 16px; z-index: 1001; padding: 10px 18px; background: linear-gradient(135deg, rgba(218,165,32,0.9) 0%, rgba(184,134,11,0.9) 100%); color: #0A0A0A; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(218,165,32,0.4); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(10px); }
+        .download-app-btn:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(218,165,32,0.6); }
+        .download-app-btn::before { content: '📲 '; }
 
         /* Responsive */
         @media (max-width: 991px) {
             .nav-links { display: none; }
-            .nav-toggle { display: flex; }
+            .nav-toggle { display: none; } /* Hide hamburger - using bottom nav only */
             .about-grid, .contact-grid { grid-template-columns: 1fr; }
             .about-content { padding-right: 0; order: 2; }
             .about-image { order: 1; aspect-ratio: 16/9; }
-            .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
             .mobile-bottom-nav { display: block; }
-            body { padding-bottom: 70px; }
-            .portfolio-grid { grid-template-columns: 1fr; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .btn { width: 100%; max-width: 300px; text-align: center; }
+            .download-app-btn { display: block; }
+            body { padding-bottom: 90px; }
             .heading-section::after { width: 40px; }
+            
+            /* Gallery mobile - always show overlay */
+            .photo-gallery-item .gallery-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); }
+            .photo-gallery-item .gallery-icon { transform: scale(0.8); opacity: 0.9; width: 50px; height: 50px; }
+            .photo-gallery-item .gallery-icon svg { width: 20px; height: 20px; }
+            
+            /* Hide download button in standalone PWA mode */
+            @media (display-mode: standalone) {
+                .download-app-btn { display: none !important; }
+            }
         }
 
         /* ✨ SPECTACULAR SCROLL ANIMATIONS */
@@ -427,46 +447,49 @@
         <div class="container">
             <div class="navbar-inner">
                 <div class="nav-links">
-                    <a href="#portfolio" class="nav-link">Gallery</a>
-                    <a href="#about" class="nav-link">Who We Are</a>
-                    <a href="#faq" class="nav-link">FAQ</a>
+                    <a href="#" class="nav-link" onclick="openAbout(); return false;">Who We Are</a>
+                    <a href="#" class="nav-link" onclick="openFaq(); return false;">FAQ</a>
                     <a href="#" class="nav-link" onclick="openCalculator(); return false;">Packages</a>
                     <a href="#contact" class="nav-cta">Contact</a>
                 </div>
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                    <span></span><span></span><span></span>
-                </button>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Navigation -->
-    <div class="mobile-nav" id="mobileNav">
-        <button class="mobile-nav-close" id="mobileNavClose">&times;</button>
-        <a href="#portfolio" class="nav-link">Gallery</a>
-        <a href="#about" class="nav-link">Who We Are</a>
-        <a href="#faq" class="nav-link">FAQ</a>
-        <a href="#" class="nav-link" onclick="openCalculator(); closeMobileNav(); return false;">Packages</a>
-        <a href="#contact" class="nav-cta" style="background: var(--color-accent); color: white; padding: 1rem 2rem; border-radius: var(--radius-md);">Contact</a>
-    </div>
+    <!-- Download App Button (Mobile Only) -->
+    <button class="download-app-btn" id="downloadAppBtn" onclick="installPWA()">Get App</button>
 
-    <!-- Mobile Bottom Navigation -->
+    <!-- Mobile Bottom Navigation - STUNNING -->
     <nav class="mobile-bottom-nav">
         <div class="mobile-bottom-nav-inner">
-            <a href="#" class="bottom-nav-item active">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
-                <span>Home</span>
+            <a href="#" class="bottom-nav-item" onclick="openAbout(); return false;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                    <path d="M6.5 19.5c1.5-2.5 3.5-3.5 5.5-3.5s4 1 5.5 3.5"/>
+                </svg>
+                <span>About</span>
             </a>
-            <a href="#portfolio" class="bottom-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
-                <span>Gallery</span>
+            <a href="#" class="bottom-nav-item" onclick="openFaq(); return false;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10"/>
+                    <path d="M9 9c0-1.5 1.5-2.5 3-2.5s3 1 3 2.5c0 1.5-1.5 2-2 3-.3.6-.5 1-.5 1.5"/>
+                    <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
+                </svg>
+                <span>FAQ</span>
             </a>
             <a href="#" class="bottom-nav-item" onclick="openCalculator(); return false;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <rect x="4" y="2" width="16" height="20" rx="2"/>
+                    <path d="M8 6h8M8 10h8M8 14h3M8 18h3M14 14h2M14 18h2"/>
+                </svg>
                 <span>Quote</span>
             </a>
             <a href="#contact" class="bottom-nav-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M21 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/>
+                    <path d="M3 7l9 6 9-6"/>
+                </svg>
                 <span>Contact</span>
             </a>
         </div>
@@ -484,34 +507,109 @@
         <div class="hero-content">
             <h1 class="heading-hero hero-title">Storybook<br>Weddings</h1>
             <p class="hero-subtitle">Photography & Videography</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">Get In Touch</a>
-                <a href="#" class="btn btn-outline" onclick="openCalculator(); return false;">View Packages</a>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <span>Scroll</span>
         </div>
     </header>
 
     <main>
-        <!-- About Section -->
-        <section class="section" id="about">
+        <!-- Photo Gallery Section -->
+        <section class="section" id="gallery" style="background: white; position: relative; z-index: 10;">
             <div class="container">
-                <div class="about-grid">
-                    <div class="about-content fade-in">
-                        <h2 class="heading-section" style="margin-bottom: var(--space-md);">The Story of Storybook</h2>
-                        <p class="text-large" style="margin-bottom: var(--space-md);">Joel is a creative consultant and videographer with 8 years in the wedding business. With a fun storytelling style and an eye for small details, he loves every moment of creating unique, vibrant and exciting wedding content.</p>
-                        <p class="text-muted" style="margin-bottom: var(--space-md);">Rachel is a writer and photographer who brings her own keen eye to the table. She sees things others miss and balances Joel's creative flare perfectly. They got married in 2022 and have been a dynamic photo/video duo ever since.</p>
-                        <p class="text-muted">Together, they are a powerhouse of creativity and fun, passionate about creating magical memories that are everlasting. <strong>Storybook Weddings</strong> is under the umbrella of <strong>Tempero Creative</strong>, covering a wide range of digital content and creative solutions.</p>
+                <div class="photo-gallery">
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/800x600/e8d5b7/8b7355?text=Photo+1" alt="Gallery Photo 1">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
                     </div>
-                    <div class="about-image fade-in" id="aboutSlideshow">
-                        <img src="assets/images/joel-rachel01.jpg" alt="Joel & Rachel Tempero" class="active">
-                        <img src="assets/images/joel-rachel02.jpg" alt="Joel & Rachel Tempero">
-                        <img src="assets/images/joel-rachel03.jpg" alt="Joel & Rachel Tempero">
-                        <img src="assets/images/joel-rachel04.jpg" alt="Joel & Rachel Tempero">
-                        <img src="assets/images/joel-rachel05.jpg" alt="Joel & Rachel Tempero">
-                        <img src="assets/images/joel-rachel06.jpg" alt="Joel & Rachel Tempero">
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/d4c5a9/7a6b4e?text=Photo+2" alt="Gallery Photo 2">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/c9b896/6d5f43?text=Photo+3" alt="Gallery Photo 3">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/bfae87/615438?text=Photo+4" alt="Gallery Photo 4">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/800x300/e0d0b8/857653?text=Photo+5" alt="Gallery Photo 5">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/d6c7a5/78694a?text=Photo+6" alt="Gallery Photo 6">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/ccbc94/6b5c3f?text=Photo+7" alt="Gallery Photo 7">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/800x300/e5d6be/8a7b59?text=Photo+8" alt="Gallery Photo 8">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/dac9a7/7f7050?text=Photo+9" alt="Gallery Photo 9">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/d0c198/736445?text=Photo+10" alt="Gallery Photo 10">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/c5b68a/67583b?text=Photo+11" alt="Gallery Photo 11">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="photo-gallery-item">
+                        <img src="https://placehold.co/400x300/bbab7c/5b4c31?text=Photo+12" alt="Gallery Photo 12">
+                        <div class="gallery-overlay">
+                            <div class="gallery-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -569,113 +667,6 @@
                         </div>
                     </div>
                     <div class="testimonial-nav" id="testimonialNav"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Portfolio Section -->
-        <section class="section" id="portfolio">
-            <div class="container">
-                <div class="portfolio-header fade-in">
-                    <p class="portfolio-tagline">Our Work</p>
-                    <h2 class="heading-section">Gallery</h2>
-                </div>
-                <div class="portfolio-grid">
-                    <div class="portfolio-item fade-in" data-video="DKF8wwDFpKQ">
-                        <img src="https://img.youtube.com/vi/DKF8wwDFpKQ/maxresdefault.jpg" alt="Brooke & Mark" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">Brooke & Mark</h3>
-                            <p class="portfolio-location">Christchurch, NZ</p>
-                        </div>
-                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
-                    </div>
-                    <div class="portfolio-item fade-in" data-video="tF1GRmFhpdE">
-                        <img src="https://img.youtube.com/vi/tF1GRmFhpdE/maxresdefault.jpg" alt="James & Lou" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">James & Lou</h3>
-                            <p class="portfolio-location">Christchurch, NZ</p>
-                        </div>
-                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
-                    </div>
-                    <div class="portfolio-item fade-in" data-video="MTwfbCnKekI">
-                        <img src="https://img.youtube.com/vi/MTwfbCnKekI/maxresdefault.jpg" alt="Kathleen & Theo" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">Kathleen & Theo</h3>
-                            <p class="portfolio-location">Christchurch, NZ</p>
-                        </div>
-                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
-                    </div>
-                    <div class="portfolio-item fade-in" data-video="ddqn1kHawT0">
-                        <img src="https://img.youtube.com/vi/ddqn1kHawT0/maxresdefault.jpg" alt="Amber & Isaac" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">Amber & Isaac</h3>
-                            <p class="portfolio-location">Christchurch, NZ</p>
-                        </div>
-                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
-                    </div>
-                    <div class="portfolio-item fade-in" data-video="6EDxMN33z2w">
-                        <img src="https://img.youtube.com/vi/6EDxMN33z2w/maxresdefault.jpg" alt="Josh & Gloria" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">Josh & Gloria</h3>
-                            <p class="portfolio-location">Christchurch, NZ</p>
-                        </div>
-                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
-                    </div>
-                    <div class="portfolio-item fade-in" data-video="90bfKDliPxw">
-                        <img src="https://img.youtube.com/vi/90bfKDliPxw/maxresdefault.jpg" alt="Steven & Buzzy" loading="lazy">
-                        <div class="portfolio-overlay">
-                            <h3 class="portfolio-title">Steven & Buzzy</h3>
-                            <p class="portfolio-location">Christchurch, NZ</p>
-                        </div>
-                        <div class="play-icon"><svg viewBox="0 0 18 20" fill="currentColor"><path d="M17.66 9.59c.35.2.35.7 0 .91L1.4 19.88c-.35.2-.78-.05-.78-.45V.66c0-.4.43-.66.78-.45l16.26 9.38z"/></svg></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ Section -->
-        <section class="section faq-section" id="faq">
-            <div class="container">
-                <div class="faq-header fade-in">
-                    <h2 class="heading-section">Common Questions</h2>
-                </div>
-                <div class="faq-container">
-                    <div class="faq-item fade-in">
-                        <button class="faq-question">How long are the highlights videos?</button>
-                        <div class="faq-answer">
-                            <p>Most of our highlights videos range from 3-8 minutes. It often depends on how long we are there for the day and how many details you would like us to include. As of 2025 we have stopped selling specific length products, as we were often gutted to be cutting out awesome shots from the day.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item fade-in">
-                        <button class="faq-question">Can I choose the music for our video?</button>
-                        <div class="faq-answer">
-                            <p>Music licensing can be a tricky thing. We endeavour to accommodate ideas wherever possible, but sometimes it just won't be possible. We will work this through with you during our initial discussions - we love having the couple be a part of our creative process!</p>
-                        </div>
-                    </div>
-                    <div class="faq-item fade-in">
-                        <button class="faq-question">Half day vs. full day?</button>
-                        <div class="faq-answer">
-                            <p>A full day shoot means we're there when the girls start getting their hair and makeup done and we finish when we feel we have enough of the evening dancing. A half day typically looks like either morning prep + ceremony or ceremony + reception. If you're after just a ceremony shoot this will still be considered a half day.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item fade-in">
-                        <button class="faq-question">Will you travel?</button>
-                        <div class="faq-answer">
-                            <p>For sure! Travel fees will apply for anything outside of Christchurch. We can quote for this on request. Send us anywhere you want us to be!</p>
-                        </div>
-                    </div>
-                    <div class="faq-item fade-in">
-                        <button class="faq-question">Who does video and who does photo?</button>
-                        <div class="faq-answer">
-                            <p>Typically Joel is shooting video and Rachel is on photography. If you order just video or photo then we will both cover it for you on the day. Sometimes we may swap for specific moments or ideas. We're happy to report that we can be quite flexible!</p>
-                        </div>
-                    </div>
-                    <div class="faq-item fade-in">
-                        <button class="faq-question">Deposit?</button>
-                        <div class="faq-answer">
-                            <p>A deposit of at least 1/3rd of your overall quote will be required after booking. This is to protect us from any sudden cancellations.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -949,6 +940,81 @@
         </div>
     </div>
 
+    <!-- About Overlay -->
+    <div class="about-overlay" id="aboutOverlay">
+        <button class="about-close" id="aboutClose" aria-label="Close about">&times;</button>
+        <div class="about-overlay-inner">
+            <div class="container">
+                <div class="about-grid" style="max-width: 1000px; margin: 0 auto;">
+                    <div class="about-content">
+                        <h2 class="heading-section" style="margin-bottom: var(--space-lg);">The Story of Storybook</h2>
+                        <p class="text-large" style="margin-bottom: var(--space-md);">Joel is a creative consultant and videographer with 8 years in the wedding business. With a fun storytelling style and an eye for small details, he loves every moment of creating unique, vibrant and exciting wedding content.</p>
+                        <p class="text-muted" style="margin-bottom: var(--space-md);">Rachel is a writer and photographer who brings her own keen eye to the table. She sees things others miss and balances Joel's creative flare perfectly. They got married in 2022 and have been a dynamic photo/video duo ever since.</p>
+                        <p class="text-muted">Together, they are a powerhouse of creativity and fun, passionate about creating magical memories that are everlasting. <strong>Storybook Weddings</strong> is under the umbrella of <strong>Tempero Creative</strong>, covering a wide range of digital content and creative solutions.</p>
+                    </div>
+                    <div class="about-image" id="aboutSlideshow">
+                        <img src="assets/images/joel-rachel01.jpg" alt="Joel & Rachel Tempero" class="active">
+                        <img src="assets/images/joel-rachel02.jpg" alt="Joel & Rachel Tempero">
+                        <img src="assets/images/joel-rachel03.jpg" alt="Joel & Rachel Tempero">
+                        <img src="assets/images/joel-rachel04.jpg" alt="Joel & Rachel Tempero">
+                        <img src="assets/images/joel-rachel05.jpg" alt="Joel & Rachel Tempero">
+                        <img src="assets/images/joel-rachel06.jpg" alt="Joel & Rachel Tempero">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Overlay -->
+    <div class="faq-overlay" id="faqOverlay">
+        <button class="faq-close" id="faqClose" aria-label="Close FAQ">&times;</button>
+        <div class="faq-overlay-inner">
+            <div class="container">
+                <div class="faq-header" style="margin-bottom: var(--space-xl);">
+                    <h2 class="heading-section">Common Questions</h2>
+                </div>
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">How long are the highlights videos?</button>
+                        <div class="faq-answer">
+                            <p>Most of our highlights videos range from 3-8 minutes. It often depends on how long we are there for the day and how many details you would like us to include. As of 2025 we have stopped selling specific length products, as we were often gutted to be cutting out awesome shots from the day.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Can I choose the music for our video?</button>
+                        <div class="faq-answer">
+                            <p>Music licensing can be a tricky thing. We endeavour to accommodate ideas wherever possible, but sometimes it just won't be possible. We will work this through with you during our initial discussions - we love having the couple be a part of our creative process!</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Half day vs. full day?</button>
+                        <div class="faq-answer">
+                            <p>A full day shoot means we're there when the girls start getting their hair and makeup done and we finish when we feel we have enough of the evening dancing. A half day typically looks like either morning prep + ceremony or ceremony + reception. If you're after just a ceremony shoot this will still be considered a half day.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Will you travel?</button>
+                        <div class="faq-answer">
+                            <p>For sure! Travel fees will apply for anything outside of Christchurch. We can quote for this on request. Send us anywhere you want us to be!</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Who does video and who does photo?</button>
+                        <div class="faq-answer">
+                            <p>Typically Joel is shooting video and Rachel is on photography. If you order just video or photo then we will both cover it for you on the day. Sometimes we may swap for specific moments or ideas. We're happy to report that we can be quite flexible!</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question">Deposit?</button>
+                        <div class="faq-answer">
+                            <p>A deposit of at least 1/3rd of your overall quote will be required after booking. This is to protect us from any sudden cancellations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <!-- Contact Section -->
         <section class="section contact-section" id="contact">
             <div class="container">
@@ -1021,17 +1087,6 @@
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
             navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Mobile navigation
-        const navToggle = document.getElementById('navToggle');
-        const mobileNav = document.getElementById('mobileNav');
-        const mobileNavClose = document.getElementById('mobileNavClose');
-        
-        navToggle.addEventListener('click', () => mobileNav.classList.add('open'));
-        mobileNavClose.addEventListener('click', () => mobileNav.classList.remove('open'));
-        mobileNav.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
-            link.addEventListener('click', () => mobileNav.classList.remove('open'));
         });
 
         // Video modal
@@ -1401,16 +1456,38 @@
             document.body.style.overflow = '';
         }
 
-        function closeMobileNav() {
-            document.getElementById('mobileNav').classList.remove('active');
+        // ========== ABOUT OVERLAY ==========
+        function openAbout() {
+            document.getElementById('aboutOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAbout() {
+            document.getElementById('aboutOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // ========== FAQ OVERLAY ==========
+        function openFaq() {
+            document.getElementById('faqOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeFaq() {
+            document.getElementById('faqOverlay').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
         document.getElementById('calculatorClose').addEventListener('click', closeCalculator);
+        document.getElementById('aboutClose').addEventListener('click', closeAbout);
+        document.getElementById('faqClose').addEventListener('click', closeFaq);
         
         // Close on escape key
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape') {
                 closeCalculator();
+                closeAbout();
+                closeFaq();
             }
         });
 
@@ -1430,6 +1507,43 @@
                 images[currentIndex].classList.add('active');
             }, 4000);
         })();
+
+        // ========== PWA INSTALL ==========
+        let deferredPrompt;
+        const downloadBtn = document.getElementById('downloadAppBtn');
+
+        // Hide button if already installed or not supported
+        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+            if (downloadBtn) downloadBtn.style.display = 'none';
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (downloadBtn) downloadBtn.style.display = 'block';
+        });
+
+        function installPWA() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                        if (downloadBtn) downloadBtn.style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            } else {
+                // Fallback for iOS or browsers that don't support beforeinstallprompt
+                alert('To install this app:\n\n• iOS Safari: Tap the Share button, then "Add to Home Screen"\n• Android Chrome: Tap the menu (⋮), then "Add to Home Screen"\n• Desktop: Look for the install icon in your browser\'s address bar');
+            }
+        }
+
+        window.addEventListener('appinstalled', () => {
+            console.log('App was installed');
+            if (downloadBtn) downloadBtn.style.display = 'none';
+            deferredPrompt = null;
+        });
 
         // Initialize calculator
         updateCalculator();
