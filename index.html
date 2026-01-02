@@ -124,7 +124,7 @@
         .navbar.scrolled .nav-toggle span { background: var(--color-text); }
 
         /* Hero - CINEMATIC EDITION */
-        .hero { position: sticky; top: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-text-light); overflow: hidden; z-index: 1; }
+        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-text-light); overflow: hidden; }
         .hero-bg { position: absolute; inset: 0; z-index: -2; }
         .hero-bg video, .hero-bg img { width: 100%; height: 100%; object-fit: cover; animation: kenburns 20s ease-in-out infinite alternate; }
         .hero-overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(20,20,20,0.3) 40%, rgba(0,0,0,0.7) 100%); }
@@ -324,7 +324,7 @@
         }
 
         /* Contact Section - ELEGANT EDITION (STICKY) */
-        .contact-section { background: linear-gradient(135deg, #0A0A0A 0%, #151515 50%, #0A0A0A 100%); color: var(--color-text-light); position: sticky; bottom: 0; overflow: hidden; z-index: 2; }
+        .contact-section { background: linear-gradient(135deg, #0A0A0A 0%, #151515 50%, #0A0A0A 100%); color: var(--color-text-light); position: relative; overflow: hidden; }
         .contact-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(218,165,32,0.5), transparent); }
         .contact-section::after { content: ''; position: absolute; bottom: -50%; right: -20%; width: 60%; height: 100%; background: radial-gradient(circle, rgba(218,165,32,0.05) 0%, transparent 60%); pointer-events: none; }
         .contact-header { text-align: center; margin-bottom: var(--space-xl); }
@@ -382,17 +382,16 @@
         .video-modal-close { position: absolute; top: 30px; right: 30px; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.4s ease; }
         .video-modal-close:hover { background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); transform: rotate(90deg) scale(1.1); }
 
-        /* Mobile Bottom Nav - STUNNING EDITION */
-        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(0,0,0,0.98) 100%); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid rgba(218,165,32,0.2); }
-        .mobile-bottom-nav::before { content: ''; position: absolute; top: 0; left: 20%; right: 20%; height: 1px; background: linear-gradient(90deg, transparent, rgba(218,165,32,0.5), transparent); }
+        /* Mobile Bottom Nav - CLEAN EDITION */
+        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(0,0,0,0.98) 100%); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid rgba(255,255,255,0.1); }
         .mobile-bottom-nav-inner { display: flex; justify-content: space-around; gap: 8px; }
-        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 16px; color: rgba(255,255,255,0.6); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; border-radius: 16px; flex: 1; }
-        .bottom-nav-item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(218,165,32,0.2) 0%, rgba(184,134,11,0.1) 100%); border-radius: 16px; opacity: 0; transition: opacity 0.3s ease; }
-        .bottom-nav-item:hover, .bottom-nav-item.active { color: #DAA520; }
-        .bottom-nav-item.active::before { opacity: 1; }
-        .bottom-nav-item svg { width: 26px; height: 26px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; z-index: 1; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
-        .bottom-nav-item:hover svg, .bottom-nav-item.active svg { transform: scale(1.15) translateY(-2px); filter: drop-shadow(0 4px 8px rgba(218,165,32,0.4)); }
+        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 16px; color: rgba(255,255,255,0.5); transition: all 0.3s ease; position: relative; border-radius: 16px; flex: 1; }
+        .bottom-nav-item svg { width: 24px; height: 24px; position: relative; z-index: 1; }
         .bottom-nav-item span { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; position: relative; z-index: 1; }
+        /* Contact button always gold */
+        .bottom-nav-item.contact-btn { color: #DAA520; }
+        .bottom-nav-item.contact-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(184,134,11,0.08) 100%); border-radius: 16px; }
+        .bottom-nav-item.contact-btn svg { filter: drop-shadow(0 2px 8px rgba(218,165,32,0.4)); }
 
         /* Download App Button (Mobile Only, Not PWA) */
         .download-app-btn { display: none; position: fixed; top: 16px; right: 16px; z-index: 1001; padding: 10px 18px; background: linear-gradient(135deg, rgba(218,165,32,0.9) 0%, rgba(184,134,11,0.9) 100%); color: #0A0A0A; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(218,165,32,0.4); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(10px); }
@@ -485,7 +484,7 @@
                 </svg>
                 <span>Quote</span>
             </a>
-            <a href="#contact" class="bottom-nav-item">
+            <a href="#contact" class="bottom-nav-item contact-btn">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path d="M21 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/>
                     <path d="M3 7l9 6 9-6"/>
@@ -512,7 +511,7 @@
 
     <main>
         <!-- Photo Gallery Section -->
-        <section class="section" id="gallery" style="background: white; position: relative; z-index: 10;">
+        <section class="section" id="gallery" style="background: white;">
             <div class="container">
                 <div class="photo-gallery">
                     <div class="photo-gallery-item">
