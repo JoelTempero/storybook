@@ -7,19 +7,19 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Storybook Weddings">
-    <meta name="description" content="Wedding Photography & Videography. Christchurch, New Zealand. Capturing your special day with cinematic excellence and everlasting memories.">
+    <meta name="description" content="Wedding Photography & Videography in Christchurch, New Zealand. Capturing your special day with cinematic excellence and everlasting memories.">
     <meta property="og:site_name" content="Storybook Weddings">
-    <meta property="og:title" content="Storybook Weddings">
+    <meta property="og:title" content="Storybook Weddings | Wedding Photography & Videography">
     <meta property="og:type" content="website">
-    <meta property="og:description" content="Wedding Photography & Videography. Christchurch, New Zealand.">
+    <meta property="og:description" content="Premium wedding photography and videography services in Christchurch, New Zealand.">
     
     <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
     
     <!-- Favicons -->
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
     
     <title>Storybook Weddings | Photography & Videography</title>
     
@@ -28,471 +28,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <style>
-        :root {
-            --color-bg: #FAFAFA;
-            --color-bg-dark: #0A0A0A;
-            --color-text: #0A0A0A;
-            --color-text-light: #FAFAFA;
-            --color-text-muted: #6B6B6B;
-            --color-accent: #0A0A0A;
-            --color-border: #E0E0E0;
-            --color-card: #FFFFFF;
-            --color-success: #2D5A3D;
-            --color-overlay: rgba(0, 0, 0, 0.5);
-            
-            /* ✨ PIZZAZZ GRADIENTS */
-            --gradient-gold: linear-gradient(135deg, #B8860B 0%, #DAA520 25%, #FFD700 50%, #DAA520 75%, #B8860B 100%);
-            --gradient-shimmer: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
-            --gradient-hero: linear-gradient(135deg, rgba(10,10,10,0.7) 0%, rgba(30,30,30,0.5) 50%, rgba(10,10,10,0.8) 100%);
-            --gradient-glow: radial-gradient(circle, rgba(218,165,32,0.15) 0%, transparent 70%);
-            
-            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-serif: 'Cormorant Garamond', Georgia, serif;
-            
-            --space-xs: 0.5rem;
-            --space-sm: 1rem;
-            --space-md: 1.5rem;
-            --space-lg: 2rem;
-            --space-xl: 3rem;
-            --space-xxl: 5rem;
-            
-            --container-max: 1200px;
-            --nav-height: 70px;
-            
-            --transition-fast: 0.2s ease;
-            --transition-base: 0.3s ease;
-            
-            --radius-sm: 4px;
-            --radius-md: 8px;
-            --radius-lg: 12px;
-            --radius-full: 50%;
-        }
-
-        /* ✨ EPIC KEYFRAME ANIMATIONS */
-        @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
-        @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(218,165,32,0.3); } 50% { box-shadow: 0 0 40px rgba(218,165,32,0.6), 0 0 60px rgba(218,165,32,0.3); } }
-        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-        @keyframes fade-up { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fade-in-scale { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-        @keyframes rotate-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes text-reveal { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
-        @keyframes border-dance { 0%, 100% { border-color: rgba(218,165,32,0.3); } 50% { border-color: rgba(218,165,32,0.8); } }
-        @keyframes gradient-shift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        @keyframes sparkle { 0%, 100% { opacity: 0; transform: scale(0); } 50% { opacity: 1; transform: scale(1); } }
-        @keyframes slide-in-left { from { opacity: 0; transform: translateX(-100px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes slide-in-right { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
-        @keyframes kenburns { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.2) translate(-3%, -3%); } }
-        @keyframes blob { 0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; } 50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; } }
-
-        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-        body { font-family: var(--font-primary); background: var(--color-bg); color: var(--color-text); line-height: 1.6; overflow-x: hidden; }
-        a { color: inherit; text-decoration: none; }
-        img, video { max-width: 100%; height: auto; display: block; }
-        button { font-family: inherit; cursor: pointer; border: none; background: none; }
-
-        /* Selection styling */
-        ::selection { background: rgba(218,165,32,0.3); color: var(--color-text); }
-
-        .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-md); }
-        .section { padding: var(--space-xxl) 0; position: relative; }
-        .text-muted { color: var(--color-text-muted); }
-
-        .heading-hero { font-family: var(--font-serif); font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; line-height: 1.05; text-shadow: 0 4px 30px rgba(0,0,0,0.5); }
-        .heading-section { font-family: var(--font-serif); font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; position: relative; }
-        .heading-section::after { content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); width: 60px; height: 3px; background: var(--gradient-gold); border-radius: 2px; }
-        .text-large { font-size: clamp(1rem, 2vw, 1.15rem); }
-
-        /* Navigation - GLASSMORPHISM EDITION */
-        .navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: var(--space-sm) 0; background: transparent; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .navbar.scrolled { background: rgba(255,255,255,0.85); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); box-shadow: 0 8px 32px rgba(0,0,0,0.1), inset 0 -1px 0 rgba(255,255,255,0.5); }
-        .navbar-inner { display: flex; align-items: center; justify-content: center; }
-        .nav-links { display: flex; align-items: center; gap: var(--space-lg); }
-        .nav-link { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-light); transition: all 0.3s ease; opacity: 0.9; position: relative; padding: 0.5rem 0; }
-        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gradient-gold); transition: width 0.3s ease; }
-        .nav-link:hover { opacity: 1; }
-        .nav-link:hover::after { width: 100%; }
-        .navbar.scrolled .nav-link { color: var(--color-text); }
-        .nav-cta { padding: 0.75rem 1.75rem; background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); color: var(--color-bg-dark); border-radius: 50px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; box-shadow: 0 4px 15px rgba(218,165,32,0.4); }
-        .nav-cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: left 0.5s ease; }
-        .nav-cta:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 8px 25px rgba(218,165,32,0.5); }
-        .nav-cta:hover::before { left: 100%; }
-        .navbar.scrolled .nav-cta { background: linear-gradient(135deg, #0A0A0A 0%, #333 100%); color: var(--color-text-light); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
-        .nav-toggle { display: none; flex-direction: column; gap: 5px; padding: 10px; }
-        .nav-toggle span { width: 24px; height: 2px; background: var(--color-text-light); transition: all var(--transition-fast); }
-        .navbar.scrolled .nav-toggle span { background: var(--color-text); }
-
-        /* Hero - CINEMATIC EDITION */
-        .hero { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--color-text-light); overflow: hidden; }
-        .hero-bg { position: absolute; inset: 0; z-index: -2; }
-        .hero-bg video, .hero-bg img { width: 100%; height: 100%; object-fit: cover; animation: kenburns 20s ease-in-out infinite alternate; }
-        .hero-overlay { position: absolute; inset: 0; z-index: -1; background: linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(20,20,20,0.3) 40%, rgba(0,0,0,0.7) 100%); }
-        .hero-overlay::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 70%, rgba(218,165,32,0.1) 0%, transparent 50%); }
-        .hero-content { max-width: 900px; padding: 0 var(--space-md); animation: fade-up 1.2s ease-out; }
-        .hero-title { margin-bottom: var(--space-sm); background: linear-gradient(135deg, #FFFFFF 0%, #F0F0F0 50%, #FFFFFF 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 4px 30px rgba(0,0,0,0.5)); }
-        .hero-subtitle { font-size: 1rem; letter-spacing: 0.3em; text-transform: uppercase; opacity: 0.9; margin-bottom: var(--space-lg); position: relative; display: inline-block; }
-        .hero-subtitle::before, .hero-subtitle::after { content: '✦'; margin: 0 1rem; opacity: 0.5; font-size: 0.7em; }
-        .hero-buttons { display: flex; gap: var(--space-md); justify-content: center; flex-wrap: wrap; animation: fade-up 1.2s ease-out 0.3s backwards; }
-        .btn { display: inline-block; padding: 1rem 2.5rem; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; border-radius: 50px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
-        .btn-primary { background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); color: var(--color-bg-dark); box-shadow: 0 4px 20px rgba(218,165,32,0.4); }
-        .btn-primary::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.6s ease; }
-        .btn-primary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 8px 30px rgba(218,165,32,0.6); }
-        .btn-primary:hover::before { left: 100%; }
-        .btn-outline { border: 2px solid rgba(255,255,255,0.8); color: var(--color-text-light); backdrop-filter: blur(10px); }
-        .btn-outline:hover { background: rgba(255,255,255,0.15); border-color: #DAA520; color: #DAA520; transform: translateY(-4px); box-shadow: 0 8px 30px rgba(218,165,32,0.3); }
-
-        /* About Section - ELEGANT EDITION */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); align-items: center; }
-        .about-content { padding-right: var(--space-lg); }
-        .about-image { border-radius: 20px; overflow: hidden; aspect-ratio: 4/5; position: relative; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
-        .about-image::before { content: ''; position: absolute; inset: 0; border: 1px solid rgba(218,165,32,0.3); border-radius: 20px; z-index: 10; pointer-events: none; animation: border-dance 3s ease-in-out infinite; }
-        .about-image::after { content: ''; position: absolute; inset: -20px; background: var(--gradient-glow); z-index: -1; animation: pulse-glow 4s ease-in-out infinite; opacity: 0.5; }
-        .about-image img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; opacity: 0; transition: opacity 1.5s ease-in-out; animation: kenburns 25s ease-in-out infinite alternate; }
-        .about-image img.active { opacity: 1; }
-
-        /* Testimonial Carousel - LUXE EDITION */
-        .testimonial-section { background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 50%, #0A0A0A 100%); color: var(--color-text-light); position: relative; overflow: hidden; }
-        .testimonial-section::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(218,165,32,0.03) 0%, transparent 50%); animation: rotate-slow 30s linear infinite; }
-        .testimonial-header { text-align: center; margin-bottom: var(--space-xl); }
-        .testimonial-header .heading-section::after { background: linear-gradient(90deg, transparent, #DAA520, transparent); }
-        .testimonial-carousel { position: relative; max-width: 900px; margin: 0 auto; overflow: hidden; }
-        .testimonial-track { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
-        .testimonial-slide { min-width: 100%; padding: 0 var(--space-md); text-align: center; display: flex; flex-direction: column; align-items: center; }
-        .testimonial-image { width: 200px; height: 140px; border-radius: 12px; overflow: hidden; margin-bottom: var(--space-md); border: 3px solid rgba(218,165,32,0.5); box-shadow: 0 10px 40px rgba(0,0,0,0.3); transition: all 0.4s ease; }
-        .testimonial-image:hover { transform: scale(1.05); border-color: #DAA520; }
-        .testimonial-image img { width: 100%; height: 100%; object-fit: cover; }
-        .testimonial-stars { color: #DAA520; font-size: 1.4rem; letter-spacing: 4px; margin-bottom: var(--space-sm); text-shadow: 0 0 20px rgba(218,165,32,0.5); }
-        .testimonial-quote { font-family: var(--font-serif); font-size: clamp(1.2rem, 3vw, 1.7rem); font-style: italic; line-height: 1.7; margin-bottom: var(--space-md); opacity: 0.95; position: relative; }
-        .testimonial-quote::before { content: '"'; position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 4rem; opacity: 0.1; font-family: Georgia, serif; }
-        .testimonial-author { font-weight: 600; font-size: 1rem; letter-spacing: 0.1em; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .testimonial-nav { display: flex; justify-content: center; gap: 12px; margin-top: var(--space-lg); }
-        .testimonial-dot { width: 12px; height: 12px; border-radius: var(--radius-full); background: rgba(255,255,255,0.2); cursor: pointer; transition: all 0.4s ease; border: 2px solid transparent; }
-        .testimonial-dot:hover { background: rgba(218,165,32,0.5); }
-        .testimonial-dot.active { background: #DAA520; border-color: rgba(218,165,32,0.5); box-shadow: 0 0 15px rgba(218,165,32,0.5); transform: scale(1.2); }
-
-        /* Photo Gallery - MASONRY STYLE */
-        .photo-gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 200px); gap: 12px; padding: var(--space-lg) 0; }
-        .photo-gallery-item { position: relative; overflow: hidden; border-radius: 12px; cursor: pointer; }
-        .photo-gallery-item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(218,165,32,0.3) 0%, rgba(0,0,0,0.5) 100%); opacity: 0; transition: opacity 0.5s ease; z-index: 1; }
-        .photo-gallery-item:hover::before { opacity: 1; }
-        .photo-gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1); }
-        .photo-gallery-item:hover img { transform: scale(1.15); }
-        .photo-gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
-        .photo-gallery-item:nth-child(5) { grid-column: span 2; }
-        .photo-gallery-item:nth-child(8) { grid-column: span 2; grid-row: span 1; }
-        .photo-gallery-item .gallery-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; z-index: 2; }
-        .photo-gallery-item:hover .gallery-overlay { opacity: 1; }
-        .gallery-icon { width: 60px; height: 60px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .photo-gallery-item:hover .gallery-icon { transform: scale(1); }
-        .gallery-icon svg { width: 24px; height: 24px; stroke: #B8860B; }
-        @media (max-width: 991px) { .photo-gallery { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 150px); } .photo-gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; } .photo-gallery-item:nth-child(5), .photo-gallery-item:nth-child(8) { grid-column: span 1; } }
-        @media (max-width: 768px) { .photo-gallery { grid-template-columns: repeat(2, 1fr); grid-template-rows: auto; gap: 8px; } .photo-gallery-item { aspect-ratio: 4/3; } .photo-gallery-item:nth-child(1), .photo-gallery-item:nth-child(5), .photo-gallery-item:nth-child(8) { grid-column: span 1; grid-row: span 1; } }
-
-        /* FAQ Section - REFINED EDITION */
-        .faq-section { background: linear-gradient(180deg, var(--color-bg) 0%, #F0F0F0 100%); }
-        .faq-header { text-align: center; margin-bottom: var(--space-xl); }
-        .faq-container { max-width: 800px; margin: 0 auto; }
-        .faq-item { border-bottom: 1px solid rgba(0,0,0,0.1); background: white; margin-bottom: 12px; border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); overflow: hidden; transition: all 0.3s ease; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
-        .faq-item:hover { box-shadow: 0 8px 25px rgba(0,0,0,0.08); transform: translateY(-2px); }
-        .faq-item.open { box-shadow: 0 8px 30px rgba(218,165,32,0.15); border-color: rgba(218,165,32,0.3); }
-        .faq-question { width: 100%; padding: var(--space-md) var(--space-lg); display: flex; justify-content: space-between; align-items: center; text-align: left; font-size: 1rem; font-weight: 500; cursor: pointer; transition: color 0.3s ease; }
-        .faq-item.open .faq-question { color: #B8860B; }
-        .faq-question::after { content: '+'; font-size: 1.5rem; font-weight: 300; transition: transform 0.4s ease, color 0.3s ease; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; background: #F5F5F5; border-radius: 50%; }
-        .faq-item.open .faq-question::after { transform: rotate(45deg); background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); color: white; }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease; }
-        .faq-item.open .faq-answer { max-height: 500px; padding-bottom: var(--space-md); }
-        .faq-answer p { color: var(--color-text-muted); line-height: 1.7; padding: 0 var(--space-lg); }
-
-        /* Calculator Overlay - PREMIUM EDITION */
-        .calculator-overlay { position: fixed; inset: 0; z-index: 2000; background: linear-gradient(135deg, #F8F8F8 0%, #EFEFEF 50%, #F8F8F8 100%); overflow-y: auto; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); transform: scale(0.95); }
-        .calculator-overlay.active { opacity: 1; visibility: visible; transform: scale(1); }
-        .calculator-overlay::before { content: ''; position: fixed; top: -50%; right: -50%; width: 100%; height: 100%; background: radial-gradient(circle, rgba(218,165,32,0.05) 0%, transparent 50%); pointer-events: none; }
-        .calculator-overlay-inner { min-height: 100vh; padding: var(--space-xxl) var(--space-md) var(--space-xl); animation: fade-up 0.6s ease-out 0.2s backwards; }
-        .calculator-close { position: fixed; top: 25px; right: 25px; z-index: 2001; width: 55px; height: 55px; border-radius: var(--radius-full); background: linear-gradient(135deg, #0A0A0A 0%, #333 100%); color: var(--color-text-light); font-size: 2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
-        .calculator-close:hover { transform: scale(1.1) rotate(90deg); background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); box-shadow: 0 12px 35px rgba(218,165,32,0.4); }
-        .calculator-section { background: transparent; }
-        .calculator-header { text-align: center; margin-bottom: var(--space-md); }
-        .calculator-header .heading-section::after { width: 80px; }
-        .calculator-note { text-align: center; color: var(--color-text-muted); margin-bottom: var(--space-lg); max-width: 600px; margin-left: auto; margin-right: auto; font-size: 0.95rem; }
-        
-        /* Embedded Calculator Styles - LUXE EDITION */
-        .calculator-embed { max-width: 900px; margin: 0 auto; }
-        .calc-layout { display: flex; flex-direction: column; gap: 28px; }
-        .calc-card { background: white; border-radius: 20px; padding: 32px; border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 10px 40px rgba(0,0,0,0.06); transition: all 0.4s ease; }
-        .calc-card:hover { box-shadow: 0 20px 50px rgba(0,0,0,0.1); transform: translateY(-2px); }
-        .calc-title { font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #F0F0F0; letter-spacing: 0.03em; font-family: var(--font-primary); position: relative; }
-        .calc-title::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 50px; height: 2px; background: var(--gradient-gold); }
-        .calc-card.disabled { opacity: 0.5; pointer-events: none; }
-        .calc-card.disabled .calc-title::after { content: ' (Select a service first)'; font-size: 0.9rem; color: var(--color-text-muted); font-style: italic; font-weight: 400; position: relative; background: none; width: auto; height: auto; }
-        
-        .service-group { margin-bottom: 24px; }
-        .service-group:last-child { margin-bottom: 0; }
-        .service-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-        .service-checkbox { display: none; }
-        .service-label { display: flex; align-items: center; gap: 12px; cursor: pointer; flex: 1; }
-        .checkbox-custom { width: 22px; height: 22px; border: 2px solid var(--color-accent); border-radius: 4px; display: flex; align-items: center; justify-content: center; transition: var(--transition-fast); flex-shrink: 0; }
-        .checkbox-custom::after { content: '✓'; color: white; font-size: 14px; opacity: 0; transition: opacity 0.2s ease; }
-        .service-checkbox:checked + .service-label .checkbox-custom { background: var(--color-accent); }
-        .service-checkbox:checked + .service-label .checkbox-custom::after { opacity: 1; }
-        .service-name { font-size: 1.05rem; font-weight: 500; }
-        .service-price { margin-left: auto; font-size: 1rem; color: var(--color-accent); font-weight: 500; }
-        .service-description { font-size: 0.85rem; color: var(--color-text-muted); font-style: italic; margin-left: 34px; margin-bottom: 12px; }
-        .service-options { margin-left: 34px; display: none; flex-direction: column; gap: 14px; padding: 20px; background: linear-gradient(135deg, #F9F9F9 0%, #F5F5F5 100%); border-radius: 12px; border: 1px solid rgba(0,0,0,0.05); }
-        .service-options.show { display: flex; animation: fade-in-scale 0.3s ease-out; }
-        
-        .duration-toggle { display: flex; gap: 10px; }
-        .duration-btn { flex: 1; padding: 12px 16px; border: 2px solid #E5E5E5; background: white; font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer; border-radius: 10px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-        .duration-btn:hover { border-color: #DAA520; background: #FFFBF0; }
-        .duration-btn.active { background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); color: white; border-color: transparent; box-shadow: 0 4px 15px rgba(218,165,32,0.3); }
-        
-        .photo-slider-section { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(0,0,0,0.08); }
-        .photo-slider-label { font-size: 0.9rem; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-        .photo-slider-container { display: flex; align-items: center; gap: 12px; }
-        .photo-slider { flex: 1; height: 8px; -webkit-appearance: none; appearance: none; background: linear-gradient(90deg, #E5E5E5, #D5D5D5); border-radius: 4px; outline: none; }
-        .photo-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); border-radius: 50%; cursor: pointer; box-shadow: 0 2px 10px rgba(218,165,32,0.4); transition: transform 0.2s ease; }
-        .photo-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
-        .photo-slider::-moz-range-thumb { width: 24px; height: 24px; background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); border-radius: 50%; cursor: pointer; border: none; box-shadow: 0 2px 10px rgba(218,165,32,0.4); }
-        .photo-count-display { min-width: 100px; text-align: right; font-weight: 600; color: #B8860B; }
-        .photo-extra-cost { font-size: 0.85rem; color: var(--color-success); margin-top: 8px; font-weight: 500; }
-        
-        .addon-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; }
-        .addon-label { display: flex; align-items: center; gap: 12px; cursor: pointer; }
-        .addon-checkbox { display: none; }
-        .addon-check-custom { width: 22px; height: 22px; border: 2px solid #DAA520; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; background: white; }
-        .addon-check-custom::after { content: '✓'; color: white; font-size: 13px; opacity: 0; transform: scale(0); transition: all 0.2s ease; }
-        .addon-checkbox:checked + .addon-check-custom { background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); border-color: transparent; box-shadow: 0 2px 8px rgba(218,165,32,0.3); }
-        .addon-checkbox:checked + .addon-check-custom::after { opacity: 1; transform: scale(1); }
-        .addon-price { color: #B8860B; font-size: 0.9rem; font-weight: 600; }
-        
-        .addon-item { display: flex; align-items: flex-start; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid rgba(0,0,0,0.06); gap: 16px; transition: all 0.3s ease; }
-        .addon-item:hover { background: rgba(218,165,32,0.03); margin: 0 -16px; padding-left: 16px; padding-right: 16px; border-radius: 8px; }
-        .addon-item:last-child { border-bottom: none; }
-        .addon-info { flex: 1; }
-        .addon-name { font-size: 1rem; font-weight: 600; margin-bottom: 4px; }
-        .addon-desc { font-size: 0.85rem; color: var(--color-text-muted); font-style: italic; line-height: 1.5; }
-        .addon-controls { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
-        .addon-price-display { font-size: 1rem; color: #B8860B; min-width: 70px; text-align: right; font-weight: 600; }
-        
-        .slider-container { display: flex; align-items: center; gap: 12px; }
-        .slider { width: 120px; height: 6px; -webkit-appearance: none; appearance: none; background: var(--color-border); border-radius: 3px; outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: var(--color-accent); border-radius: 50%; cursor: pointer; }
-        .slider::-moz-range-thumb { width: 20px; height: 20px; background: var(--color-accent); border-radius: 50%; cursor: pointer; border: none; }
-        .slider-value { min-width: 50px; font-size: 0.85rem; }
-        
-        .recordings-options { display: flex; gap: 16px; margin-top: 8px; }
-        .recordings-options label { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.9rem; font-weight: 500; }
-        
-        .toggle-switch { position: relative; width: 52px; height: 28px; cursor: pointer; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #E5E5E5; border-radius: 28px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .toggle-slider::before { position: absolute; content: ""; height: 22px; width: 22px; left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
-        .toggle-switch input:checked + .toggle-slider { background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); box-shadow: 0 2px 10px rgba(218,165,32,0.3); }
-        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(24px); }
-        
-        .couples-pricing-note { font-size: 0.85rem; color: var(--color-success); margin-top: 6px; font-weight: 500; }
-        .documentary-note { font-size: 0.9rem; color: var(--color-text-muted); font-style: italic; line-height: 1.5; }
-        .free-badge { background: linear-gradient(135deg, #2D5A3D 0%, #3D7A4D 100%); color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.05em; box-shadow: 0 3px 12px rgba(45,90,61,0.3); animation: pulse-glow 2s ease-in-out infinite; }
-        
-        .calc-summary { background: linear-gradient(135deg, #FFFBF0 0%, #FFF8E7 100%); border-radius: 20px; padding: 32px; border: 2px solid rgba(218,165,32,0.3); position: relative; overflow: hidden; box-shadow: 0 15px 40px rgba(218,165,32,0.15); }
-        .calc-summary::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--gradient-gold); }
-        .summary-items { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; min-height: 60px; }
-        .summary-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 10px 0; border-bottom: 1px dashed rgba(0,0,0,0.1); }
-        .summary-item:last-child { border-bottom: none; }
-        .summary-item-name { font-size: 0.95rem; font-weight: 500; }
-        .summary-item-detail { font-size: 0.8rem; color: var(--color-text-muted); }
-        .summary-item-price { font-size: 0.95rem; font-weight: 600; color: #B8860B; }
-        .summary-empty { color: var(--color-text-muted); text-align: center; font-style: italic; padding: 30px 0; }
-        .summary-divider { height: 2px; background: linear-gradient(90deg, transparent, rgba(218,165,32,0.3), transparent); margin: 20px 0; }
-        .summary-line { display: flex; justify-content: space-between; padding: 8px 0; font-size: 0.95rem; }
-        .summary-line.subtotal { color: var(--color-text-muted); }
-        .summary-line.gst { color: var(--color-text-muted); font-size: 0.85rem; }
-        .summary-line.total { font-size: 1.4rem; font-weight: 700; padding-top: 16px; border-top: 3px solid #B8860B; margin-top: 12px; color: #0A0A0A; }
-        .quote-note { background: linear-gradient(135deg, #FFF8E7 0%, #FFF5DC 100%); border: 1px solid #E8D4A8; border-radius: 12px; padding: 14px 18px; font-size: 0.85rem; color: #8B7355; margin-top: 20px; text-align: center; font-style: italic; }
-        
-        @media (max-width: 768px) {
-            .calc-card { padding: 20px; }
-            .service-name { font-size: 0.95rem; }
-            .service-options { margin-left: 0; margin-top: 12px; }
-            .duration-toggle { flex-direction: column; }
-            .addon-item { flex-direction: column; align-items: flex-start; }
-            .addon-controls { width: 100%; justify-content: space-between; margin-top: 12px; }
-            .recordings-options { flex-direction: column; gap: 10px; }
-            .slider { width: 100px; }
-            .photo-slider-container { flex-direction: column; align-items: stretch; }
-            .photo-count-display { text-align: left; }
-        }
-
-        /* Contact Section - ELEGANT EDITION (STICKY) */
-        .contact-section { background: linear-gradient(135deg, #0A0A0A 0%, #151515 50%, #0A0A0A 100%); color: var(--color-text-light); position: relative; overflow: hidden; }
-        .contact-section::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(218,165,32,0.5), transparent); }
-        .contact-section::after { content: ''; position: absolute; bottom: -50%; right: -20%; width: 60%; height: 100%; background: radial-gradient(circle, rgba(218,165,32,0.05) 0%, transparent 60%); pointer-events: none; }
-        .contact-header { text-align: center; margin-bottom: var(--space-xl); }
-        .contact-header .heading-section { color: white; }
-        .contact-header .heading-section::after { background: var(--gradient-gold); }
-        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-xl); max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
-        .contact-info p { margin-bottom: var(--space-sm); opacity: 0.9; }
-        .contact-email { font-size: 1.3rem; font-weight: 600; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .contact-form { display: flex; flex-direction: column; gap: var(--space-md); }
-        .form-input, .form-textarea { width: 100%; padding: 1rem 1.25rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; color: var(--color-text-light); font-family: inherit; font-size: 1rem; transition: all 0.4s ease; backdrop-filter: blur(10px); }
-        .form-input:focus, .form-textarea:focus { outline: none; border-color: #DAA520; background: rgba(255,255,255,0.1); box-shadow: 0 0 20px rgba(218,165,32,0.2); }
-        .form-textarea { min-height: 140px; resize: vertical; }
-        .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.4); }
-        .btn-submit { width: 100%; padding: 1rem var(--space-lg); background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); color: var(--color-bg-dark); border-radius: 50px; font-weight: 600; font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 0 8px 25px rgba(218,165,32,0.3); position: relative; overflow: hidden; }
-        .btn-submit::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: left 0.6s ease; }
-        .btn-submit:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(218,165,32,0.5); }
-        .btn-submit:hover::before { left: 100%; }
-
-        /* About Overlay */
-        .about-overlay { position: fixed; inset: 0; z-index: 2000; background: linear-gradient(135deg, #FAFAFA 0%, #F5F5F5 100%); overflow-y: auto; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); transform: scale(0.95); }
-        .about-overlay.active { opacity: 1; visibility: visible; transform: scale(1); }
-        .about-overlay-inner { min-height: 100vh; padding: var(--space-xxl) var(--space-md) var(--space-xl); animation: fade-up 0.6s ease-out 0.2s backwards; }
-        .about-close { position: fixed; top: 25px; right: 25px; z-index: 2001; width: 55px; height: 55px; border-radius: var(--radius-full); background: linear-gradient(135deg, #0A0A0A 0%, #333 100%); color: var(--color-text-light); font-size: 2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
-        .about-close:hover { transform: scale(1.1) rotate(90deg); background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); box-shadow: 0 12px 35px rgba(218,165,32,0.4); }
-
-        /* FAQ Overlay */
-        .faq-overlay { position: fixed; inset: 0; z-index: 2000; background: linear-gradient(135deg, #FAFAFA 0%, #F0F0F0 100%); overflow-y: auto; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); transform: scale(0.95); }
-        .faq-overlay.active { opacity: 1; visibility: visible; transform: scale(1); }
-        .faq-overlay-inner { min-height: 100vh; padding: var(--space-xxl) var(--space-md) var(--space-xl); animation: fade-up 0.6s ease-out 0.2s backwards; }
-        .faq-close { position: fixed; top: 25px; right: 25px; z-index: 2001; width: 55px; height: 55px; border-radius: var(--radius-full); background: linear-gradient(135deg, #0A0A0A 0%, #333 100%); color: var(--color-text-light); font-size: 2rem; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: none; box-shadow: 0 8px 25px rgba(0,0,0,0.3); }
-        .faq-close:hover { transform: scale(1.1) rotate(90deg); background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); box-shadow: 0 12px 35px rgba(218,165,32,0.4); }
-
-        /* Footer - REFINED EDITION */
-        .footer { background: linear-gradient(180deg, #080808 0%, #000000 100%); color: var(--color-text-light); padding: var(--space-xl) 0 var(--space-lg); position: relative; }
-        .footer::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(218,165,32,0.3), transparent); }
-        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); }
-        .footer-brand { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-        .footer-text { font-size: 0.85rem; opacity: 0.6; }
-        .footer-socials { display: flex; gap: var(--space-md); }
-        .social-link { width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-full); background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        .social-link:hover { background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); border-color: transparent; transform: translateY(-4px) scale(1.1); box-shadow: 0 10px 25px rgba(218,165,32,0.4); }
-        .social-link svg { width: 20px; height: 20px; fill: currentColor; transition: transform 0.3s ease; }
-        .social-link:hover svg { transform: scale(1.1); }
-        .footer-bottom { margin-top: var(--space-lg); padding-top: var(--space-md); border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
-        .footer-copyright { font-size: 0.85rem; opacity: 0.4; letter-spacing: 0.05em; }
-        .footer-powered { margin-top: var(--space-xs); font-size: 0.8rem; opacity: 0.3; }
-        .footer-powered a { text-decoration: none; color: #DAA520; transition: opacity 0.3s ease; }
-        .footer-powered a:hover { opacity: 0.8; }
-
-        /* Video Modal - CINEMATIC EDITION */
-        .video-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(20px); }
-        .video-modal.open { opacity: 1; visibility: visible; }
-        .video-modal-content { width: 90%; max-width: 1100px; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.5); animation: fade-in-scale 0.5s ease-out; }
-        .video-modal-content iframe { width: 100%; height: 100%; border: none; }
-        .video-modal-close { position: absolute; top: 30px; right: 30px; width: 55px; height: 55px; display: flex; align-items: center; justify-content: center; color: white; font-size: 2.5rem; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.4s ease; }
-        .video-modal-close:hover { background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); transform: rotate(90deg) scale(1.1); }
-
-        /* Mobile Bottom Nav - CLEAN EDITION */
-        .mobile-bottom-nav { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(0,0,0,0.98) 100%); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-top: 1px solid rgba(255,255,255,0.1); }
-        .mobile-bottom-nav-inner { display: flex; justify-content: space-around; gap: 8px; }
-        .bottom-nav-item { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 16px; color: rgba(255,255,255,0.5); transition: all 0.3s ease; position: relative; border-radius: 16px; flex: 1; }
-        .bottom-nav-item svg { width: 24px; height: 24px; position: relative; z-index: 1; }
-        .bottom-nav-item span { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; position: relative; z-index: 1; }
-        /* Contact button always gold */
-        .bottom-nav-item.contact-btn { color: #DAA520; }
-        .bottom-nav-item.contact-btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(218,165,32,0.15) 0%, rgba(184,134,11,0.08) 100%); border-radius: 16px; }
-        .bottom-nav-item.contact-btn svg { filter: drop-shadow(0 2px 8px rgba(218,165,32,0.4)); }
-
-        /* Download App Button (Mobile Only, Not PWA) */
-        .download-app-btn { display: none; position: fixed; top: 16px; right: 16px; z-index: 1001; padding: 10px 18px; background: linear-gradient(135deg, rgba(218,165,32,0.9) 0%, rgba(184,134,11,0.9) 100%); color: #0A0A0A; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(218,165,32,0.4); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(10px); }
-        .download-app-btn:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(218,165,32,0.6); }
-        .download-app-btn::before { content: '📲 '; }
-
-        /* Responsive */
-        @media (max-width: 991px) {
-            .nav-links { display: none; }
-            .nav-toggle { display: none; } /* Hide hamburger - using bottom nav only */
-            .about-grid, .contact-grid { grid-template-columns: 1fr; }
-            .about-content { padding-right: 0; order: 2; }
-            .about-image { order: 1; aspect-ratio: 16/9; }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-bottom-nav { display: block; }
-            .download-app-btn { display: block; }
-            body { padding-bottom: 90px; }
-            .heading-section::after { width: 40px; }
-            
-            /* Gallery mobile - always show overlay */
-            .photo-gallery-item .gallery-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%); }
-            .photo-gallery-item .gallery-icon { transform: scale(0.8); opacity: 0.9; width: 50px; height: 50px; }
-            .photo-gallery-item .gallery-icon svg { width: 20px; height: 20px; }
-            
-            /* Hide download button in standalone PWA mode */
-            @media (display-mode: standalone) {
-                .download-app-btn { display: none !important; }
-            }
-        }
-
-        /* ✨ SPECTACULAR SCROLL ANIMATIONS */
-        .fade-in { opacity: 0; transform: translateY(50px); transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .fade-in:nth-child(2) { transition-delay: 0.1s; }
-        .fade-in:nth-child(3) { transition-delay: 0.2s; }
-        .fade-in:nth-child(4) { transition-delay: 0.3s; }
-
-        /* Smooth scroll indicator */
-        .scroll-indicator { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,0.7); animation: float 3s ease-in-out infinite; }
-        .scroll-indicator span { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
-        .scroll-indicator::after { content: ''; width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,0.7), transparent); }
-
-        /* Gold accent line for section breaks */
-        .section-break { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(218,165,32,0.3), transparent); margin: 0; }
-    </style>
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="container">
-            <div class="navbar-inner">
-                <div class="nav-links">
-                    <a href="#" class="nav-link" onclick="openAbout(); return false;">Who We Are</a>
-                    <a href="#" class="nav-link" onclick="openFaq(); return false;">FAQ</a>
-                    <a href="#" class="nav-link" onclick="openCalculator(); return false;">Packages</a>
-                    <a href="#contact" class="nav-cta">Contact</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Download App Button (Mobile Only) -->
-    <button class="download-app-btn" id="downloadAppBtn" onclick="installPWA()">Get App</button>
-
-    <!-- Mobile Bottom Navigation - STUNNING -->
-    <nav class="mobile-bottom-nav">
-        <div class="mobile-bottom-nav-inner">
-            <a href="#" class="bottom-nav-item" onclick="openAbout(); return false;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                    <path d="M6.5 19.5c1.5-2.5 3.5-3.5 5.5-3.5s4 1 5.5 3.5"/>
-                </svg>
-                <span>About</span>
-            </a>
-            <a href="#" class="bottom-nav-item" onclick="openFaq(); return false;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="12" cy="12" r="10"/>
-                    <path d="M9 9c0-1.5 1.5-2.5 3-2.5s3 1 3 2.5c0 1.5-1.5 2-2 3-.3.6-.5 1-.5 1.5"/>
-                    <circle cx="12" cy="17" r="0.5" fill="currentColor"/>
-                </svg>
-                <span>FAQ</span>
-            </a>
-            <a href="#" class="bottom-nav-item" onclick="openCalculator(); return false;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <rect x="4" y="2" width="16" height="20" rx="2"/>
-                    <path d="M8 6h8M8 10h8M8 14h3M8 18h3M14 14h2M14 18h2"/>
-                </svg>
-                <span>Quote</span>
-            </a>
-            <a href="#contact" class="bottom-nav-item contact-btn">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <path d="M21 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/>
-                    <path d="M3 7l9 6 9-6"/>
-                </svg>
-                <span>Contact</span>
-            </a>
-        </div>
-    </nav>
+    <!-- Header -->
+    <site-header current="home"></site-header>
 
     <!-- Hero Section -->
     <header class="hero" id="hero">
@@ -506,6 +47,13 @@
         <div class="hero-content">
             <h1 class="heading-hero hero-title">Storybook<br>Weddings</h1>
             <p class="hero-subtitle">Photography & Videography</p>
+            <div class="hero-buttons">
+                <a href="portfolio.html" class="btn btn-primary">View Our Work</a>
+                <a href="contact.html" class="btn btn-outline">Get in Touch</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
         </div>
     </header>
 
@@ -513,9 +61,12 @@
         <!-- Photo Gallery Section -->
         <section class="section" id="gallery" style="background: white;">
             <div class="container">
+                <div style="text-align: center; margin-bottom: var(--space-xl);">
+                    <h2 class="heading-section">Our Work</h2>
+                </div>
                 <div class="photo-gallery">
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/800x600/e8d5b7/8b7355?text=Photo+1" alt="Gallery Photo 1">
+                        <img src="https://placehold.co/800x600/e8d5b7/8b7355?text=Wedding+1" alt="Gallery Photo 1">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -523,7 +74,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/d4c5a9/7a6b4e?text=Photo+2" alt="Gallery Photo 2">
+                        <img src="https://placehold.co/400x300/d4c5a9/7a6b4e?text=Wedding+2" alt="Gallery Photo 2">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -531,7 +82,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/c9b896/6d5f43?text=Photo+3" alt="Gallery Photo 3">
+                        <img src="https://placehold.co/400x300/c9b896/6d5f43?text=Wedding+3" alt="Gallery Photo 3">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -539,7 +90,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/bfae87/615438?text=Photo+4" alt="Gallery Photo 4">
+                        <img src="https://placehold.co/400x300/bfae87/615438?text=Wedding+4" alt="Gallery Photo 4">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -547,7 +98,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/800x300/e0d0b8/857653?text=Photo+5" alt="Gallery Photo 5">
+                        <img src="https://placehold.co/800x300/e0d0b8/857653?text=Wedding+5" alt="Gallery Photo 5">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -555,7 +106,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/d6c7a5/78694a?text=Photo+6" alt="Gallery Photo 6">
+                        <img src="https://placehold.co/400x300/d6c7a5/78694a?text=Wedding+6" alt="Gallery Photo 6">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -563,7 +114,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/ccbc94/6b5c3f?text=Photo+7" alt="Gallery Photo 7">
+                        <img src="https://placehold.co/400x300/ccbc94/6b5c3f?text=Wedding+7" alt="Gallery Photo 7">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -571,7 +122,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/800x300/e5d6be/8a7b59?text=Photo+8" alt="Gallery Photo 8">
+                        <img src="https://placehold.co/800x300/e5d6be/8a7b59?text=Wedding+8" alt="Gallery Photo 8">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -579,7 +130,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/dac9a7/7f7050?text=Photo+9" alt="Gallery Photo 9">
+                        <img src="https://placehold.co/400x300/dac9a7/7f7050?text=Wedding+9" alt="Gallery Photo 9">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -587,7 +138,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/d0c198/736445?text=Photo+10" alt="Gallery Photo 10">
+                        <img src="https://placehold.co/400x300/d0c198/736445?text=Wedding+10" alt="Gallery Photo 10">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -595,7 +146,7 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/c5b68a/67583b?text=Photo+11" alt="Gallery Photo 11">
+                        <img src="https://placehold.co/400x300/c5b68a/67583b?text=Wedding+11" alt="Gallery Photo 11">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -603,949 +154,133 @@
                         </div>
                     </div>
                     <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/bbab7c/5b4c31?text=Photo+12" alt="Gallery Photo 12">
+                        <img src="https://placehold.co/400x300/bbab7c/5b4c31?text=Wedding+12" alt="Gallery Photo 12">
                         <div class="gallery-overlay">
                             <div class="gallery-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div style="text-align: center; margin-top: var(--space-xl);">
+                    <a href="portfolio.html" class="btn btn-dark">View Full Portfolio</a>
                 </div>
             </div>
         </section>
 
-        <!-- Testimonials Section -->
-        <section class="section testimonial-section" id="testimonials">
+        <!-- Testimonials -->
+        <testimonials-section></testimonials-section>
+
+        <!-- Services Preview -->
+        <section class="section" style="background: var(--color-bg);">
             <div class="container">
-                <div class="testimonial-header fade-in">
-                    <h2 class="heading-section">What Couples Say</h2>
+                <div style="text-align: center; margin-bottom: var(--space-xl);">
+                    <h2 class="heading-section">Our Services</h2>
                 </div>
-                <div class="testimonial-carousel">
-                    <div class="testimonial-track" id="testimonialTrack">
-                        <div class="testimonial-slide">
-                            <div class="testimonial-image"><img src="assets/images/mattbritt.png" alt="Brittany & Matt"></div>
-                            <div class="testimonial-stars">★★★★★</div>
-                            <p class="testimonial-quote">"Joel and Rachel are the most amazing videographers we could have ever asked for. The whole process was made simple and easy and they tailored the end result to our exact wishes. We ended up with a video that captured our day perfectly."</p>
-                            <p class="testimonial-author">— Brittany & Matt</p>
+                <div class="services-grid">
+                    <a href="services/videography.html" class="service-card fade-in">
+                        <div class="service-card-image">
+                            <img src="https://placehold.co/600x400/1a1a1a/DAA520?text=Videography" alt="Wedding Videography">
                         </div>
-                        <div class="testimonial-slide">
-                            <div class="testimonial-image"><img src="assets/images/kellyrick.png" alt="Kelly & Rick"></div>
-                            <div class="testimonial-stars">★★★★★</div>
-                            <p class="testimonial-quote">"The video is absolutely INCREDIBLE! I cried so much, it is exactly what I wanted!!"</p>
-                            <p class="testimonial-author">— Kelly & Rick</p>
+                        <div class="service-card-content">
+                            <h3 class="service-card-title">Videography</h3>
+                            <p class="service-card-price">From $2,450</p>
+                            <p class="service-card-desc">Cinematic wedding films that tell your unique love story.</p>
                         </div>
-                        <div class="testimonial-slide">
-                            <div class="testimonial-image"><img src="assets/images/brookemark.png" alt="Brooke & Mark"></div>
-                            <div class="testimonial-stars">★★★★★</div>
-                            <p class="testimonial-quote">"Joel was the videographer for our wedding and provided exceptional service! He went above and beyond to make the day relaxed and fun! We are so happy with how the videos turned out as he captured our day perfectly."</p>
-                            <p class="testimonial-author">— Brooke & Mark</p>
+                    </a>
+                    <a href="services/photography.html" class="service-card fade-in">
+                        <div class="service-card-image">
+                            <img src="https://placehold.co/600x400/2a2a2a/DAA520?text=Photography" alt="Wedding Photography">
                         </div>
-                        <div class="testimonial-slide">
-                            <div class="testimonial-image"><img src="assets/images/leahgreg.png" alt="Leah & Greg"></div>
-                            <div class="testimonial-stars">★★★★★</div>
-                            <p class="testimonial-quote">"Phenomenal. Personable. Skilled. These are 3 words I'll use to describe our amazing editor, Joel! He took our whole day and made it into a crafted masterpiece that we'll cherish forever."</p>
-                            <p class="testimonial-author">— Leah & Greg</p>
+                        <div class="service-card-content">
+                            <h3 class="service-card-title">Photography</h3>
+                            <p class="service-card-price">From $2,000</p>
+                            <p class="service-card-desc">Beautiful, timeless photos capturing every precious moment.</p>
                         </div>
-                        <div class="testimonial-slide">
-                            <div class="testimonial-image"><img src="assets/images/jameslou.png" alt="Lou & James"></div>
-                            <div class="testimonial-stars">★★★★★</div>
-                            <p class="testimonial-quote">"We are so in love with our wedding videography, the most beautiful way to relive the day. Joel and the team managed to beautifully capture the whole feeling and emotions of the day without us even noticing their presence."</p>
-                            <p class="testimonial-author">— Lou & James</p>
+                    </a>
+                    <a href="services/couples.html" class="service-card fade-in">
+                        <div class="service-card-image">
+                            <img src="https://placehold.co/600x400/3a3a3a/DAA520?text=Couples" alt="Couples Photography">
                         </div>
-                        <div class="testimonial-slide">
-                            <div class="testimonial-image"><img src="assets/images/stevenbuzzy.png" alt="Steven & Buzzy"></div>
-                            <div class="testimonial-stars">★★★★★</div>
-                            <p class="testimonial-quote">"Very easy to have at the wedding, felt like having a friend there. Very impressed by the quality of the short and long films we received. Definitely recommend!"</p>
-                            <p class="testimonial-author">— Steven & Buzzy</p>
+                        <div class="service-card-content">
+                            <h3 class="service-card-title">Couples Photography</h3>
+                            <p class="service-card-price">From $450</p>
+                            <p class="service-card-desc">Engagement shoots and couples portraits in stunning locations.</p>
                         </div>
-                        <div class="testimonial-slide">
-                            <div class="testimonial-image"><img src="assets/images/joshgloria.png" alt="Josh & Gloria"></div>
-                            <div class="testimonial-stars">★★★★★</div>
-                            <p class="testimonial-quote">"A big thank you to Storybook NZ for their videography services and free wedding website! We're so stoked."</p>
-                            <p class="testimonial-author">— Josh & Gloria</p>
+                    </a>
+                    <a href="services/elopements.html" class="service-card fade-in">
+                        <div class="service-card-image">
+                            <img src="https://placehold.co/600x400/4a4a4a/DAA520?text=Elopements" alt="Elopement Coverage">
                         </div>
-                    </div>
-                    <div class="testimonial-nav" id="testimonialNav"></div>
+                        <div class="service-card-content">
+                            <h3 class="service-card-title">Elopements</h3>
+                            <p class="service-card-price">Custom Quote</p>
+                            <p class="service-card-desc">Intimate celebrations in New Zealand's most breathtaking locations.</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </section>
 
-    <!-- Calculator Overlay -->
-    <div class="calculator-overlay" id="calculatorOverlay">
-        <button class="calculator-close" id="calculatorClose" aria-label="Close calculator">&times;</button>
-        <div class="calculator-overlay-inner">
+        <!-- Locations Preview -->
+        <section class="section" style="background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%); color: var(--color-text-light);">
             <div class="container">
-                <div class="calculator-header">
-                    <h2 class="heading-section">Pricing Calculator</h2>
+                <div style="text-align: center; margin-bottom: var(--space-xl);">
+                    <h2 class="heading-section" style="color: var(--color-text-light);">Where We Work</h2>
                 </div>
-                <p class="calculator-note">These costs are estimates only for your convenience. Once you're ready to discuss, please contact us using the form below and we will help confirm pricing for our services.</p>
-                <!-- Embedded Calculator -->
-                <div class="calculator-embed fade-in">
-                    <div class="calc-layout">
-                        
-                        <!-- Services Section -->
-                        <div class="calc-card">
-                            <h3 class="calc-title">Services</h3>
-
-                            <!-- Photography -->
-                            <div class="service-group">
-                                <div class="service-header">
-                                    <input type="checkbox" id="photography" class="service-checkbox" onchange="handleServiceChange()">
-                                    <label for="photography" class="service-label">
-                                        <span class="checkbox-custom"></span>
-                                        <span class="service-name">Photography</span>
-                                        <span class="service-price" id="photography-price">$2,000</span>
-                                    </label>
-                                </div>
-                                <p class="service-description">Let's capture the memories!</p>
-                                <div class="service-options">
-                                    <div class="duration-toggle">
-                                        <button type="button" class="duration-btn active" data-service="photography" data-duration="half" onclick="setDuration('photography', 'half')">Half Day – $2,000</button>
-                                        <button type="button" class="duration-btn" data-service="photography" data-duration="full" onclick="setDuration('photography', 'full')">Full Day – $2,850</button>
-                                    </div>
-                                    <div class="photo-slider-section">
-                                        <div class="photo-slider-label">
-                                            <span>Number of edited photos</span>
-                                            <span class="photo-count-display" id="photo-count-display">650 photos</span>
-                                        </div>
-                                        <div class="photo-slider-container">
-                                            <input type="range" id="photo-slider" class="photo-slider" min="650" max="2000" step="50" value="650" oninput="updateCalculator()">
-                                        </div>
-                                        <div class="photo-extra-cost" id="photo-extra-cost">Base amount included</div>
-                                    </div>
-                                    <div class="addon-row">
-                                        <label class="addon-label">
-                                            <input type="checkbox" class="addon-checkbox" id="photography-2nd" onchange="updateCalculator()">
-                                            <span class="addon-check-custom"></span>
-                                            <span>Add 2nd Photographer</span>
-                                        </label>
-                                        <span class="addon-price">+$550</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Videography -->
-                            <div class="service-group">
-                                <div class="service-header">
-                                    <input type="checkbox" id="videography" class="service-checkbox" onchange="handleServiceChange()">
-                                    <label for="videography" class="service-label">
-                                        <span class="checkbox-custom"></span>
-                                        <span class="service-name">Videography</span>
-                                        <span class="service-price" id="videography-price">$2,450</span>
-                                    </label>
-                                </div>
-                                <p class="service-description">Memories in motion!</p>
-                                <div class="service-options">
-                                    <div class="duration-toggle">
-                                        <button type="button" class="duration-btn active" data-service="videography" data-duration="half" onclick="setDuration('videography', 'half')">Half Day – $2,450</button>
-                                        <button type="button" class="duration-btn" data-service="videography" data-duration="full" onclick="setDuration('videography', 'full')">Full Day – $3,450</button>
-                                    </div>
-                                    <div class="addon-row">
-                                        <label class="addon-label">
-                                            <input type="checkbox" class="addon-checkbox" id="videography-2nd" onchange="updateCalculator()">
-                                            <span class="addon-check-custom"></span>
-                                            <span>Add 2nd Videographer</span>
-                                        </label>
-                                        <span class="addon-price">+$550</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Photo/Video Package -->
-                            <div class="service-group">
-                                <div class="service-header">
-                                    <input type="checkbox" id="combo" class="service-checkbox" onchange="handleServiceChange()">
-                                    <label for="combo" class="service-label">
-                                        <span class="checkbox-custom"></span>
-                                        <span class="service-name">Photo + Video Package</span>
-                                        <span class="service-price" id="combo-price">$3,350</span>
-                                    </label>
-                                </div>
-                                <p class="service-description">1 Photographer and 1 Videographer for your day. Save over $1,000!</p>
-                                <div class="service-options">
-                                    <div class="duration-toggle">
-                                        <button type="button" class="duration-btn active" data-service="combo" data-duration="half" onclick="setDuration('combo', 'half')">Half Day – $3,350</button>
-                                        <button type="button" class="duration-btn" data-service="combo" data-duration="full" onclick="setDuration('combo', 'full')">Full Day – $5,000</button>
-                                    </div>
-                                    <div class="photo-slider-section">
-                                        <div class="photo-slider-label">
-                                            <span>Number of edited photos</span>
-                                            <span class="photo-count-display" id="combo-photo-count-display">650 photos</span>
-                                        </div>
-                                        <div class="photo-slider-container">
-                                            <input type="range" id="combo-photo-slider" class="photo-slider" min="650" max="2000" step="50" value="650" oninput="updateCalculator()">
-                                        </div>
-                                        <div class="photo-extra-cost" id="combo-photo-extra-cost">Base amount included</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Documentaries -->
-                            <div class="service-group">
-                                <div class="service-header">
-                                    <input type="checkbox" id="documentary" class="service-checkbox" onchange="handleServiceChange()">
-                                    <label for="documentary" class="service-label">
-                                        <span class="checkbox-custom"></span>
-                                        <span class="service-name">Wedding Documentary</span>
-                                        <span class="service-price">From $6,500</span>
-                                    </label>
-                                </div>
-                                <p class="service-description">25-45 minutes of phenomenal detail including interviews, rehearsal videography & photography.</p>
-                                <div class="service-options">
-                                    <p class="documentary-note">Documentaries are custom quoted based on your vision. Selecting this will add a note to your enquiry.</p>
-                                </div>
+                <div class="locations-grid">
+                    <a href="locations/christchurch.html" class="location-card fade-in">
+                        <img src="https://placehold.co/600x800/2a3a2a/ffffff?text=Christchurch" alt="Christchurch">
+                        <div class="location-card-overlay">
+                            <div class="location-card-content">
+                                <h3 class="location-card-title">Christchurch</h3>
+                                <p class="location-card-weddings">Our home base</p>
                             </div>
                         </div>
-
-                        <!-- Add-ons Section -->
-                        <div class="calc-card disabled" id="addons-section">
-                            <h3 class="calc-title">Add-ons</h3>
-
-                            <!-- Wedding Website (FREE) -->
-                            <div class="addon-item">
-                                <div class="addon-info">
-                                    <div class="addon-name">Wedding Website</div>
-                                    <div class="addon-desc">Showcase your day with a customisable website to share with friends and family.</div>
-                                </div>
-                                <div class="addon-controls">
-                                    <span class="free-badge">FREE</span>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="website" onchange="updateCalculator()">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Screensaver -->
-                            <div class="addon-item">
-                                <div class="addon-info">
-                                    <div class="addon-name">Screensaver</div>
-                                    <div class="addon-desc">Your entire day in slow motion, perfect for looping on your TV.</div>
-                                </div>
-                                <div class="addon-controls">
-                                    <span class="addon-price-display">$150</span>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="screensaver" onchange="updateCalculator()">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
-                            </div>
-
-                            <!-- Recordings -->
-                            <div class="addon-item">
-                                <div class="addon-info">
-                                    <div class="addon-name">Recordings</div>
-                                    <div class="addon-desc">Archive camera for ceremony & speeches.</div>
-                                    <div class="recordings-options">
-                                        <label>
-                                            <input type="checkbox" class="addon-checkbox" id="recording-ceremony" onchange="updateCalculator()">
-                                            <span class="addon-check-custom"></span>
-                                            Ceremony ($400)
-                                        </label>
-                                        <label>
-                                            <input type="checkbox" class="addon-checkbox" id="recording-speeches" onchange="updateCalculator()">
-                                            <span class="addon-check-custom"></span>
-                                            Speeches ($300)
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="addon-controls">
-                                    <span class="addon-price-display" id="recordings-price">$0</span>
-                                </div>
-                            </div>
-
-                            <!-- Social Videos -->
-                            <div class="addon-item">
-                                <div class="addon-info">
-                                    <div class="addon-name">Social Videos</div>
-                                    <div class="addon-desc">15-30 second highlights for Instagram, Facebook or TikTok.</div>
-                                </div>
-                                <div class="addon-controls">
-                                    <span class="addon-price-display" id="social-price">$0</span>
-                                    <div class="slider-container">
-                                        <input type="range" id="social-slider" class="slider" min="0" max="10" value="0" oninput="updateCalculator()">
-                                        <span class="slider-value" id="social-value">0 reels</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Events -->
-                            <div class="addon-item">
-                                <div class="addon-info">
-                                    <div class="addon-name">Events</div>
-                                    <div class="addon-desc">Birthday parties, commercial events, school formals & more.</div>
-                                </div>
-                                <div class="addon-controls">
-                                    <span class="addon-price-display" style="font-size: 0.85rem; color: var(--color-text-muted);">Quote on request</span>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="events" onchange="updateCalculator()">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
+                    </a>
+                    <a href="locations/queenstown.html" class="location-card fade-in">
+                        <img src="https://placehold.co/600x800/1a2a3a/ffffff?text=Queenstown" alt="Queenstown">
+                        <div class="location-card-overlay">
+                            <div class="location-card-content">
+                                <h3 class="location-card-title">Queenstown</h3>
+                                <p class="location-card-weddings">Adventure capital</p>
                             </div>
                         </div>
-
-                        <!-- Standalone Services Section -->
-                        <div class="calc-card">
-                            <h3 class="calc-title">Standalone Services</h3>
-
-                            <!-- Couples Photography -->
-                            <div class="addon-item" style="border-bottom: none;">
-                                <div class="addon-info">
-                                    <div class="addon-name">Couples Photography</div>
-                                    <div class="addon-desc">Engagement shoot or announcement photos.</div>
-                                    <div class="couples-pricing-note" id="couples-note">$850 standalone or $450 with a wedding package</div>
-                                </div>
-                                <div class="addon-controls">
-                                    <span class="addon-price-display" id="couples-price">$850</span>
-                                    <label class="toggle-switch">
-                                        <input type="checkbox" id="couples" onchange="updateCalculator()">
-                                        <span class="toggle-slider"></span>
-                                    </label>
-                                </div>
+                    </a>
+                    <a href="locations/wanaka.html" class="location-card fade-in">
+                        <img src="https://placehold.co/600x800/2a2a3a/ffffff?text=Wanaka" alt="Wanaka">
+                        <div class="location-card-overlay">
+                            <div class="location-card-content">
+                                <h3 class="location-card-title">Wanaka</h3>
+                                <p class="location-card-weddings">Lakeside magic</p>
                             </div>
                         </div>
-
-                        <!-- Summary Section -->
-                        <div class="calc-summary">
-                            <h3 class="calc-title" style="text-align: center;">Your Quote</h3>
-                            
-                            <div class="summary-items" id="summary-items">
-                                <div class="summary-empty">Select services to build your quote</div>
-                            </div>
-
-                            <div class="summary-divider"></div>
-
-                            <div class="summary-line subtotal">
-                                <span>Subtotal</span>
-                                <span id="subtotal">$0</span>
-                            </div>
-                            <div class="summary-line gst">
-                                <span>GST (15%)</span>
-                                <span id="gst">$0</span>
-                            </div>
-                            <div class="summary-line total">
-                                <span>Total</span>
-                                <span id="total">$0</span>
-                            </div>
-
-                            <div class="quote-note" id="quote-note" style="display: none;">
-                                Items marked for quote will require a custom consultation.
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- About Overlay -->
-    <div class="about-overlay" id="aboutOverlay">
-        <button class="about-close" id="aboutClose" aria-label="Close about">&times;</button>
-        <div class="about-overlay-inner">
+        <!-- CTA Section -->
+        <section class="section" style="background: linear-gradient(135deg, #DAA520 0%, #B8860B 100%); text-align: center;">
             <div class="container">
-                <div class="about-grid" style="max-width: 1000px; margin: 0 auto;">
-                    <div class="about-content">
-                        <h2 class="heading-section" style="margin-bottom: var(--space-lg);">The Story of Storybook</h2>
-                        <p class="text-large" style="margin-bottom: var(--space-md);">Joel is a creative consultant and videographer with 8 years in the wedding business. With a fun storytelling style and an eye for small details, he loves every moment of creating unique, vibrant and exciting wedding content.</p>
-                        <p class="text-muted" style="margin-bottom: var(--space-md);">Rachel is a writer and photographer who brings her own keen eye to the table. She sees things others miss and balances Joel's creative flare perfectly. They got married in 2022 and have been a dynamic photo/video duo ever since.</p>
-                        <p class="text-muted">Together, they are a powerhouse of creativity and fun, passionate about creating magical memories that are everlasting. <strong>Storybook Weddings</strong> is under the umbrella of <strong>Tempero Creative</strong>, covering a wide range of digital content and creative solutions.</p>
-                    </div>
-                    <div class="about-image" id="aboutSlideshow">
-                        <img src="assets/images/joel-rachel01.jpg" alt="Joel & Rachel Tempero" class="active">
-                        <img src="assets/images/joel-rachel02.jpg" alt="Joel & Rachel Tempero">
-                        <img src="assets/images/joel-rachel03.jpg" alt="Joel & Rachel Tempero">
-                        <img src="assets/images/joel-rachel04.jpg" alt="Joel & Rachel Tempero">
-                        <img src="assets/images/joel-rachel05.jpg" alt="Joel & Rachel Tempero">
-                        <img src="assets/images/joel-rachel06.jpg" alt="Joel & Rachel Tempero">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- FAQ Overlay -->
-    <div class="faq-overlay" id="faqOverlay">
-        <button class="faq-close" id="faqClose" aria-label="Close FAQ">&times;</button>
-        <div class="faq-overlay-inner">
-            <div class="container">
-                <div class="faq-header" style="margin-bottom: var(--space-xl);">
-                    <h2 class="heading-section">Common Questions</h2>
-                </div>
-                <div class="faq-container">
-                    <div class="faq-item">
-                        <button class="faq-question">How long are the highlights videos?</button>
-                        <div class="faq-answer">
-                            <p>Most of our highlights videos range from 3-8 minutes. It often depends on how long we are there for the day and how many details you would like us to include. As of 2025 we have stopped selling specific length products, as we were often gutted to be cutting out awesome shots from the day.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">Can I choose the music for our video?</button>
-                        <div class="faq-answer">
-                            <p>Music licensing can be a tricky thing. We endeavour to accommodate ideas wherever possible, but sometimes it just won't be possible. We will work this through with you during our initial discussions - we love having the couple be a part of our creative process!</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">Half day vs. full day?</button>
-                        <div class="faq-answer">
-                            <p>A full day shoot means we're there when the girls start getting their hair and makeup done and we finish when we feel we have enough of the evening dancing. A half day typically looks like either morning prep + ceremony or ceremony + reception. If you're after just a ceremony shoot this will still be considered a half day.</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">Will you travel?</button>
-                        <div class="faq-answer">
-                            <p>For sure! Travel fees will apply for anything outside of Christchurch. We can quote for this on request. Send us anywhere you want us to be!</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">Who does video and who does photo?</button>
-                        <div class="faq-answer">
-                            <p>Typically Joel is shooting video and Rachel is on photography. If you order just video or photo then we will both cover it for you on the day. Sometimes we may swap for specific moments or ideas. We're happy to report that we can be quite flexible!</p>
-                        </div>
-                    </div>
-                    <div class="faq-item">
-                        <button class="faq-question">Deposit?</button>
-                        <div class="faq-answer">
-                            <p>A deposit of at least 1/3rd of your overall quote will be required after booking. This is to protect us from any sudden cancellations.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        <!-- Contact Section -->
-        <section class="section contact-section" id="contact">
-            <div class="container">
-                <div class="contact-header fade-in">
-                    <h2 class="heading-section">Let's Create Something Beautiful</h2>
-                </div>
-                <div class="contact-grid">
-                    <div class="contact-info fade-in">
-                        <p>Storybook Weddings is based in Christchurch, NZ — but we'll go anywhere!</p>
-                        <p class="contact-email">joel@tempero.nz</p>
-                        <p style="opacity: 0.9; margin-top: var(--space-xs);">0204 023 9009</p>
-                        <div class="footer-socials" style="margin-top: var(--space-md);">
-                            <a href="https://www.facebook.com/storybook.nz" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
-                                <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                            </a>
-                            <a href="https://www.instagram.com/storybook.nz/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
-                                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                            </a>
-                            <a href="https://www.youtube.com/@storybookweddingsnz" class="social-link" target="_blank" rel="noopener" aria-label="YouTube">
-                                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                            </a>
-                        </div>
-                    </div>
-                    <form class="contact-form fade-in" id="contactForm">
-                        <input type="text" class="form-input" name="name" placeholder="Name" required>
-                        <input type="email" class="form-input" name="email" placeholder="Email" required>
-                        <textarea class="form-textarea" name="message" placeholder="Tell us about your special day..." required></textarea>
-                        <input type="text" class="form-input" name="discount" placeholder="Discount Code (optional)">
-                        <button type="submit" class="btn-submit">Send Message</button>
-                    </form>
-                </div>
+                <h2 class="heading-section" style="color: var(--color-bg-dark);">Ready to Tell Your Story?</h2>
+                <p style="max-width: 600px; margin: var(--space-lg) auto; color: rgba(0,0,0,0.7); font-size: 1.1rem;">Let's create something beautiful together. Get in touch to discuss your special day.</p>
+                <a href="contact.html" class="btn btn-dark">Start Planning</a>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">Storybook Weddings</div>
-                <div class="footer-socials">
-                    <a href="https://www.facebook.com/storybook.nz" class="social-link" target="_blank" rel="noopener" aria-label="Facebook">
-                        <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                    </a>
-                    <a href="https://www.instagram.com/storybook.nz/" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                    <a href="https://www.youtube.com/@storybookweddingsnz" class="social-link" target="_blank" rel="noopener" aria-label="YouTube">
-                        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                    </a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copyright">© Storybook NZ 2025. All rights reserved.</p>
-                <p class="footer-powered">Powered by <a href="https://tempero.nz" target="_blank">tempero.nz</a></p>
-            </div>
-        </div>
-    </footer>
+    <site-footer></site-footer>
+
+    <!-- Mobile Nav -->
+    <mobile-nav current="home"></mobile-nav>
 
     <!-- Video Modal -->
-    <div class="video-modal" id="videoModal">
-        <button class="video-modal-close" id="videoModalClose">&times;</button>
-        <div class="video-modal-content">
-            <iframe id="videoFrame" src="" allowfullscreen allow="autoplay"></iframe>
-        </div>
-    </div>
+    <video-modal></video-modal>
 
-    <script>
-        // Navbar scroll effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 50);
-        });
-
-        // Video modal
-        const videoModal = document.getElementById('videoModal');
-        const videoFrame = document.getElementById('videoFrame');
-        const videoModalClose = document.getElementById('videoModalClose');
-        
-        document.querySelectorAll('.portfolio-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const videoId = item.dataset.video;
-                videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-                videoModal.classList.add('open');
-                document.body.style.overflow = 'hidden';
-            });
-        });
-
-        function closeVideoModal() {
-            videoFrame.src = '';
-            videoModal.classList.remove('open');
-            document.body.style.overflow = '';
-        }
-        
-        videoModalClose.addEventListener('click', closeVideoModal);
-        videoModal.addEventListener('click', (e) => {
-            if (e.target === videoModal) closeVideoModal();
-        });
-
-        // Testimonial carousel
-        const track = document.getElementById('testimonialTrack');
-        const nav = document.getElementById('testimonialNav');
-        const slides = track.querySelectorAll('.testimonial-slide');
-        let currentSlide = 0;
-
-        // Create dots
-        slides.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.className = 'testimonial-dot' + (i === 0 ? ' active' : '');
-            dot.addEventListener('click', () => goToSlide(i));
-            nav.appendChild(dot);
-        });
-
-        function goToSlide(index) {
-            currentSlide = index;
-            track.style.transform = `translateX(-${index * 100}%)`;
-            nav.querySelectorAll('.testimonial-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-
-        // Auto-advance every 6 seconds
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % slides.length;
-            goToSlide(currentSlide);
-        }, 6000);
-
-        // FAQ accordion
-        document.querySelectorAll('.faq-question').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const item = btn.parentElement;
-                const wasOpen = item.classList.contains('open');
-                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-                if (!wasOpen) item.classList.add('open');
-            });
-        });
-
-        // Fade-in on scroll
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        fadeElements.forEach(el => observer.observe(el));
-
-        // Contact form (basic - you'd connect this to your backend)
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thanks for your message! We\'ll be in touch soon.');
-            e.target.reset();
-        });
-
-        // Bottom nav active state
-        const bottomNavItems = document.querySelectorAll('.bottom-nav-item');
-        const sections = document.querySelectorAll('section[id]');
-        
-        window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-            
-            bottomNavItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('href') === '#' + current || 
-                    (current === '' && item.getAttribute('href') === '#')) {
-                    item.classList.add('active');
-                }
-            });
-        });
-
-        // ========== CALCULATOR FUNCTIONS ==========
-        const pricing = {
-            photography: { half: 2000, full: 2850, second: 550 },
-            videography: { half: 2450, full: 3450, second: 550 },
-            combo: { half: 3350, full: 5000 },
-            documentary: { price: 'quote', label: 'From $6,500' },
-            screensaver: 150,
-            recordingCeremony: 400,
-            recordingSpeeches: 300,
-            socialVideo: 130,
-            couplesStandalone: 850,
-            couplesWithPackage: 450,
-            photoBase: { half: 650, full: 1000 },
-            photoExtra: 75,
-            photoMax: 2000
-        };
-
-        const calcState = {
-            photography: { selected: false, duration: 'half', second: false, photos: 650 },
-            videography: { selected: false, duration: 'half', second: false },
-            combo: { selected: false, duration: 'half', photos: 650 },
-            documentary: { selected: false }
-        };
-
-        function handleServiceChange() {
-            const services = ['photography', 'videography', 'combo', 'documentary'];
-            services.forEach(service => {
-                const checkbox = document.getElementById(service);
-                if (!checkbox) return;
-                const options = checkbox.closest('.service-group').querySelector('.service-options');
-                if (checkbox.checked) {
-                    options.classList.add('show');
-                } else {
-                    options.classList.remove('show');
-                }
-            });
-
-            const hasService = hasMainPackage();
-            const addonsSection = document.getElementById('addons-section');
-            
-            if (hasService) {
-                addonsSection.classList.remove('disabled');
-                document.getElementById('website').checked = true;
-            } else {
-                addonsSection.classList.add('disabled');
-                document.getElementById('website').checked = false;
-                document.getElementById('screensaver').checked = false;
-                document.getElementById('recording-ceremony').checked = false;
-                document.getElementById('recording-speeches').checked = false;
-                document.getElementById('social-slider').value = 0;
-                document.getElementById('events').checked = false;
-            }
-
-            updatePhotoSliderBases();
-            updateCalculator();
-        }
-
-        function setDuration(service, duration) {
-            calcState[service].duration = duration;
-            
-            document.querySelectorAll(`[data-service="${service}"]`).forEach(btn => {
-                btn.classList.toggle('active', btn.dataset.duration === duration);
-            });
-
-            const priceEl = document.getElementById(`${service}-price`);
-            if (priceEl && pricing[service]) {
-                const price = pricing[service][duration];
-                priceEl.textContent = `$${price.toLocaleString()}`;
-            }
-
-            if (service === 'photography' || service === 'combo') {
-                updatePhotoSliderBases();
-            }
-
-            updateCalculator();
-        }
-
-        function updatePhotoSliderBases() {
-            const photoDuration = calcState.photography.duration;
-            const photoBase = pricing.photoBase[photoDuration];
-            const photoSlider = document.getElementById('photo-slider');
-            if (photoSlider) {
-                photoSlider.min = photoBase;
-                if (parseInt(photoSlider.value) < photoBase) {
-                    photoSlider.value = photoBase;
-                }
-            }
-
-            const comboDuration = calcState.combo.duration;
-            const comboBase = pricing.photoBase[comboDuration];
-            const comboSlider = document.getElementById('combo-photo-slider');
-            if (comboSlider) {
-                comboSlider.min = comboBase;
-                if (parseInt(comboSlider.value) < comboBase) {
-                    comboSlider.value = comboBase;
-                }
-            }
-        }
-
-        function hasMainPackage() {
-            return document.getElementById('photography')?.checked || 
-                   document.getElementById('videography')?.checked || 
-                   document.getElementById('combo')?.checked ||
-                   document.getElementById('documentary')?.checked;
-        }
-
-        function updateCalculator() {
-            let subtotal = 0;
-            let summaryHTML = '';
-            let hasQuoteItems = false;
-
-            // Photography
-            if (document.getElementById('photography')?.checked) {
-                const duration = calcState.photography.duration;
-                const basePrice = pricing.photography[duration];
-                const durationLabel = duration === 'half' ? 'Half Day' : 'Full Day';
-                
-                const photoBase = pricing.photoBase[duration];
-                const photoSlider = document.getElementById('photo-slider');
-                const photoCount = parseInt(photoSlider.value);
-                const extraPhotos = photoCount - photoBase;
-                const photoExtraCost = (extraPhotos / 50) * pricing.photoExtra;
-                
-                document.getElementById('photo-count-display').textContent = `${photoCount} photos`;
-                document.getElementById('photo-extra-cost').textContent = photoExtraCost > 0 
-                    ? `+$${photoExtraCost} for ${extraPhotos} extra photos` 
-                    : 'Base amount included';
-
-                const totalPhotoPrice = basePrice + photoExtraCost;
-                subtotal += totalPhotoPrice;
-                
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Photography</div><div class="summary-item-detail">${durationLabel} · ${photoCount} photos</div></div><span class="summary-item-price">$${totalPhotoPrice.toLocaleString()}</span></div>`;
-
-                if (document.getElementById('photography-2nd')?.checked) {
-                    subtotal += pricing.photography.second;
-                    summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">2nd Photographer</div></div><span class="summary-item-price">$${pricing.photography.second}</span></div>`;
-                }
-            }
-
-            // Videography
-            if (document.getElementById('videography')?.checked) {
-                const duration = calcState.videography.duration;
-                const price = pricing.videography[duration];
-                const durationLabel = duration === 'half' ? 'Half Day' : 'Full Day';
-                subtotal += price;
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Videography</div><div class="summary-item-detail">${durationLabel}</div></div><span class="summary-item-price">$${price.toLocaleString()}</span></div>`;
-
-                if (document.getElementById('videography-2nd')?.checked) {
-                    subtotal += pricing.videography.second;
-                    summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">2nd Videographer</div></div><span class="summary-item-price">$${pricing.videography.second}</span></div>`;
-                }
-            }
-
-            // Combo Package
-            if (document.getElementById('combo')?.checked) {
-                const duration = calcState.combo.duration;
-                const basePrice = pricing.combo[duration];
-                const durationLabel = duration === 'half' ? 'Half Day' : 'Full Day';
-                
-                const photoBase = pricing.photoBase[duration];
-                const comboSlider = document.getElementById('combo-photo-slider');
-                const photoCount = parseInt(comboSlider.value);
-                const extraPhotos = photoCount - photoBase;
-                const photoExtraCost = (extraPhotos / 50) * pricing.photoExtra;
-                
-                document.getElementById('combo-photo-count-display').textContent = `${photoCount} photos`;
-                document.getElementById('combo-photo-extra-cost').textContent = photoExtraCost > 0 
-                    ? `+$${photoExtraCost} for ${extraPhotos} extra photos` 
-                    : 'Base amount included';
-
-                const totalComboPrice = basePrice + photoExtraCost;
-                subtotal += totalComboPrice;
-                
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Photo + Video Package</div><div class="summary-item-detail">${durationLabel} · ${photoCount} photos</div></div><span class="summary-item-price">$${totalComboPrice.toLocaleString()}</span></div>`;
-            }
-
-            // Documentary
-            if (document.getElementById('documentary')?.checked) {
-                hasQuoteItems = true;
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Wedding Documentary</div><div class="summary-item-detail">Custom quote required</div></div><span class="summary-item-price" style="color: var(--color-text-muted);">TBD</span></div>`;
-            }
-
-            // Website (FREE)
-            if (document.getElementById('website')?.checked) {
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Wedding Website</div></div><span class="summary-item-price" style="color: var(--color-success);">FREE</span></div>`;
-            }
-
-            // Screensaver
-            if (document.getElementById('screensaver')?.checked) {
-                subtotal += pricing.screensaver;
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Screensaver</div></div><span class="summary-item-price">$${pricing.screensaver}</span></div>`;
-            }
-
-            // Recordings
-            let recordingsTotal = 0;
-            if (document.getElementById('recording-ceremony')?.checked) recordingsTotal += pricing.recordingCeremony;
-            if (document.getElementById('recording-speeches')?.checked) recordingsTotal += pricing.recordingSpeeches;
-            document.getElementById('recordings-price').textContent = `$${recordingsTotal}`;
-            
-            if (recordingsTotal > 0) {
-                subtotal += recordingsTotal;
-                const parts = [];
-                if (document.getElementById('recording-ceremony').checked) parts.push('Ceremony');
-                if (document.getElementById('recording-speeches').checked) parts.push('Speeches');
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Recordings</div><div class="summary-item-detail">${parts.join(' + ')}</div></div><span class="summary-item-price">$${recordingsTotal}</span></div>`;
-            }
-
-            // Social Videos
-            const socialCount = parseInt(document.getElementById('social-slider')?.value || 0);
-            document.getElementById('social-value').textContent = `${socialCount} reel${socialCount !== 1 ? 's' : ''}`;
-            const socialTotal = socialCount * pricing.socialVideo;
-            document.getElementById('social-price').textContent = `$${socialTotal}`;
-            
-            if (socialCount > 0) {
-                subtotal += socialTotal;
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Social Videos</div><div class="summary-item-detail">${socialCount} reel${socialCount !== 1 ? 's' : ''}</div></div><span class="summary-item-price">$${socialTotal}</span></div>`;
-            }
-
-            // Events
-            if (document.getElementById('events')?.checked) {
-                hasQuoteItems = true;
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Events</div><div class="summary-item-detail">Quote on request</div></div><span class="summary-item-price" style="color: var(--color-text-muted);">TBD</span></div>`;
-            }
-
-            // Couples Photography
-            const hasPackage = hasMainPackage();
-            const couplesPrice = hasPackage ? pricing.couplesWithPackage : pricing.couplesStandalone;
-            document.getElementById('couples-price').textContent = `$${couplesPrice}`;
-            document.getElementById('couples-note').textContent = hasPackage 
-                ? '$450 with your wedding package (save $400!)' 
-                : '$850 standalone or $450 with a wedding package';
-            
-            if (document.getElementById('couples')?.checked) {
-                subtotal += couplesPrice;
-                summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Couples Photography</div>${hasPackage ? '<div class="summary-item-detail">Package discount applied</div>' : ''}</div><span class="summary-item-price">$${couplesPrice}</span></div>`;
-            }
-
-            // Update summary display
-            const summaryEl = document.getElementById('summary-items');
-            summaryEl.innerHTML = summaryHTML || '<div class="summary-empty">Select services to build your quote</div>';
-
-            // Calculate totals
-            const gst = subtotal * 0.15;
-            const total = subtotal + gst;
-
-            document.getElementById('subtotal').textContent = `$${subtotal.toLocaleString()}`;
-            document.getElementById('gst').textContent = `$${gst.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            document.getElementById('total').textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-
-            document.getElementById('quote-note').style.display = hasQuoteItems ? 'block' : 'none';
-        }
-
-        // ========== CALCULATOR OVERLAY ==========
-        function openCalculator() {
-            document.getElementById('calculatorOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeCalculator() {
-            document.getElementById('calculatorOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // ========== ABOUT OVERLAY ==========
-        function openAbout() {
-            document.getElementById('aboutOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeAbout() {
-            document.getElementById('aboutOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        // ========== FAQ OVERLAY ==========
-        function openFaq() {
-            document.getElementById('faqOverlay').classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeFaq() {
-            document.getElementById('faqOverlay').classList.remove('active');
-            document.body.style.overflow = '';
-        }
-
-        document.getElementById('calculatorClose').addEventListener('click', closeCalculator);
-        document.getElementById('aboutClose').addEventListener('click', closeAbout);
-        document.getElementById('faqClose').addEventListener('click', closeFaq);
-        
-        // Close on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeCalculator();
-                closeAbout();
-                closeFaq();
-            }
-        });
-
-        // ========== ABOUT SLIDESHOW ==========
-        (function() {
-            const slideshow = document.getElementById('aboutSlideshow');
-            if (!slideshow) return;
-            
-            const images = slideshow.querySelectorAll('img');
-            if (images.length === 0) return;
-            
-            let currentIndex = 0;
-            
-            setInterval(function() {
-                images[currentIndex].classList.remove('active');
-                currentIndex = (currentIndex + 1) % images.length;
-                images[currentIndex].classList.add('active');
-            }, 4000);
-        })();
-
-        // ========== PWA INSTALL ==========
-        let deferredPrompt;
-        const downloadBtn = document.getElementById('downloadAppBtn');
-
-        // Hide button if already installed or not supported
-        if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-            if (downloadBtn) downloadBtn.style.display = 'none';
-        }
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            if (downloadBtn) downloadBtn.style.display = 'block';
-        });
-
-        function installPWA() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                        if (downloadBtn) downloadBtn.style.display = 'none';
-                    }
-                    deferredPrompt = null;
-                });
-            } else {
-                // Fallback for iOS or browsers that don't support beforeinstallprompt
-                alert('To install this app:\n\n• iOS Safari: Tap the Share button, then "Add to Home Screen"\n• Android Chrome: Tap the menu (⋮), then "Add to Home Screen"\n• Desktop: Look for the install icon in your browser\'s address bar');
-            }
-        }
-
-        window.addEventListener('appinstalled', () => {
-            console.log('App was installed');
-            if (downloadBtn) downloadBtn.style.display = 'none';
-            deferredPrompt = null;
-        });
-
-        // Initialize calculator
-        updateCalculator();
-    </script>
+    <!-- Scripts -->
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

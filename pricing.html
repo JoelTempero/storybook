@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0A0A0A">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Storybook Weddings">
+    <meta name="description" content="Wedding photography and videography pricing in Christchurch, New Zealand. Transparent pricing with our interactive quote builder.">
+    <meta property="og:title" content="Pricing | Storybook Weddings">
+    <meta property="og:description" content="Build your custom wedding package quote.">
+    
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    
+    <title>Pricing | Storybook Weddings</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <site-header current="pricing"></site-header>
+
+    <!-- Page Header -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="heading-section">Pricing</h1>
+            <p class="page-header-subtitle">Build Your Package</p>
+        </div>
+    </header>
+
+    <main>
+        <!-- Calculator Section -->
+        <section class="section calculator-section">
+            <div class="container">
+                <div class="calculator-header">
+                    <h2 class="heading-section">Pricing Calculator</h2>
+                </div>
+                <p class="calculator-note">These costs are estimates only for your convenience. Once you're ready to discuss, please contact us using the form below and we will help confirm pricing for our services.</p>
+                
+                <!-- Embedded Calculator -->
+                <div class="calculator-embed fade-in">
+                    <div class="calc-layout">
+                        
+                        <!-- Services Section -->
+                        <div class="calc-card">
+                            <h3 class="calc-title">Services</h3>
+
+                            <!-- Photography -->
+                            <div class="service-group">
+                                <div class="service-header">
+                                    <input type="checkbox" id="photography" class="service-checkbox" onchange="handleServiceChange()">
+                                    <label for="photography" class="service-label">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="service-name">Photography</span>
+                                        <span class="service-price" id="photography-price">$2,000</span>
+                                    </label>
+                                </div>
+                                <p class="service-description">Let's capture the memories!</p>
+                                <div class="service-options">
+                                    <div class="duration-toggle">
+                                        <button type="button" class="duration-btn active" data-service="photography" data-duration="half" onclick="setDuration('photography', 'half')">Half Day – $2,000</button>
+                                        <button type="button" class="duration-btn" data-service="photography" data-duration="full" onclick="setDuration('photography', 'full')">Full Day – $2,850</button>
+                                    </div>
+                                    <div class="photo-slider-section">
+                                        <div class="photo-slider-label">
+                                            <span>Number of edited photos</span>
+                                            <span class="photo-count-display" id="photo-count-display">650 photos</span>
+                                        </div>
+                                        <div class="photo-slider-container">
+                                            <input type="range" id="photo-slider" class="photo-slider" min="650" max="2000" step="50" value="650" oninput="updateCalculator()">
+                                        </div>
+                                        <p class="photo-extra-cost" id="photo-extra-cost">Base amount included</p>
+                                    </div>
+                                    <div class="addon-item" style="border: none; padding-top: 14px; margin-top: 14px; border-top: 1px solid rgba(0,0,0,0.08);">
+                                        <div class="addon-info">
+                                            <div class="addon-name">2nd Photographer</div>
+                                            <div class="addon-desc">Additional coverage for larger weddings</div>
+                                        </div>
+                                        <div class="addon-controls">
+                                            <span class="addon-price-display">$550</span>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" id="photography-2nd" onchange="updateCalculator()">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Videography -->
+                            <div class="service-group">
+                                <div class="service-header">
+                                    <input type="checkbox" id="videography" class="service-checkbox" onchange="handleServiceChange()">
+                                    <label for="videography" class="service-label">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="service-name">Videography</span>
+                                        <span class="service-price" id="videography-price">$2,450</span>
+                                    </label>
+                                </div>
+                                <p class="service-description">We'll tell your beautiful story with a cinematic film.</p>
+                                <div class="service-options">
+                                    <div class="duration-toggle">
+                                        <button type="button" class="duration-btn active" data-service="videography" data-duration="half" onclick="setDuration('videography', 'half')">Half Day – $2,450</button>
+                                        <button type="button" class="duration-btn" data-service="videography" data-duration="full" onclick="setDuration('videography', 'full')">Full Day – $3,450</button>
+                                    </div>
+                                    <div class="addon-item" style="border: none; padding-top: 14px; margin-top: 14px; border-top: 1px solid rgba(0,0,0,0.08);">
+                                        <div class="addon-info">
+                                            <div class="addon-name">2nd Videographer</div>
+                                            <div class="addon-desc">Multi-angle coverage for your ceremony</div>
+                                        </div>
+                                        <div class="addon-controls">
+                                            <span class="addon-price-display">$550</span>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" id="videography-2nd" onchange="updateCalculator()">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Photo + Video Combo -->
+                            <div class="service-group">
+                                <div class="service-header">
+                                    <input type="checkbox" id="combo" class="service-checkbox" onchange="handleServiceChange()">
+                                    <label for="combo" class="service-label">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="service-name">Photo + Video Package</span>
+                                        <span class="service-price" id="combo-price">$3,350</span>
+                                    </label>
+                                </div>
+                                <p class="service-description">Best value - get both services together and save!</p>
+                                <div class="service-options">
+                                    <div class="duration-toggle">
+                                        <button type="button" class="duration-btn active" data-service="combo" data-duration="half" onclick="setDuration('combo', 'half')">Half Day – $3,350</button>
+                                        <button type="button" class="duration-btn" data-service="combo" data-duration="full" onclick="setDuration('combo', 'full')">Full Day – $5,000</button>
+                                    </div>
+                                    <div class="photo-slider-section">
+                                        <div class="photo-slider-label">
+                                            <span>Number of edited photos</span>
+                                            <span class="photo-count-display" id="combo-photo-count-display">650 photos</span>
+                                        </div>
+                                        <div class="photo-slider-container">
+                                            <input type="range" id="combo-photo-slider" class="photo-slider" min="650" max="2000" step="50" value="650" oninput="updateCalculator()">
+                                        </div>
+                                        <p class="photo-extra-cost" id="combo-photo-extra-cost">Base amount included</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Documentary -->
+                            <div class="service-group">
+                                <div class="service-header">
+                                    <input type="checkbox" id="documentary" class="service-checkbox" onchange="handleServiceChange()">
+                                    <label for="documentary" class="service-label">
+                                        <span class="checkbox-custom"></span>
+                                        <span class="service-name">Wedding Documentary</span>
+                                        <span class="service-price">From $6,500</span>
+                                    </label>
+                                </div>
+                                <p class="service-description">25-45 minutes of phenomenal detail including interviews, rehearsal videography & photography.</p>
+                                <div class="service-options">
+                                    <p class="documentary-note">Documentaries are custom quoted based on your vision. Selecting this will add a note to your enquiry.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add-ons Section -->
+                        <div class="calc-card disabled" id="addons-section">
+                            <h3 class="calc-title">Add-ons</h3>
+
+                            <!-- Wedding Website (FREE) -->
+                            <div class="addon-item">
+                                <div class="addon-info">
+                                    <div class="addon-name">Wedding Website</div>
+                                    <div class="addon-desc">Showcase your day with a customisable website to share with friends and family.</div>
+                                </div>
+                                <div class="addon-controls">
+                                    <span class="free-badge">FREE</span>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="website" onchange="updateCalculator()">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Screensaver -->
+                            <div class="addon-item">
+                                <div class="addon-info">
+                                    <div class="addon-name">Screensaver</div>
+                                    <div class="addon-desc">Your entire day in slow motion, perfect for looping on your TV.</div>
+                                </div>
+                                <div class="addon-controls">
+                                    <span class="addon-price-display">$150</span>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="screensaver" onchange="updateCalculator()">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Recordings -->
+                            <div class="addon-item">
+                                <div class="addon-info">
+                                    <div class="addon-name">Recordings</div>
+                                    <div class="addon-desc">Archive camera for ceremony & speeches.</div>
+                                    <div class="recordings-options">
+                                        <label>
+                                            <input type="checkbox" class="addon-checkbox" id="recording-ceremony" onchange="updateCalculator()">
+                                            <span class="addon-check-custom"></span>
+                                            Ceremony ($400)
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" class="addon-checkbox" id="recording-speeches" onchange="updateCalculator()">
+                                            <span class="addon-check-custom"></span>
+                                            Speeches ($300)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="addon-controls">
+                                    <span class="addon-price-display" id="recordings-price">$0</span>
+                                </div>
+                            </div>
+
+                            <!-- Social Videos -->
+                            <div class="addon-item">
+                                <div class="addon-info">
+                                    <div class="addon-name">Social Videos</div>
+                                    <div class="addon-desc">15-30 second highlights for Instagram, Facebook or TikTok.</div>
+                                </div>
+                                <div class="addon-controls">
+                                    <span class="addon-price-display" id="social-price">$0</span>
+                                    <div class="slider-container">
+                                        <input type="range" id="social-slider" class="slider" min="0" max="10" value="0" oninput="updateCalculator()">
+                                        <span class="slider-value" id="social-value">0 reels</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Events -->
+                            <div class="addon-item">
+                                <div class="addon-info">
+                                    <div class="addon-name">Events</div>
+                                    <div class="addon-desc">Birthday parties, commercial events, school formals & more.</div>
+                                </div>
+                                <div class="addon-controls">
+                                    <span class="addon-price-display" style="font-size: 0.85rem; color: var(--color-text-muted);">Quote on request</span>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="events" onchange="updateCalculator()">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Standalone Services Section -->
+                        <div class="calc-card">
+                            <h3 class="calc-title">Standalone Services</h3>
+
+                            <!-- Couples Photography -->
+                            <div class="addon-item" style="border-bottom: none;">
+                                <div class="addon-info">
+                                    <div class="addon-name">Couples Photography</div>
+                                    <div class="addon-desc">Engagement shoot or announcement photos.</div>
+                                    <div class="couples-pricing-note" id="couples-note">$850 standalone or $450 with a wedding package</div>
+                                </div>
+                                <div class="addon-controls">
+                                    <span class="addon-price-display" id="couples-price">$850</span>
+                                    <label class="toggle-switch">
+                                        <input type="checkbox" id="couples" onchange="updateCalculator()">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Summary Section -->
+                        <div class="calc-summary">
+                            <h3 class="calc-title" style="text-align: center;">Your Quote</h3>
+                            
+                            <div class="summary-items" id="summary-items">
+                                <div class="summary-empty">Select services to build your quote</div>
+                            </div>
+
+                            <div class="summary-divider"></div>
+
+                            <div class="summary-line subtotal">
+                                <span>Subtotal</span>
+                                <span id="subtotal">$0</span>
+                            </div>
+                            <div class="summary-line gst">
+                                <span>GST (15%)</span>
+                                <span id="gst">$0</span>
+                            </div>
+                            <div class="summary-line total">
+                                <span>Total</span>
+                                <span id="total">$0</span>
+                            </div>
+
+                            <div class="quote-note" id="quote-note" style="display: none;">
+                                Items marked for quote will require a custom consultation.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="section" style="background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%); text-align: center; color: var(--color-text-light);">
+            <div class="container">
+                <h2 class="heading-section">Ready to Book?</h2>
+                <p style="max-width: 600px; margin: var(--space-lg) auto; opacity: 0.7;">Send us your details and we'll confirm your package pricing and availability.</p>
+                <a href="contact.html" class="btn btn-primary">Get in Touch</a>
+            </div>
+        </section>
+    </main>
+
+    <site-footer></site-footer>
+    <mobile-nav current="pricing"></mobile-nav>
+
+    <script src="js/components.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

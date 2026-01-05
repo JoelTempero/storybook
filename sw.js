@@ -1,24 +1,27 @@
-// Service Worker for {{SITE_NAME}}
-const CACHE_NAME = 'storybook-cache-v1';
-const OFFLINE_URL = '/offline.html';
+const CACHE_NAME = 'storybook-v1';
+const OFFLINE_URL = 'offline.html';
 
-// Assets to cache on install
 const PRECACHE_ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/offline.html',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js'
+  './',
+  './index.html',
+  './about.html',
+  './portfolio.html',
+  './pricing.html',
+  './faq.html',
+  './contact.html',
+  './css/styles.css',
+  './js/main.js',
+  './js/components.js',
+  './offline.html',
+  './manifest.json'
 ];
 
-// Install event - cache core assets
+// Install event - cache essential assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Caching core assets');
+        console.log('Caching app assets');
         return cache.addAll(PRECACHE_ASSETS);
       })
       .then(() => self.skipWaiting())
@@ -31,12 +34,9 @@ self.addEventListener('activate', (event) => {
     caches.keys()
       .then((cacheNames) => {
         return Promise.all(
-          cacheNames.map((cacheName) => {
-            if (cacheName !== CACHE_NAME) {
-              console.log('Deleting old cache:', cacheName);
-              return caches.delete(cacheName);
-            }
-          })
+          cacheNames
+            .filter((cacheName) => cacheName !== CACHE_NAME)
+            .map((cacheName) => caches.delete(cacheName))
         );
       })
       .then(() => self.clients.claim())
@@ -45,59 +45,54 @@ self.addEventListener('activate', (event) => {
 
 // Fetch event - serve from cache, fallback to network
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') return;
+  // Skip cross-origin requests
+  if (!event.request.url.startsWith(self.location.origin)) {
+    return;
+  }
 
-  // Skip Chrome extensions and non-http(s) requests
-  if (!event.request.url.startsWith('http')) return;
+  // Handle navigation requests
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .catch(() => {
+          return caches.open(CACHE_NAME)
+            .then((cache) => cache.match(OFFLINE_URL));
+        })
+    );
+    return;
+  }
 
+  // For other requests, try cache first, then network
   event.respondWith(
     caches.match(event.request)
       .then((cachedResponse) => {
         if (cachedResponse) {
-          // Return cached response
           return cachedResponse;
         }
 
-        // Not in cache - fetch from network
         return fetch(event.request)
           .then((response) => {
-            // Check if valid response
+            // Don't cache non-successful responses
             if (!response || response.status !== 200 || response.type !== 'basic') {
               return response;
             }
 
-            // Clone the response
+            // Clone the response for caching
             const responseToCache = response.clone();
 
-            // Cache the fetched response
             caches.open(CACHE_NAME)
               .then((cache) => {
-                // Only cache same-origin assets and specific CDN assets
-                const url = new URL(event.request.url);
-                if (url.origin === location.origin || 
-                    url.hostname.includes('fonts.googleapis.com') ||
-                    url.hostname.includes('fonts.gstatic.com') ||
-                    url.hostname.includes('cdnjs.cloudflare.com')) {
-                  cache.put(event.request, responseToCache);
-                }
+                cache.put(event.request, responseToCache);
               });
 
             return response;
           })
           .catch(() => {
-            // Network failed - return offline page for navigation requests
-            if (event.request.mode === 'navigate') {
+            // Return offline page for HTML requests
+            if (event.request.headers.get('accept').includes('text/html')) {
               return caches.match(OFFLINE_URL);
             }
           });
       })
   );
-});
-
-// Handle messages from the main thread
-self.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'SKIP_WAITING') {
-    self.skipWaiting();
-  }
 });
