@@ -28,6 +28,18 @@
     <link rel="stylesheet" href="css/creative-sections.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">Storybook <span>Weddings</span></div>
+        <div class="loading-spinner"></div>
+        <div class="loading-progress">
+            <div class="loading-progress-bar">
+                <div class="loading-progress-fill" id="loadingProgressFill"></div>
+            </div>
+            <div class="loading-text">Loading experience...</div>
+        </div>
+    </div>
+
     <!-- Header -->
     <site-header current="home"></site-header>
 
@@ -96,35 +108,35 @@
                             <div class="sprocket-holes sprocket-top"></div>
                             <div class="film-frames">
                                 <div class="film-frame">
-                                    <img src="assets/images/film-01.jpg" alt="Getting ready">
+                                    <img src="assets/images/film-01.png" alt="Getting ready">
                                     <span class="frame-number">001</span>
                                 </div>
                                 <div class="film-frame">
-                                    <img src="assets/images/film-02.jpg" alt="The dress">
+                                    <img src="assets/images/film-02.png" alt="The dress">
                                     <span class="frame-number">002</span>
                                 </div>
                                 <div class="film-frame">
-                                    <img src="assets/images/film-03.jpg" alt="First look">
+                                    <img src="assets/images/film-03.png" alt="First look">
                                     <span class="frame-number">003</span>
                                 </div>
                                 <div class="film-frame">
-                                    <img src="assets/images/film-04.jpg" alt="The ceremony">
+                                    <img src="assets/images/film-04.png" alt="The ceremony">
                                     <span class="frame-number">004</span>
                                 </div>
                                 <div class="film-frame">
-                                    <img src="assets/images/film-05.jpg" alt="The kiss">
+                                    <img src="assets/images/film-05.png" alt="The kiss">
                                     <span class="frame-number">005</span>
                                 </div>
                                 <div class="film-frame">
-                                    <img src="assets/images/film-06.jpg" alt="Celebration">
+                                    <img src="assets/images/film-06.png" alt="Celebration">
                                     <span class="frame-number">006</span>
                                 </div>
                                 <div class="film-frame">
-                                    <img src="assets/images/film-07.jpg" alt="First dance">
+                                    <img src="assets/images/film-07.png" alt="First dance">
                                     <span class="frame-number">007</span>
                                 </div>
                                 <div class="film-frame">
-                                    <img src="assets/images/film-08.jpg" alt="The party">
+                                    <img src="assets/images/film-08.png" alt="The party">
                                     <span class="frame-number">008</span>
                                 </div>
                             </div>
@@ -140,14 +152,17 @@
 
         <!-- ============================================
              SECTION 3: TWO BECOME ONE
-             Split screen bride/groom that merges on scroll
+             Split screen bride/groom videos that merge on scroll
              ============================================ -->
         <section class="creative-section merge-section" id="merge">
             <div class="merge-container">
-                <!-- Left panel - Bride getting ready -->
+                <!-- Left panel - Bride getting ready (video) -->
                 <div class="merge-panel merge-left" id="mergeLeft">
                     <div class="merge-image-wrapper">
-                        <img src="assets/images/merge-bride.jpg" alt="Bride getting ready">
+                        <video id="mergeBrideVideo" muted playsinline preload="auto">
+                            <source src="assets/videos/merge-bride.mp4" type="video/mp4">
+                            <source src="assets/videos/merge-bride.webm" type="video/webm">
+                        </video>
                         <div class="merge-color-overlay merge-warm"></div>
                     </div>
                     <div class="merge-label">Her morning</div>
@@ -162,10 +177,13 @@
                     </h2>
                 </div>
                 
-                <!-- Right panel - Groom getting ready -->
+                <!-- Right panel - Groom getting ready (video) -->
                 <div class="merge-panel merge-right" id="mergeRight">
                     <div class="merge-image-wrapper">
-                        <img src="assets/images/merge-groom.jpg" alt="Groom getting ready">
+                        <video id="mergeGroomVideo" muted playsinline preload="auto">
+                            <source src="assets/videos/merge-groom.mp4" type="video/mp4">
+                            <source src="assets/videos/merge-groom.webm" type="video/webm">
+                        </video>
                         <div class="merge-color-overlay merge-cool"></div>
                     </div>
                     <div class="merge-label">His morning</div>
@@ -184,7 +202,6 @@
                         <span>Captured</span>
                         <span class="scrub-accent">in time</span>
                     </h2>
-                    <p class="scrub-subtext">Scroll to control the moment</p>
                 </div>
                 
                 <div class="scrub-video-wrapper">
@@ -192,14 +209,7 @@
                         <source src="assets/videos/confetti-moment.mp4" type="video/mp4">
                         <source src="assets/videos/confetti-moment.webm" type="video/webm">
                     </video>
-                    <!-- Progress indicator -->
-                    <div class="scrub-progress">
-                        <div class="scrub-progress-bar" id="scrubProgressBar"></div>
-                    </div>
                 </div>
-                
-                <!-- Floating time indicator -->
-                <div class="scrub-time" id="scrubTime">00:00</div>
             </div>
         </section>
 

@@ -12,14 +12,86 @@ function lerp(start, end, factor) {
     return start + (end - start) * factor;
 }
 
-function getScrollProgress(element, offset = 0) {
+function isInViewport(element) {
     const rect = element.getBoundingClientRect();
-    const windowHeight = window.innerHeight;
-    const elementTop = rect.top - windowHeight + offset;
-    const elementBottom = rect.bottom - offset;
-    const scrollDistance = elementBottom - elementTop;
-    const progress = -elementTop / scrollDistance;
-    return clamp(progress, 0, 1);
+    return rect.bottom > 0 && rect.top < window.innerHeight;
+}
+
+// ========== LOADING SCREEN ==========
+function initLoadingScreen() {
+    const loadingScreen = document.getElementById('loadingScreen');
+    const progressFill = document.getElementById('loadingProgressFill');
+    
+    if (!loadingScreen) return Promise.resolve();
+    
+    // Collect all assets to preload
+    const videos = document.querySelectorAll('video');
+    const images = document.querySelectorAll('img');
+    
+    let loadedCount = 0;
+    const totalAssets = videos.length + images.length;
+    
+    function updateProgress() {
+        loadedCount++;
+        const progress = totalAssets > 0 ? (loadedCount / totalAssets) * 100 : 100;
+        if (progressFill) {
+            progressFill.style.width = `${progress}%`;
+        }
+    }
+    
+    // Create promises for all assets
+    const videoPromises = Array.from(videos).map(video => {
+        return new Promise(resolve => {
+            if (video.readyState >= 3) {
+                updateProgress();
+                resolve();
+            } else {
+                video.addEventListener('canplaythrough', () => {
+                    updateProgress();
+                    resolve();
+                }, { once: true });
+                // Fallback timeout
+                setTimeout(() => {
+                    updateProgress();
+                    resolve();
+                }, 5000);
+            }
+        });
+    });
+    
+    const imagePromises = Array.from(images).map(img => {
+        return new Promise(resolve => {
+            if (img.complete) {
+                updateProgress();
+                resolve();
+            } else {
+                img.addEventListener('load', () => {
+                    updateProgress();
+                    resolve();
+                }, { once: true });
+                img.addEventListener('error', () => {
+                    updateProgress();
+                    resolve();
+                }, { once: true });
+            }
+        });
+    });
+    
+    // Wait for all assets or minimum time
+    const minLoadTime = new Promise(resolve => setTimeout(resolve, 1500));
+    
+    return Promise.all([
+        ...videoPromises,
+        ...imagePromises,
+        minLoadTime
+    ]).then(() => {
+        // Fade out loading screen
+        loadingScreen.classList.add('loaded');
+        // Remove from DOM after animation
+        setTimeout(() => {
+            loadingScreen.remove();
+        }, 600);
+    });
 }
 
 // ========== SECTION 1: HEIGHTS PARALLAX ==========
@@ -48,25 +120,19 @@ function initHeightsSection() {
     
     // Parallax scroll handler
     function updateHeightsParallax() {
+        if (!isInViewport(section)) return;
+        
         const rect = section.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-        
-        // Only animate when section is in view
-        if (rect.bottom < 0 || rect.top > windowHeight) return;
-        
-        // Calculate scroll progress through section
         const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
         const clampedProgress = clamp(progress, 0, 1);
         
-        // Background moves slower (subtle parallax)
         if (bgLayer) {
             const bgOffset = (clampedProgress - 0.5) * 50;
             bgLayer.style.transform = `translateY(${bgOffset}px)`;
         }
         
-        // Foreground (groom) moves faster and more dramatically
         if (fgLayer) {
-            // Groom rises as you scroll down
             const fgOffset = (1 - clampedProgress) * 150 - 50;
             fgLayer.style.transform = `translateX(-50%) translateY(${fgOffset}px)`;
         }
@@ -87,42 +153,39 @@ function initFilmstripSection() {
     const filmstrip = track.querySelector('.filmstrip');
     if (!filmstrip) return;
     
-    // Calculate total scroll distance needed
-    const filmWidth = filmstrip.scrollWidth;
-    const viewportWidth = window.innerWidth;
-    const maxScroll = filmWidth - viewportWidth + 100; // Extra padding
+    let maxScroll = 0;
+    
+    function calculateMaxScroll() {
+        const filmWidth = filmstrip.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        maxScroll = filmWidth - viewportWidth + 100;
+    }
+    
+    calculateMaxScroll();
     
     function updateFilmstrip() {
+        if (!isInViewport(section)) return;
+        
         const rect = section.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const sectionHeight = rect.height;
         
-        // Only animate when section is in view
-        if (rect.bottom < 0 || rect.top > windowHeight) return;
-        
-        // Calculate progress based on section position
-        // Start moving when section top reaches viewport bottom
-        // End when section bottom reaches viewport top
         const scrollStart = windowHeight;
         const scrollEnd = -sectionHeight;
         const currentPosition = rect.top;
         const progress = (scrollStart - currentPosition) / (scrollStart - scrollEnd);
         const clampedProgress = clamp(progress, 0, 1);
         
-        // Apply horizontal transform
         const translateX = -clampedProgress * maxScroll;
         track.style.transform = `translateX(${translateX}px)`;
     }
     
     window.addEventListener('scroll', updateFilmstrip, { passive: true });
-    window.addEventListener('resize', () => {
-        // Recalculate on resize
-        initFilmstripSection();
-    });
+    window.addEventListener('resize', calculateMaxScroll);
     updateFilmstrip();
 }
 
-// ========== SECTION 3: TWO BECOME ONE (MERGE) ==========
+// ========== SECTION 3: TWO BECOME ONE (MERGE WITH VIDEOS) ==========
 function initMergeSection() {
     const section = document.getElementById('merge');
     if (!section) return;
@@ -130,21 +193,95 @@ function initMergeSection() {
     const leftPanel = document.getElementById('mergeLeft');
     const rightPanel = document.getElementById('mergeRight');
     const centerText = document.getElementById('mergeText');
+    const brideVideo = document.getElementById('mergeBrideVideo');
+    const groomVideo = document.getElementById('mergeGroomVideo');
+    
+    // Video state
+    let brideReady = false;
+    let groomReady = false;
+    let brideDuration = 0;
+    let groomDuration = 0;
+    
+    // Setup videos
+    if (brideVideo) {
+        brideVideo.addEventListener('loadedmetadata', () => {
+            brideReady = true;
+            brideDuration = brideVideo.duration;
+            brideVideo.pause();
+        });
+        if (brideVideo.readyState >= 1) {
+            brideReady = true;
+            brideDuration = brideVideo.duration;
+            brideVideo.pause();
+        }
+    }
+    
+    if (groomVideo) {
+        groomVideo.addEventListener('loadedmetadata', () => {
+            groomReady = true;
+            groomDuration = groomVideo.duration;
+            groomVideo.pause();
+        });
+        if (groomVideo.readyState >= 1) {
+            groomReady = true;
+            groomDuration = groomVideo.duration;
+            groomVideo.pause();
+        }
+    }
+    
+    // Smooth video scrubbing with RAF
+    let targetProgress = 0;
+    let currentProgress = 0;
+    let rafId = null;
+    
+    function smoothVideoUpdate() {
+        // Lerp for smooth transitions
+        currentProgress = lerp(currentProgress, targetProgress, 0.15);
+        
+        // Update bride video
+        if (brideReady && brideDuration > 0) {
+            const brideTime = currentProgress * brideDuration;
+            if (Math.abs(brideVideo.currentTime - brideTime) > 0.01) {
+                brideVideo.currentTime = brideTime;
+            }
+        }
+        
+        // Update groom video
+        if (groomReady && groomDuration > 0) {
+            const groomTime = currentProgress * groomDuration;
+            if (Math.abs(groomVideo.currentTime - groomTime) > 0.01) {
+                groomVideo.currentTime = groomTime;
+            }
+        }
+        
+        rafId = requestAnimationFrame(smoothVideoUpdate);
+    }
+    
+    // Start animation loop
+    smoothVideoUpdate();
     
     function updateMerge() {
         const rect = section.getBoundingClientRect();
         const windowHeight = window.innerHeight;
+        const sectionHeight = rect.height;
         
-        // Only animate when section is in view
-        if (rect.bottom < 0 || rect.top > windowHeight) return;
+        // Check if section is visible
+        const isVisible = rect.bottom > 0 && rect.top < windowHeight;
         
-        // Calculate progress
-        // We want the merge to happen as the section scrolls through the viewport
-        const progress = getScrollProgress(section, 100);
+        if (!isVisible) return;
         
-        // Panels slide apart as progress increases
-        // Start at 0% (fully closed) and end at 50% (fully open)
-        const slideAmount = progress * 100;
+        // Calculate progress through section
+        const scrollStart = windowHeight;
+        const scrollEnd = -(sectionHeight - windowHeight);
+        const currentPosition = rect.top;
+        const progress = (scrollStart - currentPosition) / (scrollStart - scrollEnd);
+        const clampedProgress = clamp(progress, 0, 1);
+        
+        // Update target for smooth video scrubbing
+        targetProgress = clampedProgress;
+        
+        // Panels slide apart
+        const slideAmount = clampedProgress * 100;
         
         if (leftPanel) {
             leftPanel.style.transform = `translateX(-${slideAmount}%)`;
@@ -154,9 +291,9 @@ function initMergeSection() {
             rightPanel.style.transform = `translateX(${slideAmount}%)`;
         }
         
-        // Show text when mostly merged (progress > 0.7)
+        // Show text when mostly merged
         if (centerText) {
-            if (progress > 0.5) {
+            if (clampedProgress > 0.5) {
                 centerText.classList.add('visible');
             } else {
                 centerText.classList.remove('visible');
@@ -168,41 +305,61 @@ function initMergeSection() {
     updateMerge();
 }
 
-// ========== SECTION 4: VIDEO SCRUB ==========
+// ========== SECTION 4: CAPTURED IN TIME (SMOOTH VIDEO SCRUB) ==========
 function initScrubSection() {
     const section = document.getElementById('scrub');
     if (!section) return;
     
     const video = document.getElementById('scrubVideo');
-    const progressBar = document.getElementById('scrubProgressBar');
-    const timeDisplay = document.getElementById('scrubTime');
-    
     if (!video) return;
     
     let videoReady = false;
     let videoDuration = 0;
+    let targetTime = 0;
+    let currentTime = 0;
+    let rafId = null;
+    let lastVisibleState = false;
     
-    // Wait for video metadata to load
+    // Wait for video to be ready
     video.addEventListener('loadedmetadata', () => {
         videoReady = true;
         videoDuration = video.duration;
-        // Pause the video - we'll control it with scroll
         video.pause();
-        updateScrub();
+        video.currentTime = 0;
     });
     
-    // Also handle case where video is already loaded
     if (video.readyState >= 1) {
         videoReady = true;
         videoDuration = video.duration;
         video.pause();
     }
     
-    function formatTime(seconds) {
-        const mins = Math.floor(seconds / 60);
-        const secs = Math.floor(seconds % 60);
-        return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    // Smooth frame-by-frame update using RAF
+    function smoothVideoUpdate() {
+        if (!videoReady || videoDuration === 0) {
+            rafId = requestAnimationFrame(smoothVideoUpdate);
+            return;
+        }
+        
+        // Check visibility
+        const rect = section.getBoundingClientRect();
+        const isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
+        
+        if (isVisible) {
+            // Smooth interpolation for buttery playback
+            currentTime = lerp(currentTime, targetTime, 0.12);
+            
+            // Only update if difference is significant enough
+            if (Math.abs(video.currentTime - currentTime) > 0.001) {
+                video.currentTime = currentTime;
+            }
+        }
+        
+        rafId = requestAnimationFrame(smoothVideoUpdate);
     }
+    
+    // Start the animation loop
+    smoothVideoUpdate();
     
     function updateScrub() {
         if (!videoReady || videoDuration === 0) return;
@@ -211,42 +368,32 @@ function initScrubSection() {
         const windowHeight = window.innerHeight;
         const sectionHeight = rect.height;
         
-        // Only update when section is in view
-        if (rect.bottom < 0 || rect.top > windowHeight) return;
+        // Check if section is visible
+        const isVisible = rect.bottom > 0 && rect.top < windowHeight;
         
-        // Calculate progress through the tall section
-        // The section is 300vh tall, so we have lots of scroll room
+        if (!isVisible) {
+            // Reset to start or end based on position
+            if (rect.top >= windowHeight) {
+                targetTime = 0;
+            } else if (rect.bottom <= 0) {
+                targetTime = videoDuration;
+            }
+            return;
+        }
+        
+        // Calculate progress - video plays through the sticky scroll
         const scrollStart = windowHeight;
         const scrollEnd = -(sectionHeight - windowHeight);
         const currentPosition = rect.top;
         const progress = (scrollStart - currentPosition) / (scrollStart - scrollEnd);
         const clampedProgress = clamp(progress, 0, 1);
         
-        // Set video current time based on scroll
-        const targetTime = clampedProgress * videoDuration;
-        
-        // Only update if significantly different (prevents jitter)
-        if (Math.abs(video.currentTime - targetTime) > 0.05) {
-            video.currentTime = targetTime;
-        }
-        
-        // Update progress bar
-        if (progressBar) {
-            progressBar.style.width = `${clampedProgress * 100}%`;
-        }
-        
-        // Update time display
-        if (timeDisplay) {
-            timeDisplay.textContent = formatTime(targetTime);
-        }
+        // Set target time (the RAF loop will smoothly interpolate to this)
+        targetTime = clampedProgress * videoDuration;
     }
     
     window.addEventListener('scroll', updateScrub, { passive: true });
-    
-    // Initial update
-    if (videoReady) {
-        updateScrub();
-    }
+    updateScrub();
 }
 
 // ========== TEXT REVEAL ON SCROLL ==========
@@ -265,59 +412,32 @@ function initTextRevealAnimations() {
         });
     }, observerOptions);
     
-    // Observe all headings in creative sections
     document.querySelectorAll('.creative-section h2').forEach(heading => {
         observer.observe(heading);
     });
 }
 
-// ========== SMOOTH SCROLL PHYSICS ==========
-let scrollY = 0;
-let currentScrollY = 0;
-let rafId = null;
-
-function smoothScrollUpdate() {
-    // Lerp towards target scroll position for smoother animations
-    currentScrollY = lerp(currentScrollY, scrollY, 0.1);
-    
-    // Continue animation loop
-    rafId = requestAnimationFrame(smoothScrollUpdate);
-}
-
 // ========== INITIALIZE ALL SECTIONS ==========
-function initCreativeSections() {
-    // Wait for DOM and fonts to be ready
+async function initCreativeSections() {
+    // Wait for DOM
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initAll);
-    } else {
-        initAll();
+        await new Promise(resolve => {
+            document.addEventListener('DOMContentLoaded', resolve);
+        });
     }
     
-    function initAll() {
-        initHeightsSection();
-        initFilmstripSection();
-        initMergeSection();
-        initScrubSection();
-        initTextRevealAnimations();
-        
-        console.log('✨ Creative sections initialized');
-    }
+    // Show loading screen while assets load
+    await initLoadingScreen();
+    
+    // Initialize all sections
+    initHeightsSection();
+    initFilmstripSection();
+    initMergeSection();
+    initScrubSection();
+    initTextRevealAnimations();
+    
+    console.log('✨ Creative sections initialized');
 }
-
-// Track scroll position
-window.addEventListener('scroll', () => {
-    scrollY = window.scrollY;
-}, { passive: true });
 
 // Start everything
 initCreativeSections();
-
-// Export for potential module use
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        initHeightsSection,
-        initFilmstripSection,
-        initMergeSection,
-        initScrubSection
-    };
-}
