@@ -118,6 +118,7 @@
 .creative-section + section,
 section + .creative-section {
     margin-top: 0 !important;
+    padding-top: 0 !important;
 }
 
 /* Ensure main has no gaps */
@@ -130,6 +131,8 @@ main {
 main > section,
 main > .creative-section {
     margin: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 /* Override .section padding for creative sections */
@@ -141,6 +144,7 @@ main > .creative-section {
 .scrub-section + testimonials-section .section,
 .scrub-section + testimonials-section .testimonial-section {
     margin-top: 0 !important;
+    padding-top: 4rem !important;
 }
 
 testimonials-section {
@@ -148,9 +152,14 @@ testimonials-section {
     background: #0a0a0a;
 }
 
+testimonials-section .section {
+    margin: 0 !important;
+}
+
 /* Hero section should flow directly into first creative section */
 .hero {
     margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .hero + main {
@@ -190,9 +199,9 @@ testimonials-section {
 
 .heights-heading {
     font-family: var(--font-serif);
-    font-size: clamp(3rem, 7vw, 6rem);
+    font-size: clamp(5rem, 12vw, 11rem);
     font-weight: 400;
-    line-height: 1.15;
+    line-height: 1.05;
     color: var(--color-text-light);
     margin: 0;
 }
@@ -448,11 +457,7 @@ testimonials-section {
 }
 
 .merge-color-overlay {
-    position: absolute;
-    inset: 0;
-    mix-blend-mode: color;
-    opacity: 0.2;
-    pointer-events: none;
+    display: none;
 }
 
 .merge-warm {

@@ -117,9 +117,9 @@ function initHeightsSection() {
             bgLayer.style.transform = `translateY(${bgOffset}px)`;
         }
         
-        // Foreground (groom) moves more dramatically
+        // Foreground (groom) moves more dramatically - 3x speed
         if (fgLayer) {
-            const fgOffset = (1 - clampedProgress) * 120;
+            const fgOffset = (1 - clampedProgress) * 360;
             fgLayer.style.transform = `translateX(-50%) translateY(${fgOffset}px)`;
         }
     }
@@ -143,12 +143,47 @@ function initMergeSection() {
     const panels = document.getElementById('mergePanels');
     if (!panels) return;
     
+    // Get all videos in the merge section and ensure smooth looping
+    const mergeVideos = section.querySelectorAll('video');
+    mergeVideos.forEach(video => {
+        // Ensure loop attribute is set
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        
+        // Handle loop restart to prevent gaps
+        video.addEventListener('timeupdate', () => {
+            // If near the end, prepare for seamless loop
+            if (video.duration && video.currentTime > video.duration - 0.1) {
+                video.currentTime = 0;
+            }
+        });
+        
+        // Ensure video plays when visible
+        video.addEventListener('pause', () => {
+            if (isInViewport(section)) {
+                video.play().catch(() => {});
+            }
+        });
+        
+        // Handle any loading errors gracefully
+        video.addEventListener('error', () => {
+            console.warn('Video loading error, retrying...');
+            video.load();
+        });
+        
+        // Start playing
+        video.play().catch(() => {});
+    });
+    
     // Use IntersectionObserver to trigger the panel expansion
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
                 // Trigger the reveal - center expands, sides shrink
                 panels.classList.add('revealed');
+                // Ensure videos are playing
+                mergeVideos.forEach(v => v.play().catch(() => {}));
             } else if (!entry.isIntersecting) {
                 // Reset when scrolled away
                 panels.classList.remove('revealed');
@@ -285,6 +320,9 @@ async function initCreativeSections() {
     // Show loading screen while assets load
     await initLoadingScreen();
     
+    // Initialize robust video looping for ALL videos on page
+    initGlobalVideoLooping();
+    
     // Initialize all sections
     initHeightsSection();
     initFilmstripSection();
@@ -293,6 +331,70 @@ async function initCreativeSections() {
     initTextRevealAnimations();
     
     console.log('✨ Creative sections initialized');
+}
+
+// ========== GLOBAL VIDEO LOOPING INFRASTRUCTURE ==========
+function initGlobalVideoLooping() {
+    const allVideos = document.querySelectorAll('video[loop]');
+    
+    allVideos.forEach(video => {
+        // Skip the scrub video as it's controlled separately
+        if (video.id === 'scrubVideo') return;
+        
+        // Ensure proper attributes
+        video.loop = true;
+        video.muted = true;
+        video.playsInline = true;
+        
+        // Seamless loop - restart slightly before end to prevent flash
+        video.addEventListener('timeupdate', () => {
+            if (video.duration && video.currentTime > video.duration - 0.05) {
+                video.currentTime = 0;
+                video.play().catch(() => {});
+            }
+        });
+        
+        // Auto-restart if paused unexpectedly
+        video.addEventListener('pause', () => {
+            // Only restart if it should be playing (in viewport)
+            const rect = video.getBoundingClientRect();
+            const inViewport = rect.bottom > 0 && rect.top < window.innerHeight;
+            if (inViewport && !video.ended) {
+                setTimeout(() => {
+                    video.play().catch(() => {});
+                }, 100);
+            }
+        });
+        
+        // Handle stalled video
+        video.addEventListener('stalled', () => {
+            video.load();
+            video.play().catch(() => {});
+        });
+        
+        // Handle waiting state
+        video.addEventListener('waiting', () => {
+            // Video is buffering - this is normal, don't intervene
+        });
+        
+        // Attempt to play
+        video.play().catch(() => {
+            // Autoplay blocked - will play on user interaction
+        });
+    });
+    
+    // Visibility change handler - pause/play based on tab visibility
+    document.addEventListener('visibilitychange', () => {
+        allVideos.forEach(video => {
+            if (video.id === 'scrubVideo') return;
+            
+            if (document.hidden) {
+                video.pause();
+            } else {
+                video.play().catch(() => {});
+            }
+        });
+    });
 }
 
 // Start everything
