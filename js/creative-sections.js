@@ -101,22 +101,6 @@ function initHeightsSection() {
     
     const bgLayer = section.querySelector('.heights-bg-layer');
     const fgLayer = section.querySelector('.heights-fg-layer');
-    const particlesContainer = document.getElementById('heightsParticles');
-    
-    // Create floating particles
-    if (particlesContainer) {
-        for (let i = 0; i < 15; i++) {
-            const particle = document.createElement('div');
-            particle.className = 'heights-particle';
-            particle.style.left = `${Math.random() * 100}%`;
-            particle.style.top = `${Math.random() * 100}%`;
-            particle.style.width = `${5 + Math.random() * 10}px`;
-            particle.style.height = particle.style.width;
-            particle.style.animationDelay = `${Math.random() * 3}s`;
-            particle.style.animationDuration = `${2 + Math.random() * 2}s`;
-            particlesContainer.appendChild(particle);
-        }
-    }
     
     // Parallax scroll handler
     function updateHeightsParallax() {
@@ -127,13 +111,15 @@ function initHeightsSection() {
         const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
         const clampedProgress = clamp(progress, 0, 1);
         
+        // Background subtle movement
         if (bgLayer) {
-            const bgOffset = (clampedProgress - 0.5) * 50;
+            const bgOffset = (clampedProgress - 0.5) * 30;
             bgLayer.style.transform = `translateY(${bgOffset}px)`;
         }
         
+        // Foreground (groom) moves more dramatically
         if (fgLayer) {
-            const fgOffset = (1 - clampedProgress) * 150 - 50;
+            const fgOffset = (1 - clampedProgress) * 120;
             fgLayer.style.transform = `translateX(-50%) translateY(${fgOffset}px)`;
         }
     }
@@ -149,7 +135,7 @@ function initFilmstripSection() {
     console.log('Filmstrip: CSS animation active');
 }
 
-// ========== SECTION 3: TWO BECOME ONE (LOOPING VIDEOS + DELAYED SLIDE) ==========
+// ========== SECTION 3: TWO BECOME ONE (FAST REVEAL ON SCROLL) ==========
 function initMergeSection() {
     const section = document.getElementById('merge');
     if (!section) return;
@@ -157,67 +143,31 @@ function initMergeSection() {
     const leftPanel = document.getElementById('mergeLeft');
     const rightPanel = document.getElementById('mergeRight');
     const centerText = document.getElementById('mergeText');
-    const leftLabel = leftPanel?.querySelector('.merge-label');
-    const rightLabel = rightPanel?.querySelector('.merge-label');
     
-    // Videos autoplay and loop via HTML attributes
-    // We just handle the slide animation with a delay
-    
-    function updateMerge() {
-        const rect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const sectionHeight = rect.height;
-        
-        // Check if section is visible
-        if (rect.bottom < 0 || rect.top > windowHeight) return;
-        
-        // Calculate progress through section
-        // First 40% of scroll: videos play, no movement
-        // Last 60% of scroll: panels slide apart
-        const scrollStart = windowHeight;
-        const scrollEnd = -(sectionHeight - windowHeight);
-        const currentPosition = rect.top;
-        const rawProgress = (scrollStart - currentPosition) / (scrollStart - scrollEnd);
-        const clampedProgress = clamp(rawProgress, 0, 1);
-        
-        // Delay the slide - only start after 40% scroll progress
-        const slideDelay = 0.4;
-        const slideProgress = clampedProgress <= slideDelay ? 0 : (clampedProgress - slideDelay) / (1 - slideDelay);
-        const easedSlide = easeOutCubic(slideProgress);
-        
-        // Panels slide apart (max 100% = fully off screen)
-        const slideAmount = easedSlide * 100;
-        
-        if (leftPanel) {
-            leftPanel.style.transform = `translateX(-${slideAmount}%)`;
-        }
-        
-        if (rightPanel) {
-            rightPanel.style.transform = `translateX(${slideAmount}%)`;
-        }
-        
-        // Fade out labels as panels start sliding
-        const labelOpacity = 1 - slideProgress;
-        if (leftLabel) leftLabel.style.opacity = labelOpacity;
-        if (rightLabel) rightLabel.style.opacity = labelOpacity;
-        
-        // Show text when panels are mostly apart (slideProgress > 0.6)
-        if (centerText) {
-            if (slideProgress > 0.6) {
-                centerText.classList.add('visible');
-            } else {
-                centerText.classList.remove('visible');
+    // Use IntersectionObserver for fast reveal when section is 40% visible
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
+                // Trigger the reveal
+                if (leftPanel) leftPanel.classList.add('revealed');
+                if (rightPanel) rightPanel.classList.add('revealed');
+                if (centerText) {
+                    setTimeout(() => {
+                        centerText.classList.add('visible');
+                    }, 400); // Slight delay for text after panels start moving
+                }
+            } else if (!entry.isIntersecting) {
+                // Reset when scrolled away
+                if (leftPanel) leftPanel.classList.remove('revealed');
+                if (rightPanel) rightPanel.classList.remove('revealed');
+                if (centerText) centerText.classList.remove('visible');
             }
-        }
-    }
+        });
+    }, {
+        threshold: [0, 0.4, 0.5, 0.6]
+    });
     
-    // Easing function for smooth slide
-    function easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3);
-    }
-    
-    window.addEventListener('scroll', updateMerge, { passive: true });
-    updateMerge();
+    observer.observe(section);
 }
 
 // ========== SECTION 4: CAPTURED IN TIME (SMOOTH VIDEO SCRUB) ==========

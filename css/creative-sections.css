@@ -108,18 +108,53 @@
 .creative-section {
     position: relative;
     overflow: hidden;
-    background: var(--color-bg-dark);
-    margin: 0;
-    padding: 0;
+    background: #0a0a0a;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 /* Remove any gaps between sections */
-.creative-section + .creative-section {
-    margin-top: 0;
+.creative-section + .creative-section,
+.creative-section + section,
+section + .creative-section {
+    margin-top: 0 !important;
 }
 
+/* Ensure main has no gaps */
 main {
     background: #0a0a0a;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+main > section,
+main > .creative-section {
+    margin: 0 !important;
+}
+
+/* Override .section padding for creative sections */
+.creative-section.section {
+    padding: 0 !important;
+}
+
+/* Handle testimonials section after creative content */
+.scrub-section + testimonials-section .section,
+.scrub-section + testimonials-section .testimonial-section {
+    margin-top: 0 !important;
+}
+
+testimonials-section {
+    display: block;
+    background: #0a0a0a;
+}
+
+/* Hero section should flow directly into first creative section */
+.hero {
+    margin-bottom: 0 !important;
+}
+
+.hero + main {
+    margin-top: 0 !important;
 }
 
 /* ========================================
@@ -128,33 +163,36 @@ main {
 .heights-section {
     min-height: 100vh;
     display: flex;
-    align-items: center;
-    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%);
-    margin: 0;
-    padding: 0;
+    align-items: stretch;
+    background: #0a0a0a;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
 }
 
 .heights-container {
     display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
+    grid-template-columns: 40% 60%;
     width: 100%;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 6rem 4rem;
-    align-items: center;
+    margin: 0;
+    padding: 0;
+    align-items: stretch;
 }
 
 .heights-text {
     position: relative;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    padding: 4rem;
+    background: #0a0a0a;
 }
 
 .heights-heading {
     font-family: var(--font-serif);
-    font-size: clamp(3rem, 8vw, 6rem);
+    font-size: clamp(2.5rem, 6vw, 5rem);
     font-weight: 400;
-    line-height: 1.1;
+    line-height: 1.15;
     color: var(--color-text-light);
     margin: 0;
 }
@@ -187,33 +225,31 @@ main {
 
 .heights-imagery {
     position: relative;
-    height: 70vh;
-    min-height: 500px;
-    max-height: 800px;
+    min-height: 100vh;
+    overflow: hidden;
 }
 
 .heights-bg-layer {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    border-radius: 20px;
-    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
 }
 
 .heights-bg-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.1);
+    object-position: center;
+    transform: scale(1.05);
     transition: transform 0.1s linear;
 }
 
 .heights-fg-layer {
     position: absolute;
-    top: -20%;
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: 60%;
+    width: 80%;
     z-index: 5;
     pointer-events: none;
     transition: transform 0.1s linear;
@@ -225,43 +261,20 @@ main {
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
 }
 
-/* Floating particles for heights section */
-.heights-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 6;
-}
-
-.heights-particle {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: var(--gradient-gold);
-    border-radius: 50%;
-    opacity: 0.6;
-    animation: particleFloat 3s ease-in-out infinite;
-}
-
-@keyframes particleFloat {
-    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-    50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
-}
-
 /* ========================================
    SECTION 2: EVERY FRAME TELLS A STORY
    Single looping filmstrip image on angle
    ======================================== */
 .filmstrip-section {
-    min-height: 80vh;
+    min-height: auto;
     background: #0a0a0a;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 4rem 0;
+    padding: 4rem 0 !important;
     position: relative;
     overflow: hidden;
-    margin: 0;
+    margin: 0 !important;
 }
 
 .filmstrip-container {
@@ -342,18 +355,18 @@ main {
    SECTION 3: TWO BECOME ONE (with looping videos)
    ======================================== */
 .merge-section {
-    height: 250vh; /* Scroll distance - first 100vh shows videos, then they slide */
+    height: 100vh; /* Just one screen height - no extra scroll */
     background: #0a0a0a;
     position: relative;
     overflow: hidden;
     margin: 0;
+    padding: 0;
 }
 
 .merge-container {
-    position: sticky;
-    top: 0;
+    position: relative;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     overflow: hidden;
 }
@@ -365,7 +378,8 @@ main {
     height: 100%;
     overflow: hidden;
     z-index: 2;
-    will-change: transform;
+    will-change: transform, opacity;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
 }
 
 .merge-left {
@@ -374,6 +388,18 @@ main {
 
 .merge-right {
     right: 0;
+}
+
+.merge-panel.revealed {
+    opacity: 0;
+}
+
+.merge-left.revealed {
+    transform: translateX(-100%);
+}
+
+.merge-right.revealed {
+    transform: translateX(100%);
 }
 
 .merge-image-wrapper {
@@ -395,7 +421,6 @@ main {
     inset: 0;
     mix-blend-mode: color;
     opacity: 0.25;
-    transition: opacity 0.3s ease;
     pointer-events: none;
 }
 
@@ -420,7 +445,11 @@ main {
     letter-spacing: 0.15em;
     text-transform: uppercase;
     white-space: nowrap;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
+}
+
+.merge-panel.revealed .merge-label {
+    opacity: 0;
 }
 
 .merge-center {
@@ -474,10 +503,11 @@ main {
    SECTION 4: CAPTURED IN TIME (Video Scrub)
    ======================================== */
 .scrub-section {
-    height: 200vh; /* Scroll distance for video */
+    height: 150vh; /* Scroll distance for video */
     position: relative;
     background: #0a0a0a;
-    margin: 0;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 .scrub-container {
@@ -553,23 +583,26 @@ main {
 @media (max-width: 991px) {
     .heights-container {
         grid-template-columns: 1fr;
-        gap: 3rem;
-        padding: 4rem 2rem;
-        text-align: center;
+    }
+    
+    .heights-text {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        padding: 2rem;
+        background: linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 70%, transparent 100%);
+        width: 60%;
+        z-index: 10;
     }
     
     .heights-imagery {
-        height: 50vh;
-        min-height: 400px;
+        grid-column: 1;
+        min-height: 100vh;
     }
     
     .heights-fg-layer {
-        width: 50%;
-    }
-    
-    .film-frame {
-        width: 250px;
-        height: 167px;
+        width: 70%;
     }
     
     .merge-label {
@@ -579,22 +612,15 @@ main {
 
 @media (max-width: 768px) {
     .heights-heading {
-        font-size: clamp(2.5rem, 10vw, 4rem);
+        font-size: clamp(2rem, 8vw, 3rem);
     }
     
-    .heights-imagery {
-        height: 40vh;
-        min-height: 300px;
+    .heights-text {
+        width: 70%;
     }
     
     .heights-fg-layer {
         width: 60%;
-        top: -15%;
-    }
-    
-    .film-frame {
-        width: 200px;
-        height: 133px;
     }
     
     .filmstrip-heading {
@@ -602,12 +628,8 @@ main {
         margin-bottom: 2rem;
     }
     
-    .merge-section {
-        min-height: 80vh;
-    }
-    
-    .merge-container {
-        height: 80vh;
+    .filmstrip-track img {
+        height: 200px;
     }
     
     .merge-text {
@@ -622,20 +644,6 @@ main {
     
     .scrub-heading {
         font-size: clamp(2rem, 10vw, 4rem);
-    }
-    
-    .scrub-subtext {
-        font-size: 0.8rem;
-    }
-    
-    .scrub-progress {
-        width: 150px;
-        bottom: 30px;
-    }
-    
-    .scrub-time {
-        bottom: 50px;
-        font-size: 0.75rem;
     }
 }
 
