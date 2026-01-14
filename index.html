@@ -183,14 +183,14 @@
         <section class="section contact-section" id="contact" style="padding: 5rem 0 6rem 0;">
             <div class="container">
                 <div style="text-align: center; margin-bottom: var(--space-xl);">
-                    <h2 class="heading-section" style="color: var(--color-text-light); display: flex; flex-direction: column; align-items: center;">Get in Touch</h2>
+                    <h2 style="font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); font-weight: 400; color: var(--color-text-light); margin: 0;">Get in Touch</h2>
                     <p style="color: rgba(255,255,255,0.7); margin-top: var(--space-md);">Let's talk about your special day</p>
                 </div>
                 <div class="contact-grid">
                     <div class="contact-info fade-in">
                         <div class="contact-detail">
                             <div class="contact-label">Email</div>
-                            <div class="contact-value"><a href="mailto:joel@tempero.nz">joel@tempero.nz</a></div>
+                            <div class="contact-value"><a href="/cdn-cgi/l/email-protection#e08a8f858ca094858d9085928fce8e9a"><span class="__cf_email__" data-cfemail="3c565359507c4859514c594e53125246">[email&#160;protected]</span></a></div>
                         </div>
                         <div class="contact-detail">
                             <div class="contact-label">Phone</div>
@@ -215,11 +215,13 @@
                             </div>
                         </div>
                     </div>
-                    <form class="contact-form fade-in" id="contactForm">
+                    <form class="contact-form fade-in" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="7f8d1194-01ad-4508-851c-3d7c63bed8b4">
+                        <input type="hidden" name="subject" value="New Wedding Inquiry from Storybook Weddings">
+                        <input type="hidden" name="from_name" value="Storybook Weddings Website">
                         <input type="text" class="form-input" name="name" placeholder="Your Name" required>
                         <input type="email" class="form-input" name="email" placeholder="Email Address" required>
                         <input type="text" class="form-input" name="date" placeholder="Wedding Date (if known)">
-                        <input type="text" class="form-input" name="venue" placeholder="Venue / Location">
                         <textarea class="form-textarea" name="message" placeholder="Tell us about your special day..." required></textarea>
                         <input type="text" class="form-input" name="discount" placeholder="Discount Code (optional)">
                         <button type="submit" class="btn-submit">Send Message</button>
@@ -239,8 +241,4 @@
     <video-modal></video-modal>
 
     <!-- Scripts -->
-    <script src="js/components.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/creative-sections.js"></script>
-</body>
-</html>
+    <script data-cfasync=

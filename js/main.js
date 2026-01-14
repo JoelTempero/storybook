@@ -24,7 +24,7 @@ function initVideoModal() {
     
     if (!videoModal) return;
     
-    document.querySelectorAll('.portfolio-item[data-video]').forEach(item => {
+    document.querySelectorAll('.portfolio-item[data-video], .mosaic-item[data-video]').forEach(item => {
         item.addEventListener('click', () => {
             const videoId = item.dataset.video;
             videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
