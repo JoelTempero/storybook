@@ -92,7 +92,7 @@
 
         <!-- ============================================
              SECTION 2: EVERY FRAME TELLS A STORY
-             Film strip that unrolls horizontally on scroll
+             Single looping filmstrip on slight angle
              ============================================ -->
         <section class="creative-section filmstrip-section" id="filmstrip">
             <div class="filmstrip-container">
@@ -103,45 +103,9 @@
                 
                 <div class="filmstrip-wrapper">
                     <div class="filmstrip-track" id="filmstripTrack">
-                        <!-- Film strip with sprocket holes -->
-                        <div class="filmstrip">
-                            <div class="sprocket-holes sprocket-top"></div>
-                            <div class="film-frames">
-                                <div class="film-frame">
-                                    <img src="assets/images/film-01.png" alt="Getting ready">
-                                    <span class="frame-number">001</span>
-                                </div>
-                                <div class="film-frame">
-                                    <img src="assets/images/film-02.png" alt="The dress">
-                                    <span class="frame-number">002</span>
-                                </div>
-                                <div class="film-frame">
-                                    <img src="assets/images/film-03.png" alt="First look">
-                                    <span class="frame-number">003</span>
-                                </div>
-                                <div class="film-frame">
-                                    <img src="assets/images/film-04.png" alt="The ceremony">
-                                    <span class="frame-number">004</span>
-                                </div>
-                                <div class="film-frame">
-                                    <img src="assets/images/film-05.png" alt="The kiss">
-                                    <span class="frame-number">005</span>
-                                </div>
-                                <div class="film-frame">
-                                    <img src="assets/images/film-06.png" alt="Celebration">
-                                    <span class="frame-number">006</span>
-                                </div>
-                                <div class="film-frame">
-                                    <img src="assets/images/film-07.png" alt="First dance">
-                                    <span class="frame-number">007</span>
-                                </div>
-                                <div class="film-frame">
-                                    <img src="assets/images/film-08.png" alt="The party">
-                                    <span class="frame-number">008</span>
-                                </div>
-                            </div>
-                            <div class="sprocket-holes sprocket-bottom"></div>
-                        </div>
+                        <!-- Single long filmstrip image - duplicated for seamless loop -->
+                        <img src="assets/images/filmstrip.png" alt="Wedding moments filmstrip">
+                        <img src="assets/images/filmstrip.png" alt="Wedding moments filmstrip">
                     </div>
                 </div>
                 
@@ -152,14 +116,14 @@
 
         <!-- ============================================
              SECTION 3: TWO BECOME ONE
-             Split screen bride/groom videos that merge on scroll
+             Split screen bride/groom looping videos that slide apart
              ============================================ -->
         <section class="creative-section merge-section" id="merge">
             <div class="merge-container">
-                <!-- Left panel - Bride getting ready (video) -->
+                <!-- Left panel - Bride getting ready (looping video) -->
                 <div class="merge-panel merge-left" id="mergeLeft">
                     <div class="merge-image-wrapper">
-                        <video id="mergeBrideVideo" muted playsinline preload="auto">
+                        <video id="mergeBrideVideo" muted playsinline autoplay loop>
                             <source src="assets/videos/merge-bride.mp4" type="video/mp4">
                             <source src="assets/videos/merge-bride.webm" type="video/webm">
                         </video>
@@ -177,10 +141,10 @@
                     </h2>
                 </div>
                 
-                <!-- Right panel - Groom getting ready (video) -->
+                <!-- Right panel - Groom getting ready (looping video) -->
                 <div class="merge-panel merge-right" id="mergeRight">
                     <div class="merge-image-wrapper">
-                        <video id="mergeGroomVideo" muted playsinline preload="auto">
+                        <video id="mergeGroomVideo" muted playsinline autoplay loop>
                             <source src="assets/videos/merge-groom.mp4" type="video/mp4">
                             <source src="assets/videos/merge-groom.webm" type="video/webm">
                         </video>

@@ -142,50 +142,14 @@ function initHeightsSection() {
     updateHeightsParallax();
 }
 
-// ========== SECTION 2: FILM STRIP ==========
+// ========== SECTION 2: FILM STRIP (Now CSS animated - no JS needed) ==========
 function initFilmstripSection() {
-    const section = document.getElementById('filmstrip');
-    if (!section) return;
-    
-    const track = document.getElementById('filmstripTrack');
-    if (!track) return;
-    
-    const filmstrip = track.querySelector('.filmstrip');
-    if (!filmstrip) return;
-    
-    let maxScroll = 0;
-    
-    function calculateMaxScroll() {
-        const filmWidth = filmstrip.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        maxScroll = filmWidth - viewportWidth + 100;
-    }
-    
-    calculateMaxScroll();
-    
-    function updateFilmstrip() {
-        if (!isInViewport(section)) return;
-        
-        const rect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const sectionHeight = rect.height;
-        
-        const scrollStart = windowHeight;
-        const scrollEnd = -sectionHeight;
-        const currentPosition = rect.top;
-        const progress = (scrollStart - currentPosition) / (scrollStart - scrollEnd);
-        const clampedProgress = clamp(progress, 0, 1);
-        
-        const translateX = -clampedProgress * maxScroll;
-        track.style.transform = `translateX(${translateX}px)`;
-    }
-    
-    window.addEventListener('scroll', updateFilmstrip, { passive: true });
-    window.addEventListener('resize', calculateMaxScroll);
-    updateFilmstrip();
+    // Filmstrip is now purely CSS animated with infinite loop
+    // No scroll-based control needed
+    console.log('Filmstrip: CSS animation active');
 }
 
-// ========== SECTION 3: TWO BECOME ONE (MERGE WITH VIDEOS) ==========
+// ========== SECTION 3: TWO BECOME ONE (LOOPING VIDEOS + DELAYED SLIDE) ==========
 function initMergeSection() {
     const section = document.getElementById('merge');
     if (!section) return;
@@ -193,72 +157,11 @@ function initMergeSection() {
     const leftPanel = document.getElementById('mergeLeft');
     const rightPanel = document.getElementById('mergeRight');
     const centerText = document.getElementById('mergeText');
-    const brideVideo = document.getElementById('mergeBrideVideo');
-    const groomVideo = document.getElementById('mergeGroomVideo');
+    const leftLabel = leftPanel?.querySelector('.merge-label');
+    const rightLabel = rightPanel?.querySelector('.merge-label');
     
-    // Video state
-    let brideReady = false;
-    let groomReady = false;
-    let brideDuration = 0;
-    let groomDuration = 0;
-    
-    // Setup videos
-    if (brideVideo) {
-        brideVideo.addEventListener('loadedmetadata', () => {
-            brideReady = true;
-            brideDuration = brideVideo.duration;
-            brideVideo.pause();
-        });
-        if (brideVideo.readyState >= 1) {
-            brideReady = true;
-            brideDuration = brideVideo.duration;
-            brideVideo.pause();
-        }
-    }
-    
-    if (groomVideo) {
-        groomVideo.addEventListener('loadedmetadata', () => {
-            groomReady = true;
-            groomDuration = groomVideo.duration;
-            groomVideo.pause();
-        });
-        if (groomVideo.readyState >= 1) {
-            groomReady = true;
-            groomDuration = groomVideo.duration;
-            groomVideo.pause();
-        }
-    }
-    
-    // Smooth video scrubbing with RAF
-    let targetProgress = 0;
-    let currentProgress = 0;
-    let rafId = null;
-    
-    function smoothVideoUpdate() {
-        // Lerp for smooth transitions
-        currentProgress = lerp(currentProgress, targetProgress, 0.15);
-        
-        // Update bride video
-        if (brideReady && brideDuration > 0) {
-            const brideTime = currentProgress * brideDuration;
-            if (Math.abs(brideVideo.currentTime - brideTime) > 0.01) {
-                brideVideo.currentTime = brideTime;
-            }
-        }
-        
-        // Update groom video
-        if (groomReady && groomDuration > 0) {
-            const groomTime = currentProgress * groomDuration;
-            if (Math.abs(groomVideo.currentTime - groomTime) > 0.01) {
-                groomVideo.currentTime = groomTime;
-            }
-        }
-        
-        rafId = requestAnimationFrame(smoothVideoUpdate);
-    }
-    
-    // Start animation loop
-    smoothVideoUpdate();
+    // Videos autoplay and loop via HTML attributes
+    // We just handle the slide animation with a delay
     
     function updateMerge() {
         const rect = section.getBoundingClientRect();
@@ -266,22 +169,24 @@ function initMergeSection() {
         const sectionHeight = rect.height;
         
         // Check if section is visible
-        const isVisible = rect.bottom > 0 && rect.top < windowHeight;
-        
-        if (!isVisible) return;
+        if (rect.bottom < 0 || rect.top > windowHeight) return;
         
         // Calculate progress through section
+        // First 40% of scroll: videos play, no movement
+        // Last 60% of scroll: panels slide apart
         const scrollStart = windowHeight;
         const scrollEnd = -(sectionHeight - windowHeight);
         const currentPosition = rect.top;
-        const progress = (scrollStart - currentPosition) / (scrollStart - scrollEnd);
-        const clampedProgress = clamp(progress, 0, 1);
+        const rawProgress = (scrollStart - currentPosition) / (scrollStart - scrollEnd);
+        const clampedProgress = clamp(rawProgress, 0, 1);
         
-        // Update target for smooth video scrubbing
-        targetProgress = clampedProgress;
+        // Delay the slide - only start after 40% scroll progress
+        const slideDelay = 0.4;
+        const slideProgress = clampedProgress <= slideDelay ? 0 : (clampedProgress - slideDelay) / (1 - slideDelay);
+        const easedSlide = easeOutCubic(slideProgress);
         
-        // Panels slide apart
-        const slideAmount = clampedProgress * 100;
+        // Panels slide apart (max 100% = fully off screen)
+        const slideAmount = easedSlide * 100;
         
         if (leftPanel) {
             leftPanel.style.transform = `translateX(-${slideAmount}%)`;
@@ -291,14 +196,24 @@ function initMergeSection() {
             rightPanel.style.transform = `translateX(${slideAmount}%)`;
         }
         
-        // Show text when mostly merged
+        // Fade out labels as panels start sliding
+        const labelOpacity = 1 - slideProgress;
+        if (leftLabel) leftLabel.style.opacity = labelOpacity;
+        if (rightLabel) rightLabel.style.opacity = labelOpacity;
+        
+        // Show text when panels are mostly apart (slideProgress > 0.6)
         if (centerText) {
-            if (clampedProgress > 0.5) {
+            if (slideProgress > 0.6) {
                 centerText.classList.add('visible');
             } else {
                 centerText.classList.remove('visible');
             }
         }
+    }
+    
+    // Easing function for smooth slide
+    function easeOutCubic(t) {
+        return 1 - Math.pow(1 - t, 3);
     }
     
     window.addEventListener('scroll', updateMerge, { passive: true });

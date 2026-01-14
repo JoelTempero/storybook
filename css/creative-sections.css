@@ -109,6 +109,17 @@
     position: relative;
     overflow: hidden;
     background: var(--color-bg-dark);
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove any gaps between sections */
+.creative-section + .creative-section {
+    margin-top: 0;
+}
+
+main {
+    background: #0a0a0a;
 }
 
 /* ========================================
@@ -119,6 +130,8 @@
     display: flex;
     align-items: center;
     background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%);
+    margin: 0;
+    padding: 0;
 }
 
 .heights-container {
@@ -237,15 +250,18 @@
 
 /* ========================================
    SECTION 2: EVERY FRAME TELLS A STORY
+   Single looping filmstrip image on angle
    ======================================== */
 .filmstrip-section {
-    min-height: 100vh;
+    min-height: 80vh;
     background: #0a0a0a;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 6rem 0;
+    padding: 4rem 0;
     position: relative;
+    overflow: hidden;
+    margin: 0;
 }
 
 .filmstrip-container {
@@ -259,8 +275,10 @@
     font-size: clamp(2.5rem, 6vw, 4.5rem);
     font-weight: 400;
     color: var(--color-text-light);
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
     padding: 0 2rem;
+    position: relative;
+    z-index: 2;
 }
 
 .filmstrip-heading span {
@@ -279,88 +297,35 @@
     width: 100%;
     overflow: hidden;
     position: relative;
+    transform: rotate(-3deg);
+    margin: 2rem 0;
 }
 
 .filmstrip-track {
     display: flex;
-    transition: transform 0.1s linear;
-    will-change: transform;
+    width: max-content;
+    animation: filmstripScroll 30s linear infinite;
 }
 
-.filmstrip {
-    display: flex;
-    flex-direction: column;
-    background: #1a1a1a;
-    padding: 0;
+.filmstrip-track img {
+    height: 280px;
+    width: auto;
+    display: block;
     flex-shrink: 0;
 }
 
-.sprocket-holes {
-    display: flex;
-    gap: 0;
-    padding: 8px 0;
-    background: #111;
+/* Duplicate image for seamless loop */
+.filmstrip-track img:nth-child(2) {
+    /* This is the duplicate for seamless looping */
 }
 
-.sprocket-holes::before {
-    content: '';
-    display: flex;
-    gap: 20px;
-}
-
-/* Generate sprocket holes with pseudo-elements */
-.sprocket-top, .sprocket-bottom {
-    height: 24px;
-    background: repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        transparent 30px,
-        #0a0a0a 30px,
-        #0a0a0a 50px,
-        transparent 50px,
-        transparent 80px
-    );
-    background-size: 80px 100%;
-}
-
-.film-frames {
-    display: flex;
-    gap: 4px;
-    padding: 4px;
-    background: #1a1a1a;
-}
-
-.film-frame {
-    position: relative;
-    width: 300px;
-    height: 200px;
-    flex-shrink: 0;
-    overflow: hidden;
-    background: #000;
-    border: 2px solid #333;
-}
-
-.film-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: sepia(10%) contrast(1.1);
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.film-frame:hover img {
-    transform: scale(1.05);
-    filter: sepia(0%) contrast(1.2);
-}
-
-.frame-number {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.7rem;
-    color: rgba(255,200,100,0.7);
-    letter-spacing: 0.1em;
+@keyframes filmstripScroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
 }
 
 /* Film grain overlay */
@@ -368,32 +333,20 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.05;
+    opacity: 0.04;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
-    animation: grainShift 0.5s steps(10) infinite;
-}
-
-@keyframes grainShift {
-    0%, 100% { transform: translate(0, 0); }
-    10% { transform: translate(-1%, -1%); }
-    20% { transform: translate(1%, 1%); }
-    30% { transform: translate(-1%, 1%); }
-    40% { transform: translate(1%, -1%); }
-    50% { transform: translate(-1%, 0%); }
-    60% { transform: translate(1%, 0%); }
-    70% { transform: translate(0%, -1%); }
-    80% { transform: translate(0%, 1%); }
-    90% { transform: translate(-1%, -1%); }
+    z-index: 1;
 }
 
 /* ========================================
-   SECTION 3: TWO BECOME ONE (with scroll videos)
+   SECTION 3: TWO BECOME ONE (with looping videos)
    ======================================== */
 .merge-section {
-    height: 200vh; /* Scroll distance for videos */
+    height: 250vh; /* Scroll distance - first 100vh shows videos, then they slide */
     background: #0a0a0a;
     position: relative;
     overflow: hidden;
+    margin: 0;
 }
 
 .merge-container {
@@ -408,11 +361,11 @@
 .merge-panel {
     position: absolute;
     top: 0;
-    width: 50%;
+    width: 50vw;
     height: 100%;
     overflow: hidden;
-    transition: transform 0.05s linear;
     z-index: 2;
+    will-change: transform;
 }
 
 .merge-left {
@@ -434,14 +387,16 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
 }
 
 .merge-color-overlay {
     position: absolute;
     inset: 0;
     mix-blend-mode: color;
-    opacity: 0.3;
+    opacity: 0.25;
     transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
 .merge-warm {
@@ -454,17 +409,18 @@
 
 .merge-label {
     position: absolute;
-    bottom: 10%;
+    bottom: 8%;
     left: 50%;
     transform: translateX(-50%);
     font-family: var(--font-serif);
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: white;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
-    opacity: 0.8;
-    letter-spacing: 0.1em;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.7);
+    opacity: 0.9;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     white-space: nowrap;
+    transition: opacity 0.3s ease;
 }
 
 .merge-center {
@@ -480,6 +436,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
 }
 
 .merge-text {
@@ -520,7 +477,7 @@
     height: 200vh; /* Scroll distance for video */
     position: relative;
     background: #0a0a0a;
-    margin-bottom: 0;
+    margin: 0;
 }
 
 .scrub-container {
@@ -579,19 +536,9 @@
     50% { transform: rotate(-1deg) translateX(5%); }
 }
 
-.scrub-time {
-    position: absolute;
-    bottom: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Courier New', monospace;
-    font-size: 0.9rem;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 0.1em;
-}
-
 .scrub-video-wrapper {
-    position: relative;
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
 }
