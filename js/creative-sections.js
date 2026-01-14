@@ -117,9 +117,9 @@ function initHeightsSection() {
             bgLayer.style.transform = `translateY(${bgOffset}px)`;
         }
         
-        // Foreground (groom) moves faster - creates flying effect
+        // Foreground (groom) moves faster upward - starts aligned, moves up as you scroll
         if (fgLayer) {
-            const fgOffset = (1 - clampedProgress) * 500;
+            const fgOffset = -(clampedProgress * 400);
             fgLayer.style.transform = `translateY(${fgOffset}px)`;
         }
     }
@@ -143,51 +143,85 @@ function initMergeSection() {
     const panels = document.getElementById('mergePanels');
     if (!panels) return;
     
-    // Get all videos in the merge section and ensure smooth looping
+    // Get all videos in the merge section
     const mergeVideos = section.querySelectorAll('video');
+    
+    // Robust video play function
+    function playVideo(video) {
+        if (video.paused) {
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Retry after a short delay
+                    setTimeout(() => video.play().catch(() => {}), 100);
+                });
+            }
+        }
+    }
+    
+    // Setup each video
     mergeVideos.forEach(video => {
-        // Ensure loop attribute is set
         video.loop = true;
         video.muted = true;
         video.playsInline = true;
+        video.preload = 'auto';
         
-        // Force loop by manually restarting
+        // Force restart when ended (backup for loop)
         video.addEventListener('ended', () => {
             video.currentTime = 0;
-            video.play().catch(() => {});
+            playVideo(video);
         });
         
-        // Also check timeupdate as backup
-        video.addEventListener('timeupdate', () => {
-            if (video.duration && video.currentTime >= video.duration - 0.1) {
-                video.currentTime = 0;
-                video.play().catch(() => {});
+        // Restart if paused unexpectedly
+        video.addEventListener('pause', () => {
+            if (!document.hidden) {
+                setTimeout(() => playVideo(video), 50);
             }
         });
         
-        // Handle any loading errors gracefully
-        video.addEventListener('error', () => {
-            console.warn('Video loading error, retrying...');
-            setTimeout(() => {
-                video.load();
-                video.play().catch(() => {});
-            }, 1000);
+        // Handle stall
+        video.addEventListener('stalled', () => {
+            video.load();
+            playVideo(video);
+        });
+        
+        // Handle waiting/buffering - don't do anything drastic
+        video.addEventListener('waiting', () => {
+            // Just wait for it to buffer
         });
         
         // Start playing
-        video.play().catch(() => {});
+        playVideo(video);
     });
     
-    // Use IntersectionObserver to trigger the panel expansion - trigger later (70%)
+    // Visibility change - pause when hidden, play when visible
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            mergeVideos.forEach(v => v.pause());
+        } else {
+            mergeVideos.forEach(v => playVideo(v));
+        }
+    });
+    
+    // Keep videos alive with periodic check
+    setInterval(() => {
+        if (!document.hidden && isInViewport(section)) {
+            mergeVideos.forEach(video => {
+                if (video.paused || video.ended) {
+                    video.currentTime = video.currentTime || 0;
+                    playVideo(video);
+                }
+            });
+        }
+    }, 500);
+    
+    // Use IntersectionObserver to trigger the panel expansion - trigger at 70%
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
-                // Trigger the reveal - center expands, sides shrink
                 panels.classList.add('revealed');
-                // Ensure videos are playing
-                mergeVideos.forEach(v => v.play().catch(() => {}));
+                mergeVideos.forEach(v => playVideo(v));
             } else if (!entry.isIntersecting) {
-                // Reset when scrolled away
                 panels.classList.remove('revealed');
             }
         });
@@ -196,17 +230,6 @@ function initMergeSection() {
     });
     
     observer.observe(section);
-    
-    // Also keep videos playing with interval check
-    setInterval(() => {
-        if (isInViewport(section)) {
-            mergeVideos.forEach(video => {
-                if (video.paused && !video.ended) {
-                    video.play().catch(() => {});
-                }
-            });
-        }
-    }, 1000);
 }
 
 // ========== SECTION 4: CAPTURED IN TIME (SMOOTH VIDEO SCRUB) ==========
@@ -348,65 +371,31 @@ async function initCreativeSections() {
 
 // ========== GLOBAL VIDEO LOOPING INFRASTRUCTURE ==========
 function initGlobalVideoLooping() {
-    const allVideos = document.querySelectorAll('video[loop]');
+    // Only handle hero video - merge section has its own handler
+    const heroVideo = document.querySelector('.hero-bg video');
     
-    allVideos.forEach(video => {
-        // Skip the scrub video as it's controlled separately
-        if (video.id === 'scrubVideo') return;
+    if (heroVideo) {
+        heroVideo.loop = true;
+        heroVideo.muted = true;
+        heroVideo.playsInline = true;
         
-        // Ensure proper attributes
-        video.loop = true;
-        video.muted = true;
-        video.playsInline = true;
-        
-        // Seamless loop - restart slightly before end to prevent flash
-        video.addEventListener('timeupdate', () => {
-            if (video.duration && video.currentTime > video.duration - 0.05) {
-                video.currentTime = 0;
-                video.play().catch(() => {});
-            }
+        heroVideo.addEventListener('ended', () => {
+            heroVideo.currentTime = 0;
+            heroVideo.play().catch(() => {});
         });
         
-        // Auto-restart if paused unexpectedly
-        video.addEventListener('pause', () => {
-            // Only restart if it should be playing (in viewport)
-            const rect = video.getBoundingClientRect();
-            const inViewport = rect.bottom > 0 && rect.top < window.innerHeight;
-            if (inViewport && !video.ended) {
-                setTimeout(() => {
-                    video.play().catch(() => {});
-                }, 100);
-            }
-        });
-        
-        // Handle stalled video
-        video.addEventListener('stalled', () => {
-            video.load();
-            video.play().catch(() => {});
-        });
-        
-        // Handle waiting state
-        video.addEventListener('waiting', () => {
-            // Video is buffering - this is normal, don't intervene
-        });
-        
-        // Attempt to play
-        video.play().catch(() => {
-            // Autoplay blocked - will play on user interaction
-        });
-    });
+        heroVideo.play().catch(() => {});
+    }
     
-    // Visibility change handler - pause/play based on tab visibility
+    // Visibility change handler for hero video
     document.addEventListener('visibilitychange', () => {
-        allVideos.forEach(video => {
-            if (video.id === 'scrubVideo') return;
-            
+        if (heroVideo) {
             if (document.hidden) {
-                video.pause();
+                heroVideo.pause();
             } else {
-                video.play().catch(() => {});
+                heroVideo.play().catch(() => {});
             }
-        });
+        }
     });
 }
 

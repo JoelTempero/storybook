@@ -26,6 +26,8 @@ class SiteHeader extends HTMLElement {
                             <a href="pricing.html" class="nav-link ${currentPage === 'pricing' ? 'active' : ''}">Pricing</a>
                             <a href="faq.html" class="nav-link ${currentPage === 'faq' ? 'active' : ''}">FAQ</a>
                             <a href="contact.html" class="nav-link ${currentPage === 'contact' ? 'active' : ''}">Contact</a>
+                        </div>
+                        <div class="nav-login-wrapper">
                             <a href="portal/login.html" class="nav-login">Login</a>
                         </div>
                     </div>
