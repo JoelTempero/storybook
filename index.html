@@ -13,29 +13,25 @@
     <meta property="og:type" content="website">
     <meta property="og:description" content="Premium wedding photography and videography services in Christchurch, New Zealand.">
     
-    <!-- PWA Manifest -->
     <link rel="manifest" href="manifest.json">
-    
-    <!-- Favicons -->
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
     
     <title>Storybook Weddings | Photography & Videography</title>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Styles -->
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/creative-sections.css">
 </head>
 <body>
     <!-- Header -->
     <site-header current="home"></site-header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section - Clean, no buttons -->
     <header class="hero" id="hero">
         <div class="hero-bg">
             <video autoplay muted loop playsinline>
@@ -47,124 +43,163 @@
         <div class="hero-content">
             <h1 class="heading-hero hero-title">Storybook<br>Weddings</h1>
             <p class="hero-subtitle">Photography & Videography</p>
-            <div class="hero-buttons">
-                <a href="contact.html" class="btn btn-primary">Get In Touch</a>
-                <a href="pricing.html" class="btn btn-outline">View Packages</a>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <span>Scroll</span>
         </div>
     </header>
 
     <main>
-        <!-- Photo Gallery Section -->
-        <section class="section" id="gallery" style="background: white;">
-            <div class="container">
-                <div style="text-align: center; margin-bottom: var(--space-xl);">
-                    <h2 class="heading-section">Our Work</h2>
+        <!-- ============================================
+             SECTION 1: TAKING YOUR WEDDING TO NEW HEIGHTS
+             Parallax groom being thrown into the air
+             ============================================ -->
+        <section class="creative-section heights-section" id="heights">
+            <div class="heights-container">
+                <!-- Left side: Text -->
+                <div class="heights-text">
+                    <h2 class="heights-heading">
+                        <span class="heights-line">Taking your</span>
+                        <span class="heights-line">wedding to</span>
+                        <span class="heights-line heights-accent">new heights</span>
+                    </h2>
                 </div>
-                <div class="photo-gallery">
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/800x600/e8d5b7/8b7355?text=Wedding+1" alt="Gallery Photo 1">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
+                
+                <!-- Right side: Parallax images -->
+                <div class="heights-imagery">
+                    <!-- Background layer - bridal party with arms up -->
+                    <div class="heights-bg-layer">
+                        <img src="assets/images/heights-background.jpg" alt="Bridal party celebrating" class="heights-bg-img">
                     </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/d4c5a9/7a6b4e?text=Wedding+2" alt="Gallery Photo 2">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
+                    <!-- Foreground layer - groom cutout that moves faster -->
+                    <div class="heights-fg-layer">
+                        <img src="assets/images/heights-groom.png" alt="Groom being thrown" class="heights-groom-img">
                     </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/c9b896/6d5f43?text=Wedding+3" alt="Gallery Photo 3">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                    <!-- Particle effects -->
+                    <div class="heights-particles" id="heightsParticles"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             SECTION 2: EVERY FRAME TELLS A STORY
+             Film strip that unrolls horizontally on scroll
+             ============================================ -->
+        <section class="creative-section filmstrip-section" id="filmstrip">
+            <div class="filmstrip-container">
+                <h2 class="filmstrip-heading">
+                    <span>Every frame</span>
+                    <span class="filmstrip-accent">tells a story</span>
+                </h2>
+                
+                <div class="filmstrip-wrapper">
+                    <div class="filmstrip-track" id="filmstripTrack">
+                        <!-- Film strip with sprocket holes -->
+                        <div class="filmstrip">
+                            <div class="sprocket-holes sprocket-top"></div>
+                            <div class="film-frames">
+                                <div class="film-frame">
+                                    <img src="assets/images/film-01.jpg" alt="Getting ready">
+                                    <span class="frame-number">001</span>
+                                </div>
+                                <div class="film-frame">
+                                    <img src="assets/images/film-02.jpg" alt="The dress">
+                                    <span class="frame-number">002</span>
+                                </div>
+                                <div class="film-frame">
+                                    <img src="assets/images/film-03.jpg" alt="First look">
+                                    <span class="frame-number">003</span>
+                                </div>
+                                <div class="film-frame">
+                                    <img src="assets/images/film-04.jpg" alt="The ceremony">
+                                    <span class="frame-number">004</span>
+                                </div>
+                                <div class="film-frame">
+                                    <img src="assets/images/film-05.jpg" alt="The kiss">
+                                    <span class="frame-number">005</span>
+                                </div>
+                                <div class="film-frame">
+                                    <img src="assets/images/film-06.jpg" alt="Celebration">
+                                    <span class="frame-number">006</span>
+                                </div>
+                                <div class="film-frame">
+                                    <img src="assets/images/film-07.jpg" alt="First dance">
+                                    <span class="frame-number">007</span>
+                                </div>
+                                <div class="film-frame">
+                                    <img src="assets/images/film-08.jpg" alt="The party">
+                                    <span class="frame-number">008</span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/bfae87/615438?text=Wedding+4" alt="Gallery Photo 4">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/800x300/e0d0b8/857653?text=Wedding+5" alt="Gallery Photo 5">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/d6c7a5/78694a?text=Wedding+6" alt="Gallery Photo 6">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/ccbc94/6b5c3f?text=Wedding+7" alt="Gallery Photo 7">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/800x300/e5d6be/8a7b59?text=Wedding+8" alt="Gallery Photo 8">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/dac9a7/7f7050?text=Wedding+9" alt="Gallery Photo 9">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/d0c198/736445?text=Wedding+10" alt="Gallery Photo 10">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/c5b68a/67583b?text=Wedding+11" alt="Gallery Photo 11">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="photo-gallery-item">
-                        <img src="https://placehold.co/400x300/bbab7c/5b4c31?text=Wedding+12" alt="Gallery Photo 12">
-                        <div class="gallery-overlay">
-                            <div class="gallery-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-                            </div>
+                            <div class="sprocket-holes sprocket-bottom"></div>
                         </div>
                     </div>
                 </div>
-                <div style="text-align: center; margin-top: var(--space-xl);">
-                    <a href="portfolio.html" class="btn btn-dark">View Full Portfolio</a>
+                
+                <!-- Film grain overlay -->
+                <div class="film-grain"></div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             SECTION 3: TWO BECOME ONE
+             Split screen bride/groom that merges on scroll
+             ============================================ -->
+        <section class="creative-section merge-section" id="merge">
+            <div class="merge-container">
+                <!-- Left panel - Bride getting ready -->
+                <div class="merge-panel merge-left" id="mergeLeft">
+                    <div class="merge-image-wrapper">
+                        <img src="assets/images/merge-bride.jpg" alt="Bride getting ready">
+                        <div class="merge-color-overlay merge-warm"></div>
+                    </div>
+                    <div class="merge-label">Her morning</div>
                 </div>
+                
+                <!-- Center - merged image revealed -->
+                <div class="merge-center" id="mergeCenter">
+                    <img src="assets/images/merge-together.jpg" alt="Together at last">
+                    <h2 class="merge-text" id="mergeText">
+                        <span>Two stories</span>
+                        <span class="merge-accent">becoming one</span>
+                    </h2>
+                </div>
+                
+                <!-- Right panel - Groom getting ready -->
+                <div class="merge-panel merge-right" id="mergeRight">
+                    <div class="merge-image-wrapper">
+                        <img src="assets/images/merge-groom.jpg" alt="Groom getting ready">
+                        <div class="merge-color-overlay merge-cool"></div>
+                    </div>
+                    <div class="merge-label">His morning</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================
+             SECTION 4: CAPTURED IN TIME
+             Scroll-controlled video scrubbing
+             ============================================ -->
+        <section class="creative-section scrub-section" id="scrub">
+            <div class="scrub-container">
+                <div class="scrub-text-overlay">
+                    <h2 class="scrub-heading">
+                        <span>Captured</span>
+                        <span class="scrub-accent">in time</span>
+                    </h2>
+                    <p class="scrub-subtext">Scroll to control the moment</p>
+                </div>
+                
+                <div class="scrub-video-wrapper">
+                    <video id="scrubVideo" muted playsinline preload="auto">
+                        <source src="assets/videos/confetti-moment.mp4" type="video/mp4">
+                        <source src="assets/videos/confetti-moment.webm" type="video/webm">
+                    </video>
+                    <!-- Progress indicator -->
+                    <div class="scrub-progress">
+                        <div class="scrub-progress-bar" id="scrubProgressBar"></div>
+                    </div>
+                </div>
+                
+                <!-- Floating time indicator -->
+                <div class="scrub-time" id="scrubTime">00:00</div>
             </div>
         </section>
 
@@ -193,5 +228,6 @@
     <!-- Scripts -->
     <script src="js/components.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/creative-sections.js"></script>
 </body>
 </html>

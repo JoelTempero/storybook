@@ -1,0 +1,633 @@
+/* ================================================
+   STORYBOOK WEDDINGS - CREATIVE SECTIONS CSS
+   Premium artistic effects and interactions
+   ================================================ */
+
+/* ========== SHARED CREATIVE STYLES ========== */
+.creative-section {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-bg-dark);
+}
+
+/* ========================================
+   SECTION 1: TAKING YOUR WEDDING TO NEW HEIGHTS
+   ======================================== */
+.heights-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0d0d0d 100%);
+}
+
+.heights-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 6rem 4rem;
+    align-items: center;
+}
+
+.heights-text {
+    position: relative;
+    z-index: 10;
+}
+
+.heights-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--color-text-light);
+    margin: 0;
+}
+
+.heights-line {
+    display: block;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: heightsTextReveal 0.8s ease forwards;
+}
+
+.heights-line:nth-child(1) { animation-delay: 0.2s; }
+.heights-line:nth-child(2) { animation-delay: 0.4s; }
+.heights-line:nth-child(3) { animation-delay: 0.6s; }
+
+.heights-accent {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+}
+
+@keyframes heightsTextReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.heights-imagery {
+    position: relative;
+    height: 70vh;
+    min-height: 500px;
+    max-height: 800px;
+}
+
+.heights-bg-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+
+.heights-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.1);
+    transition: transform 0.1s linear;
+}
+
+.heights-fg-layer {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    z-index: 5;
+    pointer-events: none;
+    transition: transform 0.1s linear;
+}
+
+.heights-groom-img {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
+}
+
+/* Floating particles for heights section */
+.heights-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 6;
+}
+
+.heights-particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--gradient-gold);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: particleFloat 3s ease-in-out infinite;
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
+    50% { transform: translateY(-30px) rotate(180deg); opacity: 1; }
+}
+
+/* ========================================
+   SECTION 2: EVERY FRAME TELLS A STORY
+   ======================================== */
+.filmstrip-section {
+    min-height: 100vh;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 0;
+    position: relative;
+}
+
+.filmstrip-container {
+    position: relative;
+    width: 100%;
+}
+
+.filmstrip-heading {
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 400;
+    color: var(--color-text-light);
+    margin-bottom: 4rem;
+    padding: 0 2rem;
+}
+
+.filmstrip-heading span {
+    display: block;
+}
+
+.filmstrip-accent {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+}
+
+.filmstrip-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.filmstrip-track {
+    display: flex;
+    transition: transform 0.1s linear;
+    will-change: transform;
+}
+
+.filmstrip {
+    display: flex;
+    flex-direction: column;
+    background: #1a1a1a;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.sprocket-holes {
+    display: flex;
+    gap: 0;
+    padding: 8px 0;
+    background: #111;
+}
+
+.sprocket-holes::before {
+    content: '';
+    display: flex;
+    gap: 20px;
+}
+
+/* Generate sprocket holes with pseudo-elements */
+.sprocket-top, .sprocket-bottom {
+    height: 24px;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent 0px,
+        transparent 30px,
+        #0a0a0a 30px,
+        #0a0a0a 50px,
+        transparent 50px,
+        transparent 80px
+    );
+    background-size: 80px 100%;
+}
+
+.film-frames {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: #1a1a1a;
+}
+
+.film-frame {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #000;
+    border: 2px solid #333;
+}
+
+.film-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: sepia(10%) contrast(1.1);
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.film-frame:hover img {
+    transform: scale(1.05);
+    filter: sepia(0%) contrast(1.2);
+}
+
+.frame-number {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    color: rgba(255,200,100,0.7);
+    letter-spacing: 0.1em;
+}
+
+/* Film grain overlay */
+.film-grain {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
+    animation: grainShift 0.5s steps(10) infinite;
+}
+
+@keyframes grainShift {
+    0%, 100% { transform: translate(0, 0); }
+    10% { transform: translate(-1%, -1%); }
+    20% { transform: translate(1%, 1%); }
+    30% { transform: translate(-1%, 1%); }
+    40% { transform: translate(1%, -1%); }
+    50% { transform: translate(-1%, 0%); }
+    60% { transform: translate(1%, 0%); }
+    70% { transform: translate(0%, -1%); }
+    80% { transform: translate(0%, 1%); }
+    90% { transform: translate(-1%, -1%); }
+}
+
+/* ========================================
+   SECTION 3: TWO BECOME ONE
+   ======================================== */
+.merge-section {
+    min-height: 100vh;
+    background: #0a0a0a;
+    position: relative;
+    overflow: hidden;
+}
+
+.merge-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+
+.merge-panel {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.1s linear;
+    z-index: 2;
+}
+
+.merge-left {
+    left: 0;
+}
+
+.merge-right {
+    right: 0;
+}
+
+.merge-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.merge-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.merge-color-overlay {
+    position: absolute;
+    inset: 0;
+    mix-blend-mode: color;
+    opacity: 0.3;
+    transition: opacity 0.3s ease;
+}
+
+.merge-warm {
+    background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
+}
+
+.merge-cool {
+    background: linear-gradient(135deg, #4a90a4 0%, #2c3e50 100%);
+}
+
+.merge-label {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: white;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    opacity: 0.8;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.merge-center {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.merge-center img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.merge-text {
+    position: absolute;
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 5vw, 4rem);
+    font-weight: 400;
+    color: white;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.8);
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 10;
+}
+
+.merge-text span {
+    display: block;
+}
+
+.merge-text.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.merge-accent {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+}
+
+/* ========================================
+   SECTION 4: CAPTURED IN TIME (Video Scrub)
+   ======================================== */
+.scrub-section {
+    height: 300vh; /* Extra height for scroll distance */
+    position: relative;
+    background: #0a0a0a;
+}
+
+.scrub-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.scrub-text-overlay {
+    position: absolute;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+}
+
+.scrub-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 400;
+    color: white;
+    text-shadow: 0 4px 40px rgba(0,0,0,0.8);
+    margin: 0;
+    line-height: 1.1;
+}
+
+.scrub-heading span {
+    display: block;
+}
+
+.scrub-accent {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+}
+
+.scrub-subtext {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 1.5rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    from {
+        transform: translateY(20px);
+    }
+}
+
+.scrub-video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.scrub-video-wrapper video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.scrub-progress {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.scrub-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--gradient-gold);
+    border-radius: 2px;
+    transition: width 0.1s linear;
+}
+
+.scrub-time {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.1em;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 991px) {
+    .heights-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 4rem 2rem;
+        text-align: center;
+    }
+    
+    .heights-imagery {
+        height: 50vh;
+        min-height: 400px;
+    }
+    
+    .heights-fg-layer {
+        width: 50%;
+    }
+    
+    .film-frame {
+        width: 250px;
+        height: 167px;
+    }
+    
+    .merge-label {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .heights-heading {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+    }
+    
+    .heights-imagery {
+        height: 40vh;
+        min-height: 300px;
+    }
+    
+    .heights-fg-layer {
+        width: 60%;
+        top: -15%;
+    }
+    
+    .film-frame {
+        width: 200px;
+        height: 133px;
+    }
+    
+    .filmstrip-heading {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 2rem;
+    }
+    
+    .merge-section {
+        min-height: 80vh;
+    }
+    
+    .merge-container {
+        height: 80vh;
+    }
+    
+    .merge-text {
+        font-size: clamp(1.5rem, 6vw, 2.5rem);
+        padding: 0 1rem;
+    }
+    
+    .merge-label {
+        font-size: 0.8rem;
+        bottom: 5%;
+    }
+    
+    .scrub-heading {
+        font-size: clamp(2rem, 10vw, 4rem);
+    }
+    
+    .scrub-subtext {
+        font-size: 0.8rem;
+    }
+    
+    .scrub-progress {
+        width: 150px;
+        bottom: 30px;
+    }
+    
+    .scrub-time {
+        bottom: 50px;
+        font-size: 0.75rem;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .heights-line {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+    
+    .film-grain {
+        animation: none;
+    }
+    
+    .heights-particle {
+        animation: none;
+    }
+    
+    .scrub-subtext {
+        animation: none;
+        opacity: 1;
+    }
+}
