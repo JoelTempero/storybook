@@ -134,10 +134,20 @@ testimonials-section {
 }
 
 testimonials-section .section,
-testimonials-section .testimonial-section {
+testimonials-section .testimonial-section,
+section.testimonial-section {
     margin: 0 !important;
-    padding-top: 4rem !important;
+    padding: 4rem 0 !important;
     background: #0a0a0a !important;
+}
+
+/* Remove all gaps in main after creative sections */
+main > * {
+    margin: 0 !important;
+}
+
+main > section:not(.creative-section) {
+    padding-top: 4rem !important;
 }
 
 /* Hero section should flow directly into first creative section */
@@ -161,6 +171,7 @@ testimonials-section .testimonial-section {
     margin: 0 !important;
     padding: 0 !important;
     position: relative;
+    z-index: 10;
 }
 
 .heights-container {
@@ -177,8 +188,11 @@ testimonials-section .testimonial-section {
     z-index: 10;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     padding: 4rem;
+    padding-right: 3rem;
     background: #0a0a0a;
+    text-align: right;
 }
 
 .heights-heading {
@@ -194,14 +208,21 @@ testimonials-section .testimonial-section {
 
 .heights-line {
     display: block;
-    opacity: 0;
-    transform: translateY(40px);
-    animation: heightsTextReveal 0.8s ease forwards;
 }
 
-.heights-line:nth-child(1) { animation-delay: 0.2s; }
-.heights-line:nth-child(2) { animation-delay: 0.4s; }
-.heights-line:nth-child(3) { animation-delay: 0.6s; }
+.heights-line .letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: letterReveal 0.5s ease forwards;
+}
+
+@keyframes letterReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 .heights-accent {
     background: var(--gradient-gold);
@@ -211,11 +232,11 @@ testimonials-section .testimonial-section {
     font-style: italic;
 }
 
-@keyframes heightsTextReveal {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.heights-accent .letter {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .heights-imagery {
@@ -241,7 +262,10 @@ testimonials-section .testimonial-section {
 
 .heights-fg-layer {
     position: absolute;
-    inset: 0;
+    top: 40px;
+    left: 0;
+    right: 0;
+    bottom: -40px;
     z-index: 5;
     pointer-events: none;
 }
@@ -352,7 +376,7 @@ testimonials-section .testimonial-section {
    SECTION 3: TWO BECOME ONE (3 panel layout)
    ======================================== */
 .merge-section {
-    min-height: 100vh;
+    min-height: auto;
     background: #0a0a0a;
     position: relative;
     overflow: hidden;
@@ -370,6 +394,7 @@ testimonials-section .testimonial-section {
     flex-direction: column;
     align-items: center;
     padding: 0;
+    margin: 0;
 }
 
 .merge-text-top {
@@ -378,8 +403,8 @@ testimonials-section .testimonial-section {
     font-weight: 400;
     color: white;
     text-align: center;
-    margin-bottom: 1rem;
-    margin-top: 0;
+    margin: 0;
+    padding: 0;
     font-style: italic;
 }
 
@@ -392,7 +417,8 @@ testimonials-section .testimonial-section {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-align: center;
-    margin-top: 2rem;
+    margin: 0;
+    padding: 0;
     font-style: italic;
 }
 
@@ -458,7 +484,7 @@ testimonials-section .testimonial-section {
    SECTION 4: CAPTURED IN TIME (Video Scrub)
    ======================================== */
 .scrub-section {
-    height: 200vh; /* More scroll distance for full video */
+    height: 150vh; /* Scroll distance for video */
     position: relative;
     background: #0a0a0a;
     margin: 0 !important;

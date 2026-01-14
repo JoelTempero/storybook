@@ -102,6 +102,29 @@ function initHeightsSection() {
     const bgLayer = section.querySelector('.heights-bg-layer');
     const fgLayer = section.querySelector('.heights-fg-layer');
     
+    // Letter-by-letter animation
+    const lines = section.querySelectorAll('.heights-line');
+    let totalDelay = 0;
+    
+    lines.forEach((line, lineIndex) => {
+        const text = line.textContent;
+        const isAccent = line.classList.contains('heights-accent');
+        line.textContent = '';
+        
+        // Add delay between lines
+        if (lineIndex > 0) totalDelay += 150;
+        
+        [...text].forEach((char, i) => {
+            const span = document.createElement('span');
+            span.className = 'letter';
+            span.textContent = char === ' ' ? '\u00A0' : char;
+            span.style.animationDelay = `${totalDelay + (i * 40)}ms`;
+            line.appendChild(span);
+        });
+        
+        totalDelay += text.length * 40;
+    });
+    
     // Parallax scroll handler
     function updateHeightsParallax() {
         if (!isInViewport(section)) return;
@@ -146,87 +169,39 @@ function initMergeSection() {
     // Get all videos in the merge section
     const mergeVideos = section.querySelectorAll('video');
     
-    // Robust video play function
-    function playVideo(video) {
-        if (video.paused) {
-            const playPromise = video.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Retry after a short delay
-                    setTimeout(() => video.play().catch(() => {}), 100);
-                });
-            }
-        }
-    }
-    
-    // Setup each video
+    // Setup each video with minimal interference
     mergeVideos.forEach(video => {
         video.loop = true;
         video.muted = true;
         video.playsInline = true;
         video.preload = 'auto';
-        
-        // Force restart when ended (backup for loop)
-        video.addEventListener('ended', () => {
-            video.currentTime = 0;
-            playVideo(video);
-        });
-        
-        // Restart if paused unexpectedly
-        video.addEventListener('pause', () => {
-            if (!document.hidden) {
-                setTimeout(() => playVideo(video), 50);
-            }
-        });
-        
-        // Handle stall
-        video.addEventListener('stalled', () => {
-            video.load();
-            playVideo(video);
-        });
-        
-        // Handle waiting/buffering - don't do anything drastic
-        video.addEventListener('waiting', () => {
-            // Just wait for it to buffer
-        });
-        
-        // Start playing
-        playVideo(video);
+        video.play().catch(() => {});
     });
     
-    // Visibility change - pause when hidden, play when visible
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            mergeVideos.forEach(v => v.pause());
-        } else {
-            mergeVideos.forEach(v => playVideo(v));
-        }
-    });
-    
-    // Keep videos alive with periodic check
-    setInterval(() => {
-        if (!document.hidden && isInViewport(section)) {
+    // Simple RAF loop to keep videos playing
+    function keepVideosAlive() {
+        if (!document.hidden) {
             mergeVideos.forEach(video => {
-                if (video.paused || video.ended) {
-                    video.currentTime = video.currentTime || 0;
-                    playVideo(video);
+                if (video.paused && video.readyState >= 2) {
+                    video.play().catch(() => {});
                 }
             });
         }
-    }, 500);
+        requestAnimationFrame(keepVideosAlive);
+    }
+    keepVideosAlive();
     
-    // Use IntersectionObserver to trigger the panel expansion - trigger at 70%
+    // Use IntersectionObserver to trigger the panel expansion
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
                 panels.classList.add('revealed');
-                mergeVideos.forEach(v => playVideo(v));
             } else if (!entry.isIntersecting) {
                 panels.classList.remove('revealed');
             }
         });
     }, {
-        threshold: [0, 0.3, 0.5, 0.7, 0.8]
+        threshold: [0, 0.3, 0.5, 0.6, 0.8]
     });
     
     observer.observe(section);
