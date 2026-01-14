@@ -104,25 +104,25 @@ function initHeightsSection() {
     
     // Letter-by-letter animation
     const lines = section.querySelectorAll('.heights-line');
-    let totalDelay = 0;
+    let totalDelay = 300; // Start after a small delay
     
     lines.forEach((line, lineIndex) => {
-        const text = line.textContent;
+        const text = line.textContent.trim();
         const isAccent = line.classList.contains('heights-accent');
-        line.textContent = '';
+        line.innerHTML = ''; // Clear text content
         
         // Add delay between lines
-        if (lineIndex > 0) totalDelay += 150;
+        if (lineIndex > 0) totalDelay += 200;
         
         [...text].forEach((char, i) => {
             const span = document.createElement('span');
             span.className = 'letter';
             span.textContent = char === ' ' ? '\u00A0' : char;
-            span.style.animationDelay = `${totalDelay + (i * 40)}ms`;
+            span.style.animationDelay = `${totalDelay + (i * 50)}ms`;
             line.appendChild(span);
         });
         
-        totalDelay += text.length * 40;
+        totalDelay += text.length * 50;
     });
     
     // Parallax scroll handler
@@ -175,11 +175,18 @@ function initMergeSection() {
         video.muted = true;
         video.playsInline = true;
         video.preload = 'auto';
+        
+        // Simple ended handler as backup
+        video.addEventListener('ended', () => {
+            video.currentTime = 0;
+            video.play().catch(() => {});
+        });
+        
         video.play().catch(() => {});
     });
     
-    // Simple RAF loop to keep videos playing
-    function keepVideosAlive() {
+    // Use setInterval instead of RAF to avoid conflicts with scrub section
+    const mergeVideoCheck = setInterval(() => {
         if (!document.hidden) {
             mergeVideos.forEach(video => {
                 if (video.paused && video.readyState >= 2) {
@@ -187,9 +194,7 @@ function initMergeSection() {
                 }
             });
         }
-        requestAnimationFrame(keepVideosAlive);
-    }
-    keepVideosAlive();
+    }, 250);
     
     // Use IntersectionObserver to trigger the panel expansion
     const observer = new IntersectionObserver((entries) => {
@@ -207,7 +212,7 @@ function initMergeSection() {
     observer.observe(section);
 }
 
-// ========== SECTION 4: CAPTURED IN TIME (SMOOTH VIDEO SCRUB) ==========
+// ========== SECTION 4: CAPTURED IN TIME (VIDEO PLAYS ON VIEW) ==========
 function initScrubSection() {
     const section = document.getElementById('scrub');
     if (!section) return;
@@ -215,87 +220,25 @@ function initScrubSection() {
     const video = document.getElementById('scrubVideo');
     if (!video) return;
     
-    let videoReady = false;
-    let videoDuration = 0;
-    let targetTime = 0;
-    let currentTime = 0;
-    let rafId = null;
-    let lastVisibleState = false;
+    // Setup video
+    video.muted = true;
+    video.playsInline = true;
+    video.loop = true;
     
-    // Wait for video to be ready
-    video.addEventListener('loadedmetadata', () => {
-        videoReady = true;
-        videoDuration = video.duration;
-        video.pause();
-        video.currentTime = 0;
+    // Play when in view, pause when out
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                video.play().catch(() => {});
+            } else {
+                video.pause();
+            }
+        });
+    }, {
+        threshold: 0.3
     });
     
-    if (video.readyState >= 1) {
-        videoReady = true;
-        videoDuration = video.duration;
-        video.pause();
-    }
-    
-    // Smooth frame-by-frame update using RAF
-    function smoothVideoUpdate() {
-        if (!videoReady || videoDuration === 0) {
-            rafId = requestAnimationFrame(smoothVideoUpdate);
-            return;
-        }
-        
-        // Check visibility
-        const rect = section.getBoundingClientRect();
-        const isVisible = rect.bottom > 0 && rect.top < window.innerHeight;
-        
-        if (isVisible) {
-            // Smooth interpolation for buttery playback
-            currentTime = lerp(currentTime, targetTime, 0.12);
-            
-            // Only update if difference is significant enough
-            if (Math.abs(video.currentTime - currentTime) > 0.001) {
-                video.currentTime = currentTime;
-            }
-        }
-        
-        rafId = requestAnimationFrame(smoothVideoUpdate);
-    }
-    
-    // Start the animation loop
-    smoothVideoUpdate();
-    
-    function updateScrub() {
-        if (!videoReady || videoDuration === 0) return;
-        
-        const rect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const sectionHeight = rect.height;
-        
-        // Check if section is visible
-        const isVisible = rect.bottom > 0 && rect.top < windowHeight;
-        
-        if (!isVisible) {
-            // Reset to start or end based on position
-            if (rect.top >= windowHeight) {
-                targetTime = 0;
-            } else if (rect.bottom <= 0) {
-                targetTime = videoDuration;
-            }
-            return;
-        }
-        
-        // Calculate progress - video plays through the sticky scroll
-        const scrollStart = windowHeight;
-        const scrollEnd = -(sectionHeight - windowHeight);
-        const currentPosition = rect.top;
-        const progress = (scrollStart - currentPosition) / (scrollStart - scrollEnd);
-        const clampedProgress = clamp(progress, 0, 1);
-        
-        // Set target time (the RAF loop will smoothly interpolate to this)
-        targetTime = clampedProgress * videoDuration;
-    }
-    
-    window.addEventListener('scroll', updateScrub, { passive: true });
-    updateScrub();
+    observer.observe(section);
 }
 
 // ========== TEXT REVEAL ON SCROLL ==========
