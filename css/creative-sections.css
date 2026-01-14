@@ -13,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 2rem;
     transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 
@@ -23,27 +24,23 @@
 }
 
 .loading-logo {
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 6vw, 3.5rem);
-    color: white;
-    margin-bottom: 3rem;
-    opacity: 0;
-    animation: loadingFadeIn 1s ease 0.2s forwards;
+    display: none;
 }
 
-.loading-logo span {
-    background: var(--gradient-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+.loading-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 24px;
+    opacity: 0;
+    animation: loadingFadeIn 0.6s ease 0.2s forwards;
 }
 
 .loading-spinner {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     position: relative;
     opacity: 0;
-    animation: loadingFadeIn 1s ease 0.5s forwards;
+    animation: loadingFadeIn 0.6s ease 0.4s forwards;
 }
 
 .loading-spinner::before,
@@ -52,17 +49,17 @@
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    border: 2px solid transparent;
+    border: 3px solid transparent;
 }
 
 .loading-spinner::before {
     border-top-color: var(--color-gold);
-    animation: spinnerRotate 1.2s linear infinite;
+    animation: spinnerRotate 1s linear infinite;
 }
 
 .loading-spinner::after {
     border-right-color: var(--color-gold-light);
-    animation: spinnerRotate 1.8s linear infinite reverse;
+    animation: spinnerRotate 1.5s linear infinite reverse;
 }
 
 @keyframes spinnerRotate {
@@ -74,34 +71,19 @@
 }
 
 .loading-progress {
-    margin-top: 2rem;
-    text-align: center;
-    opacity: 0;
-    animation: loadingFadeIn 1s ease 0.8s forwards;
+    display: none;
 }
 
 .loading-progress-bar {
-    width: 200px;
-    height: 2px;
-    background: rgba(255,255,255,0.1);
-    border-radius: 1px;
-    overflow: hidden;
-    margin-bottom: 1rem;
+    display: none;
 }
 
 .loading-progress-fill {
-    height: 100%;
-    width: 0%;
-    background: var(--gradient-gold);
-    border-radius: 1px;
-    transition: width 0.3s ease;
+    display: none;
 }
 
 .loading-text {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
+    display: none;
 }
 
 /* ========== SHARED CREATIVE STYLES ========== */
@@ -141,19 +123,25 @@ main > .creative-section {
 }
 
 /* Handle testimonials section after creative content */
+.scrub-section + testimonials-section,
 .scrub-section + testimonials-section .section,
 .scrub-section + testimonials-section .testimonial-section {
     margin-top: 0 !important;
-    padding-top: 4rem !important;
+    padding-top: 0 !important;
 }
 
 testimonials-section {
     display: block;
     background: #0a0a0a;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-testimonials-section .section {
+testimonials-section .section,
+testimonials-section .testimonial-section {
     margin: 0 !important;
+    padding-top: 4rem !important;
+    background: #0a0a0a !important;
 }
 
 /* Hero section should flow directly into first creative section */
@@ -201,9 +189,11 @@ testimonials-section .section {
     font-family: var(--font-serif);
     font-size: clamp(5rem, 12vw, 11rem);
     font-weight: 400;
-    line-height: 1.05;
+    line-height: 1.15;
     color: var(--color-text-light);
     margin: 0;
+    overflow: visible;
+    padding-bottom: 0.1em;
 }
 
 .heights-line {
@@ -255,18 +245,20 @@ testimonials-section .section {
 
 .heights-fg-layer {
     position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80%;
+    inset: 0;
     z-index: 5;
     pointer-events: none;
     transition: transform 0.1s linear;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
 }
 
 .heights-groom-img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
     filter: drop-shadow(0 20px 40px rgba(0,0,0,0.4));
 }
 
@@ -280,7 +272,7 @@ testimonials-section .section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 4rem 0 !important;
+    padding: 2rem 0 0 0 !important;
     position: relative;
     overflow: hidden;
     margin: 0 !important;
@@ -385,7 +377,7 @@ testimonials-section .section {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2rem 0;
+    padding: 0;
 }
 
 .merge-text-top {
@@ -473,7 +465,7 @@ testimonials-section .section {
    SECTION 4: CAPTURED IN TIME (Video Scrub)
    ======================================== */
 .scrub-section {
-    height: 150vh; /* Scroll distance for video */
+    height: 120vh; /* Reduced scroll distance */
     position: relative;
     background: #0a0a0a;
     margin: 0 !important;

@@ -117,10 +117,10 @@ function initHeightsSection() {
             bgLayer.style.transform = `translateY(${bgOffset}px)`;
         }
         
-        // Foreground (groom) moves more dramatically - 3x speed
+        // Foreground (groom) moves faster - creates flying effect
         if (fgLayer) {
-            const fgOffset = (1 - clampedProgress) * 360;
-            fgLayer.style.transform = `translateX(-50%) translateY(${fgOffset}px)`;
+            const fgOffset = (1 - clampedProgress) * 500;
+            fgLayer.style.transform = `translateY(${fgOffset}px)`;
         }
     }
     
@@ -151,17 +151,16 @@ function initMergeSection() {
         video.muted = true;
         video.playsInline = true;
         
-        // Handle loop restart to prevent gaps
-        video.addEventListener('timeupdate', () => {
-            // If near the end, prepare for seamless loop
-            if (video.duration && video.currentTime > video.duration - 0.1) {
-                video.currentTime = 0;
-            }
+        // Force loop by manually restarting
+        video.addEventListener('ended', () => {
+            video.currentTime = 0;
+            video.play().catch(() => {});
         });
         
-        // Ensure video plays when visible
-        video.addEventListener('pause', () => {
-            if (isInViewport(section)) {
+        // Also check timeupdate as backup
+        video.addEventListener('timeupdate', () => {
+            if (video.duration && video.currentTime >= video.duration - 0.1) {
+                video.currentTime = 0;
                 video.play().catch(() => {});
             }
         });
@@ -169,17 +168,20 @@ function initMergeSection() {
         // Handle any loading errors gracefully
         video.addEventListener('error', () => {
             console.warn('Video loading error, retrying...');
-            video.load();
+            setTimeout(() => {
+                video.load();
+                video.play().catch(() => {});
+            }, 1000);
         });
         
         // Start playing
         video.play().catch(() => {});
     });
     
-    // Use IntersectionObserver to trigger the panel expansion
+    // Use IntersectionObserver to trigger the panel expansion - trigger later (70%)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
                 // Trigger the reveal - center expands, sides shrink
                 panels.classList.add('revealed');
                 // Ensure videos are playing
@@ -190,10 +192,21 @@ function initMergeSection() {
             }
         });
     }, {
-        threshold: [0, 0.3, 0.5, 0.7]
+        threshold: [0, 0.3, 0.5, 0.7, 0.8]
     });
     
     observer.observe(section);
+    
+    // Also keep videos playing with interval check
+    setInterval(() => {
+        if (isInViewport(section)) {
+            mergeVideos.forEach(video => {
+                if (video.paused && !video.ended) {
+                    video.play().catch(() => {});
+                }
+            });
+        }
+    }, 1000);
 }
 
 // ========== SECTION 4: CAPTURED IN TIME (SMOOTH VIDEO SCRUB) ==========

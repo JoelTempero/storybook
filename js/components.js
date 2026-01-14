@@ -16,13 +16,17 @@ class SiteHeader extends HTMLElement {
             <nav class="navbar" id="navbar">
                 <div class="container">
                     <div class="navbar-inner">
+                        <a href="index.html" class="nav-logo">
+                            <img src="assets/icons/icon-192x192.png" alt="Storybook Weddings" class="nav-logo-img">
+                        </a>
                         <div class="nav-links">
                             <a href="index.html" class="nav-link ${currentPage === 'home' ? 'active' : ''}">Home</a>
                             <a href="portfolio.html" class="nav-link ${currentPage === 'portfolio' ? 'active' : ''}">Portfolio</a>
                             <a href="about.html" class="nav-link ${currentPage === 'about' ? 'active' : ''}">About</a>
                             <a href="pricing.html" class="nav-link ${currentPage === 'pricing' ? 'active' : ''}">Pricing</a>
                             <a href="faq.html" class="nav-link ${currentPage === 'faq' ? 'active' : ''}">FAQ</a>
-                            <a href="contact.html" class="nav-cta">Contact</a>
+                            <a href="contact.html" class="nav-link ${currentPage === 'contact' ? 'active' : ''}">Contact</a>
+                            <a href="portal/login.html" class="nav-login">Login</a>
                         </div>
                     </div>
                 </div>
