@@ -190,7 +190,7 @@ testimonials-section {
 
 .heights-heading {
     font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-size: clamp(3rem, 7vw, 6rem);
     font-weight: 400;
     line-height: 1.15;
     color: var(--color-text-light);
@@ -285,7 +285,7 @@ testimonials-section {
 .filmstrip-heading {
     text-align: center;
     font-family: var(--font-serif);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 400;
     color: var(--color-text-light);
     margin-bottom: 3rem;
@@ -295,7 +295,11 @@ testimonials-section {
 }
 
 .filmstrip-heading span {
-    display: block;
+    display: inline;
+}
+
+.filmstrip-heading span:first-child::after {
+    content: ' ';
 }
 
 .filmstrip-accent {
@@ -352,75 +356,102 @@ testimonials-section {
 }
 
 /* ========================================
-   SECTION 3: TWO BECOME ONE (with looping videos)
+   SECTION 3: TWO BECOME ONE (3 panel layout)
    ======================================== */
 .merge-section {
-    height: 100vh; /* Just one screen height - no extra scroll */
+    min-height: 100vh;
     background: #0a0a0a;
     position: relative;
     overflow: hidden;
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .merge-container {
     position: relative;
     width: 100%;
-    height: 100%;
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 0;
+}
+
+.merge-text-top {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 400;
+    color: white;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-style: italic;
+}
+
+.merge-text-bottom {
+    font-family: var(--font-serif);
+    font-size: clamp(2.5rem, 6vw, 5rem);
+    font-weight: 400;
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-top: 2rem;
+    font-style: italic;
+}
+
+.merge-panels {
+    display: flex;
+    width: 100%;
+    height: 50vh;
+    min-height: 400px;
+    max-height: 600px;
+    gap: 4px;
     overflow: hidden;
 }
 
 .merge-panel {
-    position: absolute;
-    top: 0;
-    width: 50vw;
     height: 100%;
     overflow: hidden;
-    z-index: 2;
-    will-change: transform, opacity;
-    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s ease;
-}
-
-.merge-left {
-    left: 0;
-}
-
-.merge-right {
-    right: 0;
-}
-
-.merge-panel.revealed {
-    opacity: 0;
-}
-
-.merge-left.revealed {
-    transform: translateX(-100%);
-}
-
-.merge-right.revealed {
-    transform: translateX(100%);
-}
-
-.merge-image-wrapper {
+    transition: flex 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    width: 100%;
-    height: 100%;
 }
 
-.merge-image-wrapper img,
-.merge-image-wrapper video {
+.merge-panel video,
+.merge-panel img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
 }
 
+.merge-left,
+.merge-right {
+    flex: 1;
+}
+
+.merge-center {
+    flex: 0;
+    overflow: hidden;
+}
+
+/* Revealed state - panels make room for center */
+.merge-panels.revealed .merge-left,
+.merge-panels.revealed .merge-right {
+    flex: 0.5;
+}
+
+.merge-panels.revealed .merge-center {
+    flex: 1;
+}
+
 .merge-color-overlay {
     position: absolute;
     inset: 0;
     mix-blend-mode: color;
-    opacity: 0.25;
+    opacity: 0.2;
     pointer-events: none;
 }
 
@@ -432,72 +463,6 @@ testimonials-section {
     background: linear-gradient(135deg, #4a90a4 0%, #2c3e50 100%);
 }
 
-.merge-label {
-    position: absolute;
-    bottom: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-serif);
-    font-size: 1.2rem;
-    color: white;
-    text-shadow: 0 2px 20px rgba(0,0,0,0.7);
-    opacity: 0.9;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    transition: opacity 0.4s ease;
-}
-
-.merge-panel.revealed .merge-label {
-    opacity: 0;
-}
-
-.merge-center {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.merge-center img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-}
-
-.merge-text {
-    position: absolute;
-    text-align: center;
-    font-family: var(--font-serif);
-    font-size: clamp(2rem, 5vw, 4rem);
-    font-weight: 400;
-    color: white;
-    text-shadow: 0 4px 30px rgba(0,0,0,0.8);
-    opacity: 0;
-    transform: scale(0.9);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    z-index: 10;
-}
-
-.merge-text span {
-    display: block;
-}
-
-.merge-text.visible {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.merge-accent {
-    background: var(--gradient-gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    font-style: italic;
-}
 
 /* ========================================
    SECTION 4: CAPTURED IN TIME (Video Scrub)

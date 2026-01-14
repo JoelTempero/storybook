@@ -135,36 +135,27 @@ function initFilmstripSection() {
     console.log('Filmstrip: CSS animation active');
 }
 
-// ========== SECTION 3: TWO BECOME ONE (FAST REVEAL ON SCROLL) ==========
+// ========== SECTION 3: TWO BECOME ONE (3 PANEL REVEAL) ==========
 function initMergeSection() {
     const section = document.getElementById('merge');
     if (!section) return;
     
-    const leftPanel = document.getElementById('mergeLeft');
-    const rightPanel = document.getElementById('mergeRight');
-    const centerText = document.getElementById('mergeText');
+    const panels = document.getElementById('mergePanels');
+    if (!panels) return;
     
-    // Use IntersectionObserver for fast reveal when section is 40% visible
+    // Use IntersectionObserver to trigger the panel expansion
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
-                // Trigger the reveal
-                if (leftPanel) leftPanel.classList.add('revealed');
-                if (rightPanel) rightPanel.classList.add('revealed');
-                if (centerText) {
-                    setTimeout(() => {
-                        centerText.classList.add('visible');
-                    }, 400); // Slight delay for text after panels start moving
-                }
+            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                // Trigger the reveal - center expands, sides shrink
+                panels.classList.add('revealed');
             } else if (!entry.isIntersecting) {
                 // Reset when scrolled away
-                if (leftPanel) leftPanel.classList.remove('revealed');
-                if (rightPanel) rightPanel.classList.remove('revealed');
-                if (centerText) centerText.classList.remove('visible');
+                panels.classList.remove('revealed');
             }
         });
     }, {
-        threshold: [0, 0.4, 0.5, 0.6]
+        threshold: [0, 0.3, 0.5, 0.7]
     });
     
     observer.observe(section);

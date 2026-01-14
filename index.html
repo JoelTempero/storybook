@@ -114,42 +114,41 @@
 
         <!-- ============================================
              SECTION 3: TWO BECOME ONE
-             Split screen bride/groom looping videos that slide apart
+             Three panel layout - bride, center, groom
              ============================================ -->
         <section class="creative-section merge-section" id="merge">
             <div class="merge-container">
-                <!-- Left panel - Bride getting ready (looping video) -->
-                <div class="merge-panel merge-left" id="mergeLeft">
-                    <div class="merge-image-wrapper">
-                        <video id="mergeBrideVideo" muted playsinline autoplay loop>
+                <h2 class="merge-text-top">two stories</h2>
+                
+                <div class="merge-panels" id="mergePanels">
+                    <!-- Left panel - Bride -->
+                    <div class="merge-panel merge-left">
+                        <video muted playsinline autoplay loop>
                             <source src="assets/videos/merge-bride.mp4" type="video/mp4">
                             <source src="assets/videos/merge-bride.webm" type="video/webm">
                         </video>
                         <div class="merge-color-overlay merge-warm"></div>
                     </div>
-                    <div class="merge-label">Her morning</div>
-                </div>
-                
-                <!-- Center - merged image revealed -->
-                <div class="merge-center" id="mergeCenter">
-                    <img src="assets/images/merge-together.jpg" alt="Together at last">
-                    <h2 class="merge-text" id="mergeText">
-                        <span>Two stories</span>
-                        <span class="merge-accent">becoming one</span>
-                    </h2>
-                </div>
-                
-                <!-- Right panel - Groom getting ready (looping video) -->
-                <div class="merge-panel merge-right" id="mergeRight">
-                    <div class="merge-image-wrapper">
-                        <video id="mergeGroomVideo" muted playsinline autoplay loop>
+                    
+                    <!-- Center panel - Together -->
+                    <div class="merge-panel merge-center">
+                        <video muted playsinline autoplay loop>
+                            <source src="assets/videos/merge-together.mp4" type="video/mp4">
+                            <source src="assets/videos/merge-together.webm" type="video/webm">
+                        </video>
+                    </div>
+                    
+                    <!-- Right panel - Groom -->
+                    <div class="merge-panel merge-right">
+                        <video muted playsinline autoplay loop>
                             <source src="assets/videos/merge-groom.mp4" type="video/mp4">
                             <source src="assets/videos/merge-groom.webm" type="video/webm">
                         </video>
                         <div class="merge-color-overlay merge-cool"></div>
                     </div>
-                    <div class="merge-label">His morning</div>
                 </div>
+                
+                <h2 class="merge-text-bottom">becoming one</h2>
             </div>
         </section>
 
