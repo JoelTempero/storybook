@@ -13,95 +13,407 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles.css">
     
     <style>
-        .portal-container {
+        :root {
+            --color-bg-dark: #0A0A0A;
+            --color-text-light: #FAFAFA;
+            --color-gold: #DAA520;
+            --color-gold-dark: #B8860B;
+            --gradient-gold: linear-gradient(135deg, #B8860B 0%, #DAA520 25%, #FFD700 50%, #DAA520 75%, #B8860B 100%);
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-primary);
             min-height: 100vh;
+            background: var(--color-bg-dark);
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%);
-            padding: var(--space-lg);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
-        .portal-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: var(--space-xxl);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            backdrop-filter: blur(20px);
+        
+        /* Animated background */
+        .bg-gradient {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(218,165,32,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(184,134,11,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255,215,0,0.03) 0%, transparent 70%),
+                linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 50%, #0A0A0A 100%);
+            z-index: 0;
         }
-        .portal-logo {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            background: var(--gradient-gold);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: var(--space-lg);
+        
+        .bg-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 1;
         }
-        .portal-title {
-            color: var(--color-text-light);
-            font-size: 1.5rem;
-            margin-bottom: var(--space-md);
+        
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(218,165,32,0.3);
+            border-radius: 50%;
+            animation: float-particle 15s infinite ease-in-out;
         }
-        .portal-text {
-            color: rgba(255,255,255,0.6);
-            margin-bottom: var(--space-xl);
-            line-height: 1.6;
+        
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 12s; }
+        .particle:nth-child(2) { left: 20%; top: 80%; animation-delay: 2s; animation-duration: 14s; }
+        .particle:nth-child(3) { left: 80%; top: 30%; animation-delay: 4s; animation-duration: 16s; }
+        .particle:nth-child(4) { left: 70%; top: 70%; animation-delay: 1s; animation-duration: 13s; }
+        .particle:nth-child(5) { left: 50%; top: 50%; animation-delay: 3s; animation-duration: 15s; }
+        .particle:nth-child(6) { left: 30%; top: 40%; animation-delay: 5s; animation-duration: 11s; }
+        
+        @keyframes float-particle {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+            25% { transform: translateY(-30px) translateX(10px) scale(1.2); opacity: 0.6; }
+            50% { transform: translateY(-10px) translateX(-15px) scale(0.8); opacity: 0.4; }
+            75% { transform: translateY(-40px) translateX(5px) scale(1.1); opacity: 0.5; }
         }
-        .portal-btn {
-            display: inline-block;
-            background: var(--gradient-gold);
-            color: var(--color-bg-dark);
-            padding: 16px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        .portal-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(218,165,32,0.3);
-        }
-        .portal-note {
-            color: rgba(255,255,255,0.4);
-            font-size: 0.85rem;
-            margin-top: var(--space-lg);
-        }
-        .portal-back {
+        
+        /* Back button */
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             color: rgba(255,255,255,0.5);
             text-decoration: none;
-            display: inline-block;
-            margin-top: var(--space-lg);
             font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            z-index: 10;
         }
-        .portal-back:hover {
+        
+        .back-btn:hover {
             color: var(--color-gold);
+            transform: translateX(-3px);
+        }
+        
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+        }
+        
+        /* Login container */
+        .login-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 420px;
+        }
+        
+        /* Login card */
+        .login-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 24px;
+            padding: 48px 40px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 
+                0 25px 50px -12px rgba(0,0,0,0.5),
+                0 0 0 1px rgba(255,255,255,0.05) inset;
+            animation: card-appear 0.6s ease-out;
+        }
+        
+        @keyframes card-appear {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        
+        /* Logo/Icon */
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(218,165,32,0.2);
+            animation: icon-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes icon-glow {
+            0%, 100% { box-shadow: 0 10px 30px rgba(218,165,32,0.2); }
+            50% { box-shadow: 0 15px 40px rgba(218,165,32,0.35); }
+        }
+        
+        /* Title */
+        .login-title {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--color-text-light);
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+        
+        /* Tagline */
+        .login-tagline {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            margin-bottom: 32px;
+            font-style: italic;
+        }
+        
+        /* Form */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .form-group {
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: var(--color-text-light);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+        
+        .form-input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        
+        .form-input:focus {
+            border-color: var(--color-gold);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 3px rgba(218,165,32,0.1);
+        }
+        
+        /* Submit button */
+        .login-btn {
+            width: 100%;
+            padding: 18px 32px;
+            margin-top: 8px;
+            background: var(--gradient-gold);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 12px;
+            color: var(--color-bg-dark);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(218,165,32,0.4);
+        }
+        
+        .login-btn:hover::before {
+            left: 100%;
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* Divider */
+        .login-divider {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 24px 0;
+        }
+        
+        .login-divider::before,
+        .login-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+        }
+        
+        .login-divider span {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Help text */
+        .login-help {
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            line-height: 1.6;
+        }
+        
+        .login-help a {
+            color: var(--color-gold);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .login-help a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 36px 24px;
+                border-radius: 20px;
+            }
+            
+            .login-icon {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .login-title {
+                font-size: 1.5rem;
+            }
+            
+            .back-btn {
+                top: 20px;
+                left: 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="portal-container">
-        <div class="portal-card">
-            <div class="portal-logo">Storybook Weddings</div>
-            <h1 class="portal-title">Client Portal</h1>
-            <p class="portal-text">Access your wedding photos and videos through our secure gallery platform powered by Pic-Time.</p>
+    <!-- Animated background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+    
+    <!-- Back button -->
+    <a href="../index.html" class="back-btn">
+        <svg viewBox="0 0 24 24">
+            <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Website
+    </a>
+    
+    <!-- Login container -->
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Icon -->
+            <img src="../assets/icons/icon-192x192.png" alt="Storybook Weddings" class="login-icon">
             
-            <a href="https://storybookweddings.pic-time.com" target="_blank" rel="noopener" class="portal-btn">
-                View Your Gallery
-            </a>
+            <!-- Title -->
+            <h1 class="login-title">Client Portal</h1>
+            <p class="login-tagline">Get ready to see the magic of Storybook</p>
             
-            <p class="portal-note">You'll need the password provided in your delivery email.</p>
+            <!-- Login form -->
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="form-input" 
+                        placeholder="Enter your email"
+                        required
+                        autocomplete="email"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="form-input" 
+                        placeholder="Enter your password"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+                
+                <button type="submit" class="login-btn">Sign In</button>
+            </form>
             
-            <a href="../index.html" class="portal-back">← Back to Website</a>
+            <!-- Divider -->
+            <div class="login-divider">
+                <span>Need help?</span>
+            </div>
+            
+            <!-- Help text -->
+            <p class="login-help">
+                Contact Joel & Rachel for your sign in details.<br>
+                <a href="mailto:joel@tempero.nz">joel@tempero.nz</a>
+            </p>
         </div>
     </div>
-
-    <script src="../js/main.js"></script>
+    
+    <script>
+        // Handle form submission - placeholder for future functionality
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Portal login functionality coming soon
+        });
+    </script>
 </body>
 </html>
