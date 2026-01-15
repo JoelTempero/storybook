@@ -20,52 +20,31 @@ function isInViewport(element) {
 // ========== LOADING SCREEN ==========
 function initLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
-    const loadingBarFill = document.getElementById('loadingBarFill');
     
     if (!loadingScreen) return Promise.resolve();
     
-    const minLoadTime = 2000; // 2 seconds minimum
-    const startTime = Date.now();
+    const minLoadTime = 2400; // 2.4 seconds (2s animation + 0.4s delay)
     
-    // Animate the loading bar over 3 seconds
-    let progress = 0;
-    const progressInterval = setInterval(() => {
-        progress += 1;
-        if (loadingBarFill) {
-            loadingBarFill.style.width = `${Math.min(progress, 100)}%`;
-        }
-        if (progress >= 100) {
-            clearInterval(progressInterval);
-        }
-    }, minLoadTime / 100); // Update every 30ms for smooth animation
-    
-    // Wait for minimum time then fade out
+    // Wait for CSS animation to complete then fade out
     return new Promise(resolve => {
         setTimeout(() => {
-            clearInterval(progressInterval);
-            if (loadingBarFill) {
-                loadingBarFill.style.width = '100%';
-            }
-            // Small delay after bar completes
+            loadingScreen.classList.add('loaded');
+            // Remove from DOM after fade animation
             setTimeout(() => {
-                loadingScreen.classList.add('loaded');
-                // Remove from DOM after animation
-                setTimeout(() => {
-                    loadingScreen.remove();
-                    // Fade in hero video after loading screen is gone
-                    const heroBg = document.querySelector('.hero-bg');
-                    if (heroBg) {
-                        // Reset video to beginning and fade in
-                        const heroVideo = heroBg.querySelector('video');
-                        if (heroVideo) {
-                            heroVideo.currentTime = 0;
-                            heroVideo.play().catch(() => {});
-                        }
-                        heroBg.classList.add('visible');
+                loadingScreen.remove();
+                // Fade in hero video after loading screen is gone
+                const heroBg = document.querySelector('.hero-bg');
+                if (heroBg) {
+                    // Reset video to beginning and fade in
+                    const heroVideo = heroBg.querySelector('video');
+                    if (heroVideo) {
+                        heroVideo.currentTime = 0;
+                        heroVideo.play().catch(() => {});
                     }
-                    resolve();
-                }, 600);
-            }, 200);
+                    heroBg.classList.add('visible');
+                }
+                resolve();
+            }, 600);
         }, minLoadTime);
     });
 }

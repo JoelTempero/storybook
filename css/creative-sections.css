@@ -52,9 +52,8 @@
     background: linear-gradient(90deg, #B8860B, #DAA520, #FFD700, #DAA520, #B8860B);
     background-size: 200% 100%;
     border-radius: 2px;
-    transition: width 0.05s linear;
     position: relative;
-    animation: shimmerBar 1s ease-in-out infinite;
+    animation: loadingProgress 2s ease-out 0.4s forwards, shimmerBar 1s ease-in-out infinite;
     box-shadow: 0 0 10px rgba(218,165,32,0.5), 0 0 20px rgba(218,165,32,0.3);
 }
 
@@ -70,6 +69,11 @@
     border-radius: 50%;
     box-shadow: 0 0 10px #FFD700, 0 0 20px #DAA520, 0 0 30px #B8860B;
     animation: sparkleGlow 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes loadingProgress {
+    0% { width: 0%; }
+    100% { width: 100%; }
 }
 
 @keyframes shimmerBar {
