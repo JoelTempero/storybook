@@ -669,10 +669,13 @@ main > section:not(.creative-section) {
         min-height: 100vh;
     }
     
-    /* Groom overlay exactly matches background position and size */
+    /* Groom overlay - shifted down 200px from background */
     .heights-fg-layer {
         position: absolute;
-        inset: 0;
+        top: 200px;
+        left: 0;
+        right: 0;
+        bottom: -200px;
         z-index: 5;
         pointer-events: none;
     }
