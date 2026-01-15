@@ -612,7 +612,15 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     /* Hero mobile */
     .hero { min-height: 100vh; }
     .hero-content { padding: 0 var(--space-sm); }
-    .heading-hero { font-size: clamp(2rem, 10vw, 3rem); }
+    .heading-hero { font-size: clamp(2.8rem, 12vw, 4rem); }
+    .hero-subtitle { 
+        font-size: 0.85rem; 
+        letter-spacing: 0.15em; 
+        white-space: nowrap;
+    }
+    .hero-subtitle::before, .hero-subtitle::after { 
+        margin: 0 0.5rem; 
+    }
     
     /* Page header mobile */
     .page-header { padding: calc(var(--nav-height) + var(--space-xl)) 0 var(--space-xl); }
@@ -630,7 +638,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     .about-image { 
         max-width: 320px; 
         order: 1;
-        margin: 0 auto;
+        margin: 0 auto var(--space-lg);
+        aspect-ratio: 1/1;
     }
     .about-content p { font-size: 1rem; line-height: 1.7; }
     
@@ -729,9 +738,35 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
     
     /* Contact section mobile */
     .contact-grid { gap: var(--space-lg); }
-    .contact-info { text-align: center; }
-    .contact-detail { margin-bottom: var(--space-md); }
-    .contact-socials { justify-content: center; }
+    .contact-info { 
+        text-align: center;
+        padding: 0;
+    }
+    .contact-detail { 
+        margin-bottom: var(--space-sm);
+        padding: var(--space-sm) 0;
+    }
+    .contact-label { 
+        font-size: 0.7rem; 
+        letter-spacing: 0.12em;
+        margin-bottom: 4px;
+    }
+    .contact-value { 
+        font-size: 0.95rem; 
+    }
+    .contact-socials { 
+        justify-content: center;
+        gap: var(--space-sm);
+        margin-top: var(--space-sm);
+    }
+    .contact-socials .social-link {
+        width: 40px;
+        height: 40px;
+    }
+    .contact-socials .social-link svg {
+        width: 18px;
+        height: 18px;
+    }
     .contact-form { padding: 0; }
     .form-input, .form-textarea { font-size: 16px; } /* Prevent zoom on iOS */
     
@@ -790,11 +825,18 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 /* Extra small devices */
 @media (max-width: 480px) {
-    .heading-hero { font-size: 2rem; letter-spacing: 0.05em; }
-    .hero-subtitle { font-size: 0.8rem; letter-spacing: 0.2em; }
+    .heading-hero { font-size: 2.5rem; letter-spacing: 0.05em; }
+    .hero-subtitle { 
+        font-size: 0.75rem; 
+        letter-spacing: 0.1em;
+        white-space: nowrap;
+    }
+    .hero-subtitle::before, .hero-subtitle::after { 
+        margin: 0 0.4rem; 
+    }
     .heading-section { font-size: 1.5rem; }
     
-    .about-image { max-width: 250px; }
+    .about-image { max-width: 280px; aspect-ratio: 1/1; }
     
     .portfolio-mosaic {
         grid-template-columns: 1fr;
