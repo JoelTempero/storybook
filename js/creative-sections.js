@@ -20,22 +20,12 @@ function isInViewport(element) {
 // ========== LOADING SCREEN ==========
 function initLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
+    if (!loadingScreen) return;
     
-    if (!loadingScreen) return Promise.resolve();
-    
-    // Simple approach: show for 1.5 seconds max then fade out
-    // Don't wait for assets - they'll load in background
-    return new Promise(resolve => {
-        setTimeout(() => {
-            loadingScreen.classList.add('loaded');
-            setTimeout(() => {
-                if (loadingScreen.parentNode) {
-                    loadingScreen.remove();
-                }
-                resolve();
-            }, 600);
-        }, 1500);
-    });
+    // Simple: wait 1.5s then fade out
+    setTimeout(function() {
+        loadingScreen.classList.add('loaded');
+    }, 1500);
 }
 
 // ========== SECTION 1: HEIGHTS PARALLAX ==========
@@ -215,8 +205,8 @@ async function initCreativeSections() {
         });
     }
     
-    // Show loading screen while assets load
-    await initLoadingScreen();
+    // Handle loading screen in background - don't block initialization
+    initLoadingScreen();
     
     // Initialize robust video looping for ALL videos on page
     initGlobalVideoLooping();

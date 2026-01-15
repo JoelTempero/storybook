@@ -32,6 +32,23 @@
     <div class="loading-screen" id="loadingScreen">
         <img src="assets/icons/icon-192x192.png" alt="Storybook Weddings" class="loading-icon">
     </div>
+    <script>
+        // Force hide loading screen after 2 seconds no matter what
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                var ls = document.getElementById('loadingScreen');
+                if (ls) { ls.classList.add('loaded'); }
+            }, 1500);
+        });
+        // Absolute failsafe - hide after 3 seconds even if load event never fires
+        setTimeout(function() {
+            var ls = document.getElementById('loadingScreen');
+            if (ls) { 
+                ls.style.opacity = '0';
+                ls.style.visibility = 'hidden';
+            }
+        }, 3000);
+    </script>
 
     <!-- Header -->
     <site-header current="home"></site-header>
