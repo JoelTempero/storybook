@@ -23,12 +23,15 @@ function initLoadingScreen() {
     
     if (!loadingScreen) return Promise.resolve();
     
-    // Simple approach: show for 1.5 seconds then fade out
+    // Simple approach: show for 1.5 seconds max then fade out
+    // Don't wait for assets - they'll load in background
     return new Promise(resolve => {
         setTimeout(() => {
             loadingScreen.classList.add('loaded');
             setTimeout(() => {
-                loadingScreen.remove();
+                if (loadingScreen.parentNode) {
+                    loadingScreen.remove();
+                }
                 resolve();
             }, 600);
         }, 1500);
