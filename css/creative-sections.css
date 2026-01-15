@@ -142,10 +142,20 @@
     opacity: 0;
     transition: opacity 1s ease-out;
     background: #000000;
+    z-index: 0;
 }
 
 .hero-bg.visible {
     opacity: 1;
+}
+
+/* Ensure overlay is above the background but below content */
+.hero-overlay {
+    z-index: 1;
+}
+
+.hero-content {
+    z-index: 2;
 }
 
 /* ========== SHARED CREATIVE STYLES ========== */
@@ -641,14 +651,17 @@ main > section:not(.creative-section) {
     
     .heights-text {
         position: absolute;
-        top: 50%;
+        bottom: 0;
         left: 0;
-        transform: translateY(-50%);
-        padding: 2rem;
-        background: linear-gradient(90deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 70%, transparent 100%);
-        width: 60%;
+        right: 0;
+        top: auto;
+        transform: none;
+        padding: 3rem 2rem;
+        background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.95) 40%, rgba(10,10,10,0.7) 70%, transparent 100%);
+        width: 100%;
         z-index: 10;
-        text-align: left;
+        text-align: center;
+        justify-content: center;
     }
     
     .heights-imagery {
@@ -657,9 +670,18 @@ main > section:not(.creative-section) {
     }
     
     .heights-fg-layer {
-        width: 70%;
+        width: 100%;
         right: 0;
-        left: auto;
+        left: 0;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .heights-groom-img {
+        width: auto;
+        max-width: 80%;
+        object-fit: contain;
+        object-position: center top;
     }
     
     .merge-panels {
@@ -679,13 +701,16 @@ main > section:not(.creative-section) {
     }
     
     .heights-text {
-        width: 75%;
-        padding: 1.5rem;
-        background: linear-gradient(90deg, rgba(10,10,10,0.98) 0%, rgba(10,10,10,0.85) 60%, transparent 100%);
+        padding: 2rem 1.5rem;
+        background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.98) 50%, rgba(10,10,10,0.8) 75%, transparent 100%);
     }
     
     .heights-fg-layer {
-        width: 55%;
+        width: 100%;
+    }
+    
+    .heights-groom-img {
+        max-width: 70%;
     }
     
     .heights-imagery {
@@ -711,7 +736,7 @@ main > section:not(.creative-section) {
         margin: 1rem 0;
     }
     
-    /* Merge section mobile */
+    /* Merge section mobile - taller panels for more video */
     .merge-section {
         padding: 0 !important;
     }
@@ -723,9 +748,9 @@ main > section:not(.creative-section) {
     }
     
     .merge-panels {
-        height: 35vh;
-        min-height: 250px;
-        max-height: 350px;
+        height: 45vh;
+        min-height: 300px;
+        max-height: 450px;
     }
     
     /* Scrub section mobile */
@@ -757,8 +782,11 @@ main > section:not(.creative-section) {
     }
     
     .heights-text {
-        width: 85%;
-        padding: 1rem;
+        padding: 1.5rem 1rem;
+    }
+    
+    .heights-groom-img {
+        max-width: 65%;
     }
     
     .filmstrip-heading {
@@ -775,8 +803,8 @@ main > section:not(.creative-section) {
     }
     
     .merge-panels {
-        height: 30vh;
-        min-height: 200px;
+        height: 40vh;
+        min-height: 250px;
     }
     
     .scrub-heading {
