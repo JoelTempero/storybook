@@ -59,8 +59,7 @@ class SiteFooter extends HTMLElement {
                             <p class="footer-tagline">Capturing your love story</p>
                             <div class="footer-powered">
                                 <span>Powered by</span>
-                                <img src="assets/icons/tempero-icon.png" alt="Tempero" class="footer-tempero-icon">
-                                <a href="https://tempero.nz" target="_blank">Tempero Creative</a>
+                                <a href="https://tempero.nz" target="_blank"><img src="assets/icons/tempero-icon.png" alt="Tempero" style="width: 18px; height: 18px; border-radius: 4px; vertical-align: middle; margin-right: 6px;">Tempero Creative</a>
                             </div>
                         </div>
                         <div class="footer-links-col">
