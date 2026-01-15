@@ -17,81 +17,10 @@ function isInViewport(element) {
     return rect.bottom > 0 && rect.top < window.innerHeight;
 }
 
-// ========== LOADING SCREEN ==========
+// ========== LOADING SCREEN (DISABLED) ==========
 function initLoadingScreen() {
-    const loadingScreen = document.getElementById('loadingScreen');
-    const progressFill = document.getElementById('loadingProgressFill');
-    
-    if (!loadingScreen) return Promise.resolve();
-    
-    // Collect all assets to preload
-    const videos = document.querySelectorAll('video');
-    const images = document.querySelectorAll('img');
-    
-    let loadedCount = 0;
-    const totalAssets = videos.length + images.length;
-    
-    function updateProgress() {
-        loadedCount++;
-        const progress = totalAssets > 0 ? (loadedCount / totalAssets) * 100 : 100;
-        if (progressFill) {
-            progressFill.style.width = `${progress}%`;
-        }
-    }
-    
-    // Create promises for all assets
-    const videoPromises = Array.from(videos).map(video => {
-        return new Promise(resolve => {
-            if (video.readyState >= 3) {
-                updateProgress();
-                resolve();
-            } else {
-                video.addEventListener('canplaythrough', () => {
-                    updateProgress();
-                    resolve();
-                }, { once: true });
-                // Fallback timeout
-                setTimeout(() => {
-                    updateProgress();
-                    resolve();
-                }, 5000);
-            }
-        });
-    });
-    
-    const imagePromises = Array.from(images).map(img => {
-        return new Promise(resolve => {
-            if (img.complete) {
-                updateProgress();
-                resolve();
-            } else {
-                img.addEventListener('load', () => {
-                    updateProgress();
-                    resolve();
-                }, { once: true });
-                img.addEventListener('error', () => {
-                    updateProgress();
-                    resolve();
-                }, { once: true });
-            }
-        });
-    });
-    
-    // Wait for all assets or minimum time
-    const minLoadTime = new Promise(resolve => setTimeout(resolve, 1500));
-    
-    return Promise.all([
-        ...videoPromises,
-        ...imagePromises,
-        minLoadTime
-    ]).then(() => {
-        // Fade out loading screen
-        loadingScreen.classList.add('loaded');
-        // Remove from DOM after animation
-        setTimeout(() => {
-            loadingScreen.remove();
-        }, 600);
-    });
+    // Loading screen disabled - return immediately
+    return Promise.resolve();
 }
 
 // ========== SECTION 1: HEIGHTS PARALLAX ==========
