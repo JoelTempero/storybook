@@ -52,6 +52,17 @@ function initLoadingScreen() {
                 // Remove from DOM after animation
                 setTimeout(() => {
                     loadingScreen.remove();
+                    // Fade in hero video after loading screen is gone
+                    const heroBg = document.querySelector('.hero-bg');
+                    if (heroBg) {
+                        // Reset video to beginning and fade in
+                        const heroVideo = heroBg.querySelector('video');
+                        if (heroVideo) {
+                            heroVideo.currentTime = 0;
+                            heroVideo.play().catch(() => {});
+                        }
+                        heroBg.classList.add('visible');
+                    }
                     resolve();
                 }, 600);
             }, 200);

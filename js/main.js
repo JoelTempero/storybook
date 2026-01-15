@@ -251,13 +251,13 @@ function installPWA() {
 
 // ========== CALCULATOR FUNCTIONS ==========
 const pricing = {
-    photography: { half: 2000, full: 2850, second: 550 },
-    videography: { half: 2450, full: 3450, second: 550 },
-    combo: { half: 3350, full: 5000 },
-    documentary: { price: 'quote', label: 'From $6,500' },
-    screensaver: 150,
-    recordingCeremony: 400,
-    recordingSpeeches: 300,
+    photography: { half: 2500, full: 3500 },
+    videography: { half: 2500, full: 3500 },
+    combo: { half: 4000, full: 6000 },
+    documentary: { price: 'quote', label: 'From $7,500' },
+    screensaver: 250,
+    recordingCeremony: 500,
+    recordingSpeeches: 500,
     socialVideo: 130,
     couplesStandalone: 850,
     couplesWithPackage: 450,
@@ -390,11 +390,6 @@ function updateCalculator() {
         subtotal += totalPhotoPrice;
         
         summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Photography</div><div class="summary-item-detail">${durationLabel} · ${photoCount} photos</div></div><span class="summary-item-price">$${totalPhotoPrice.toLocaleString()}</span></div>`;
-
-        if (document.getElementById('photography-2nd')?.checked) {
-            subtotal += pricing.photography.second;
-            summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">2nd Photographer</div></div><span class="summary-item-price">$${pricing.photography.second}</span></div>`;
-        }
     }
 
     // Videography
@@ -404,11 +399,6 @@ function updateCalculator() {
         const durationLabel = duration === 'half' ? 'Half Day' : 'Full Day';
         subtotal += price;
         summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Videography</div><div class="summary-item-detail">${durationLabel}</div></div><span class="summary-item-price">$${price.toLocaleString()}</span></div>`;
-
-        if (document.getElementById('videography-2nd')?.checked) {
-            subtotal += pricing.videography.second;
-            summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">2nd Videographer</div></div><span class="summary-item-price">$${pricing.videography.second}</span></div>`;
-        }
     }
 
     // Combo Package

@@ -100,6 +100,16 @@
     display: none;
 }
 
+/* ========== HERO VIDEO FADE IN ========== */
+.hero-bg {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+.hero-bg.visible {
+    opacity: 1;
+}
+
 /* ========== SHARED CREATIVE STYLES ========== */
 .creative-section {
     position: relative;
