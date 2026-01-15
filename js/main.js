@@ -123,6 +123,15 @@ function initContactForm() {
     const form = document.getElementById('contactForm');
     if (!form) return;
     
+    // Create notification element if it doesn't exist
+    let notification = document.getElementById('formNotification');
+    if (!notification) {
+        notification = document.createElement('div');
+        notification.id = 'formNotification';
+        notification.className = 'form-notification';
+        form.appendChild(notification);
+    }
+    
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -141,19 +150,30 @@ function initContactForm() {
             const result = await response.json();
             
             if (result.success) {
-                alert('Thanks for your message! We\'ll be in touch soon.');
+                showFormNotification(notification, 'Thanks for your message! We\'ll be in touch soon.', 'success');
                 form.reset();
             } else {
-                alert('Sorry, something went wrong. Please try again or email us directly at joel@tempero.nz');
+                showFormNotification(notification, 'Sorry, something went wrong. Please try again or email us directly at joel@tempero.nz', 'error');
             }
         } catch (error) {
             console.error('Form submission error:', error);
-            alert('Sorry, something went wrong. Please try again or email us directly at joel@tempero.nz');
+            showFormNotification(notification, 'Sorry, something went wrong. Please try again or email us directly at joel@tempero.nz', 'error');
         }
         
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
     });
+}
+
+function showFormNotification(element, message, type) {
+    element.textContent = message;
+    element.className = `form-notification ${type}`;
+    element.style.display = 'block';
+    
+    // Auto-hide after 8 seconds
+    setTimeout(() => {
+        element.style.display = 'none';
+    }, 8000);
 }
 
 // ========== ABOUT SLIDESHOW ==========
@@ -514,12 +534,50 @@ function updateCalculator() {
 
 // ========== PHOTO GALLERY LIGHTBOX ==========
 function initPhotoGallery() {
-    // Simple lightbox for photo gallery
+    // Photo lightbox for portfolio page
+    const photoLightbox = document.getElementById('photoLightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const photoLightboxClose = document.getElementById('photoLightboxClose');
+    
+    if (photoLightbox) {
+        // Handle photo clicks
+        document.querySelectorAll('.mosaic-photo[data-photo]').forEach(item => {
+            item.addEventListener('click', () => {
+                const photoSrc = item.dataset.photo;
+                lightboxImage.src = photoSrc;
+                photoLightbox.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close lightbox
+        function closePhotoLightbox() {
+            photoLightbox.classList.remove('open');
+            document.body.style.overflow = '';
+            lightboxImage.src = '';
+        }
+        
+        if (photoLightboxClose) {
+            photoLightboxClose.addEventListener('click', closePhotoLightbox);
+        }
+        
+        photoLightbox.addEventListener('click', (e) => {
+            if (e.target === photoLightbox) closePhotoLightbox();
+        });
+        
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && photoLightbox.classList.contains('open')) {
+                closePhotoLightbox();
+            }
+        });
+    }
+    
+    // Simple lightbox for photo gallery on other pages
     document.querySelectorAll('.photo-gallery-item').forEach(item => {
         item.addEventListener('click', () => {
             const img = item.querySelector('img');
             if (img) {
-                // Could implement a full lightbox here
                 console.log('Gallery image clicked:', img.src);
             }
         });

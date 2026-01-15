@@ -35,6 +35,24 @@
     animation: loadingFadeIn 0.6s ease 0.2s forwards;
 }
 
+.loading-bar {
+    width: 200px;
+    height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px;
+    overflow: hidden;
+    opacity: 0;
+    animation: loadingFadeIn 0.6s ease 0.4s forwards;
+}
+
+.loading-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #FFFFFF, #E0E0E0);
+    border-radius: 2px;
+    transition: width 0.1s linear;
+}
+
 .loading-spinner {
     display: none;
 }
@@ -204,6 +222,7 @@ main > section:not(.creative-section) {
     margin: 0;
     overflow: visible;
     padding-bottom: 0.1em;
+    padding-right: 0.1em; /* Prevent italic letter cropping */
 }
 
 .heights-line {
@@ -214,10 +233,11 @@ main > section:not(.creative-section) {
     display: inline-block;
     opacity: 0;
     transform: translateY(30px);
+    padding-right: 0.02em; /* Prevent cropping on italic letters */
 }
 
 .heights-line .letter.animate {
-    animation: letterReveal 0.5s ease forwards;
+    animation: letterReveal 0.3s ease forwards;
 }
 
 @keyframes letterReveal {

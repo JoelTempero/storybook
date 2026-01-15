@@ -56,7 +56,6 @@ class SiteFooter extends HTMLElement {
                                 <img src="assets/icons/icon-192x192.png" alt="Storybook Weddings" class="footer-logo-img">
                                 <span>Storybook Weddings</span>
                             </div>
-                            <p class="footer-tagline">Capturing your love story</p>
                             <div class="footer-powered">
                                 <span>Powered by</span>
                                 <a href="https://tempero.nz" target="_blank" class="footer-tempero-link">

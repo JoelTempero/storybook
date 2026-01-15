@@ -17,10 +17,46 @@ function isInViewport(element) {
     return rect.bottom > 0 && rect.top < window.innerHeight;
 }
 
-// ========== LOADING SCREEN (DISABLED) ==========
+// ========== LOADING SCREEN ==========
 function initLoadingScreen() {
-    // Loading screen disabled - return immediately
-    return Promise.resolve();
+    const loadingScreen = document.getElementById('loadingScreen');
+    const loadingBarFill = document.getElementById('loadingBarFill');
+    
+    if (!loadingScreen) return Promise.resolve();
+    
+    const minLoadTime = 3000; // 3 seconds minimum
+    const startTime = Date.now();
+    
+    // Animate the loading bar over 3 seconds
+    let progress = 0;
+    const progressInterval = setInterval(() => {
+        progress += 1;
+        if (loadingBarFill) {
+            loadingBarFill.style.width = `${Math.min(progress, 100)}%`;
+        }
+        if (progress >= 100) {
+            clearInterval(progressInterval);
+        }
+    }, minLoadTime / 100); // Update every 30ms for smooth animation
+    
+    // Wait for minimum time then fade out
+    return new Promise(resolve => {
+        setTimeout(() => {
+            clearInterval(progressInterval);
+            if (loadingBarFill) {
+                loadingBarFill.style.width = '100%';
+            }
+            // Small delay after bar completes
+            setTimeout(() => {
+                loadingScreen.classList.add('loaded');
+                // Remove from DOM after animation
+                setTimeout(() => {
+                    loadingScreen.remove();
+                    resolve();
+                }, 600);
+            }, 200);
+        }, minLoadTime);
+    });
 }
 
 // ========== SECTION 1: HEIGHTS PARALLAX ==========
@@ -58,14 +94,14 @@ function initHeightsSection() {
             const letters = line.querySelectorAll('.letter');
             
             // Add delay between lines
-            if (lineIndex > 0) totalDelay += 200;
+            if (lineIndex > 0) totalDelay += 100;
             
             letters.forEach((letter, i) => {
-                letter.style.animationDelay = `${totalDelay + (i * 50)}ms`;
+                letter.style.animationDelay = `${totalDelay + (i * 25)}ms`;
                 letter.classList.add('animate');
             });
             
-            totalDelay += letters.length * 50;
+            totalDelay += letters.length * 25;
         });
     }
     
