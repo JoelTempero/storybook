@@ -21,28 +21,38 @@ function isInViewport(element) {
 function initLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
     
-    if (!loadingScreen) return Promise.resolve();
+    if (!loadingScreen) {
+        // No loading screen, just show hero immediately
+        const heroBg = document.querySelector('.hero-bg');
+        if (heroBg) heroBg.classList.add('visible');
+        return Promise.resolve();
+    }
     
-    const minLoadTime = 2400; // 2.4 seconds (2s animation + 0.4s delay)
+    const minLoadTime = 2500; // 2.5 seconds total
     
-    // Wait for CSS animation to complete then fade out
     return new Promise(resolve => {
-        setTimeout(() => {
+        setTimeout(function() {
+            // Add loaded class to fade out
             loadingScreen.classList.add('loaded');
-            // Remove from DOM after fade animation
-            setTimeout(() => {
-                loadingScreen.remove();
-                // Fade in hero video after loading screen is gone
+            
+            // After fade animation completes
+            setTimeout(function() {
+                // Remove loading screen
+                if (loadingScreen.parentNode) {
+                    loadingScreen.parentNode.removeChild(loadingScreen);
+                }
+                
+                // Fade in hero video
                 const heroBg = document.querySelector('.hero-bg');
                 if (heroBg) {
-                    // Reset video to beginning and fade in
                     const heroVideo = heroBg.querySelector('video');
                     if (heroVideo) {
                         heroVideo.currentTime = 0;
-                        heroVideo.play().catch(() => {});
+                        heroVideo.play().catch(function() {});
                     }
                     heroBg.classList.add('visible');
                 }
+                
                 resolve();
             }, 600);
         }, minLoadTime);
