@@ -214,6 +214,9 @@ main > section:not(.creative-section) {
     display: inline-block;
     opacity: 0;
     transform: translateY(30px);
+}
+
+.heights-line .letter.animate {
     animation: letterReveal 0.5s ease forwards;
 }
 

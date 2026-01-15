@@ -190,7 +190,7 @@
                     <div class="contact-info fade-in">
                         <div class="contact-detail">
                             <div class="contact-label">Email</div>
-                            <div class="contact-value"><a href="mailto:joel@tempero.nz">joel@tempero.nz</a></div>
+                            <div class="contact-value"><a href="/cdn-cgi/l/email-protection#e3898c868fa397868e9386918ccd8d99"><span class="__cf_email__" data-cfemail="167c79737a5662737b6673647938786c">[email&#160;protected]</span></a></div>
                         </div>
                         <div class="contact-detail">
                             <div class="contact-label">Phone</div>
@@ -215,11 +215,13 @@
                             </div>
                         </div>
                     </div>
-                    <form class="contact-form fade-in" id="contactForm">
+                    <form class="contact-form fade-in" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="7f8d1194-01ad-4508-851c-3d7c63bed8b4">
+                        <input type="hidden" name="subject" value="New Wedding Enquiry from Storybook Weddings">
+                        <input type="hidden" name="from_name" value="Storybook Weddings Website">
                         <input type="text" class="form-input" name="name" placeholder="Your Name" required>
                         <input type="email" class="form-input" name="email" placeholder="Email Address" required>
                         <input type="text" class="form-input" name="date" placeholder="Wedding Date (if known)">
-                        <input type="text" class="form-input" name="venue" placeholder="Venue / Location">
                         <textarea class="form-textarea" name="message" placeholder="Tell us about your special day..." required></textarea>
                         <input type="text" class="form-input" name="discount" placeholder="Discount Code (optional)">
                         <button type="submit" class="btn-submit">Send Message</button>
@@ -239,8 +241,4 @@
     <video-modal></video-modal>
 
     <!-- Scripts -->
-    <script src="js/components.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/creative-sections.js"></script>
-</body>
-</html>
+    <script data-cfasync=

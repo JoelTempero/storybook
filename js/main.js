@@ -24,7 +24,7 @@ function initVideoModal() {
     
     if (!videoModal) return;
     
-    document.querySelectorAll('.portfolio-item[data-video], .mosaic-item[data-video]').forEach(item => {
+    document.querySelectorAll('.portfolio-item[data-video], .mosaic-item[data-video], .mosaic-video[data-video]').forEach(item => {
         item.addEventListener('click', () => {
             const videoId = item.dataset.video;
             videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
@@ -123,18 +123,36 @@ function initContactForm() {
     const form = document.getElementById('contactForm');
     if (!form) return;
     
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
         
-        // Get form data
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+        const submitBtn = form.querySelector('.btn-submit');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
         
-        // Here you would typically send to your backend
-        console.log('Form submitted:', data);
+        try {
+            const formData = new FormData(form);
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert('Thanks for your message! We\'ll be in touch soon.');
+                form.reset();
+            } else {
+                alert('Sorry, something went wrong. Please try again or email us directly at joel@tempero.nz');
+            }
+        } catch (error) {
+            console.error('Form submission error:', error);
+            alert('Sorry, something went wrong. Please try again or email us directly at joel@tempero.nz');
+        }
         
-        alert('Thanks for your message! We\'ll be in touch soon.');
-        form.reset();
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
     });
 }
 

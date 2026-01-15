@@ -102,28 +102,57 @@ function initHeightsSection() {
     const bgLayer = section.querySelector('.heights-bg-layer');
     const fgLayer = section.querySelector('.heights-fg-layer');
     
-    // Letter-by-letter animation
+    // Letter-by-letter animation - prepare letters but don't animate yet
     const lines = section.querySelectorAll('.heights-line');
-    let totalDelay = 300; // Start after a small delay
+    let animationTriggered = false;
     
-    lines.forEach((line, lineIndex) => {
+    lines.forEach((line) => {
         const text = line.textContent.trim();
-        const isAccent = line.classList.contains('heights-accent');
         line.innerHTML = ''; // Clear text content
         
-        // Add delay between lines
-        if (lineIndex > 0) totalDelay += 200;
-        
-        [...text].forEach((char, i) => {
+        [...text].forEach((char) => {
             const span = document.createElement('span');
             span.className = 'letter';
             span.textContent = char === ' ' ? '\u00A0' : char;
-            span.style.animationDelay = `${totalDelay + (i * 50)}ms`;
+            // Don't set animation delay yet - wait for scroll trigger
             line.appendChild(span);
         });
-        
-        totalDelay += text.length * 50;
     });
+    
+    // Function to trigger the letter animation
+    function triggerLetterAnimation() {
+        if (animationTriggered) return;
+        animationTriggered = true;
+        
+        let totalDelay = 0;
+        lines.forEach((line, lineIndex) => {
+            const letters = line.querySelectorAll('.letter');
+            
+            // Add delay between lines
+            if (lineIndex > 0) totalDelay += 200;
+            
+            letters.forEach((letter, i) => {
+                letter.style.animationDelay = `${totalDelay + (i * 50)}ms`;
+                letter.classList.add('animate');
+            });
+            
+            totalDelay += letters.length * 50;
+        });
+    }
+    
+    // Intersection observer to trigger animation when section is in view
+    const textObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                triggerLetterAnimation();
+                textObserver.disconnect(); // Only trigger once
+            }
+        });
+    }, {
+        threshold: 0.3 // Trigger when 30% of section is visible
+    });
+    
+    textObserver.observe(section);
     
     // Parallax scroll handler
     function updateHeightsParallax() {
