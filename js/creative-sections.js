@@ -20,12 +20,78 @@ function isInViewport(element) {
 // ========== LOADING SCREEN ==========
 function initLoadingScreen() {
     const loadingScreen = document.getElementById('loadingScreen');
-    if (!loadingScreen) return;
+    const progressFill = document.getElementById('loadingProgressFill');
     
-    // Simple: wait 1.5s then fade out
-    setTimeout(function() {
+    if (!loadingScreen) return Promise.resolve();
+    
+    // Collect all assets to preload
+    const videos = document.querySelectorAll('video');
+    const images = document.querySelectorAll('img');
+    
+    let loadedCount = 0;
+    const totalAssets = videos.length + images.length;
+    
+    function updateProgress() {
+        loadedCount++;
+        const progress = totalAssets > 0 ? (loadedCount / totalAssets) * 100 : 100;
+        if (progressFill) {
+            progressFill.style.width = `${progress}%`;
+        }
+    }
+    
+    // Create promises for all assets
+    const videoPromises = Array.from(videos).map(video => {
+        return new Promise(resolve => {
+            if (video.readyState >= 3) {
+                updateProgress();
+                resolve();
+            } else {
+                video.addEventListener('canplaythrough', () => {
+                    updateProgress();
+                    resolve();
+                }, { once: true });
+                // Fallback timeout
+                setTimeout(() => {
+                    updateProgress();
+                    resolve();
+                }, 5000);
+            }
+        });
+    });
+    
+    const imagePromises = Array.from(images).map(img => {
+        return new Promise(resolve => {
+            if (img.complete) {
+                updateProgress();
+                resolve();
+            } else {
+                img.addEventListener('load', () => {
+                    updateProgress();
+                    resolve();
+                }, { once: true });
+                img.addEventListener('error', () => {
+                    updateProgress();
+                    resolve();
+                }, { once: true });
+            }
+        });
+    });
+    
+    // Wait for all assets or minimum time
+    const minLoadTime = new Promise(resolve => setTimeout(resolve, 1500));
+    
+    return Promise.all([
+        ...videoPromises,
+        ...imagePromises,
+        minLoadTime
+    ]).then(() => {
+        // Fade out loading screen
         loadingScreen.classList.add('loaded');
-    }, 1500);
+        // Remove from DOM after animation
+        setTimeout(() => {
+            loadingScreen.remove();
+        }, 600);
+    });
 }
 
 // ========== SECTION 1: HEIGHTS PARALLAX ==========
@@ -205,8 +271,8 @@ async function initCreativeSections() {
         });
     }
     
-    // Handle loading screen in background - don't block initialization
-    initLoadingScreen();
+    // Show loading screen while assets load
+    await initLoadingScreen();
     
     // Initialize robust video looping for ALL videos on page
     initGlobalVideoLooping();
