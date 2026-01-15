@@ -24,7 +24,6 @@ class SiteHeader extends HTMLElement {
                             <a href="portfolio.html" class="nav-link ${currentPage === 'portfolio' ? 'active' : ''}">Portfolio</a>
                             <a href="about.html" class="nav-link ${currentPage === 'about' ? 'active' : ''}">About</a>
                             <a href="pricing.html" class="nav-link ${currentPage === 'pricing' ? 'active' : ''}">Pricing</a>
-                            <a href="faq.html" class="nav-link ${currentPage === 'faq' ? 'active' : ''}">FAQ</a>
                             <a href="index.html#contact" class="nav-link ${currentPage === 'contact' ? 'active' : ''}">Contact</a>
                         </div>
                         <div class="nav-login-wrapper">
@@ -73,7 +72,7 @@ class SiteFooter extends HTMLElement {
                         <div class="footer-links-col">
                             <h4 class="footer-col-title">Info</h4>
                             <a href="pricing.html">Pricing</a>
-                            <a href="faq.html">FAQ</a>
+                            <a href="index.html#contact">Contact</a>
                         </div>
                         <div class="footer-links-col">
                             <h4 class="footer-col-title">Resources</h4>

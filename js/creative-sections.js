@@ -24,7 +24,7 @@ function initLoadingScreen() {
     
     if (!loadingScreen) return Promise.resolve();
     
-    const minLoadTime = 3000; // 3 seconds minimum
+    const minLoadTime = 2000; // 2 seconds minimum
     const startTime = Date.now();
     
     // Animate the loading bar over 3 seconds
