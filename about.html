@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -10,7 +10,14 @@
     <meta name="description" content="Meet Joel and Rachel - the creative duo behind Storybook Weddings. Based in Christchurch, New Zealand.">
     <meta property="og:title" content="About Us | Storybook Weddings">
     <meta property="og:description" content="Meet the team behind your wedding memories.">
-    
+    <meta property="og:url" content="https://storybook.nz/about.html">
+    <meta property="og:image" content="https://storybook.nz/assets/icons/icon-512x512.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="About Us | Storybook Weddings">
+    <meta name="twitter:description" content="Meet the team behind your wedding memories.">
+    <meta name="twitter:image" content="https://storybook.nz/assets/icons/icon-512x512.png">
+    <link rel="canonical" href="https://storybook.nz/about.html">
+
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
@@ -22,6 +29,73 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/styles.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How long are the highlights videos?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Most of our highlights videos range from 3-8 minutes. It often depends on how long we are there for the day and how many details you would like us to include. As of 2025 we have stopped selling specific length products, as we were often gutted to be cutting out awesome shots from the day."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I choose the music for our video?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Music licensing can be a tricky thing. We endeavour to accommodate ideas wherever possible, but sometimes it just won't be possible. We will work this through with you during our initial discussions - we love having the couple be a part of our creative process!"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Half day vs. full day?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A full day shoot means we're there when the girls start getting their hair and makeup done and we finish when we feel we have enough of the evening dancing. A half day typically looks like either morning prep + ceremony or ceremony + reception. If you're after just a ceremony shoot this will still be considered a half day."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Will you travel?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "For sure! Travel fees will apply for anything outside of Christchurch. We can quote for this on request. Send us anywhere you want us to be!"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Who does video and who does photo?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Typically Joel is shooting video and Rachel is on photography. If you order just video or photo then we will both cover it for you on the day. Sometimes we may swap for specific moments or ideas. We're happy to report that we can be quite flexible!"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Deposit?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A deposit of at least 1/3rd of your overall quote will be required after booking. This is to protect us from any sudden cancellations."
+                }
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://storybook.nz/" },
+            { "@type": "ListItem", "position": 2, "name": "About", "item": "https://storybook.nz/about.html" }
+        ]
+    }
+    </script>
 </head>
 <body>
     <site-header current="about"></site-header>
@@ -126,7 +200,7 @@
     <site-footer></site-footer>
     <mobile-nav current="about"></mobile-nav>
 
-    <script src="js/components.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/components.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>

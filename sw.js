@@ -1,4 +1,4 @@
-const CACHE_NAME = 'storybook-v1';
+const CACHE_NAME = 'storybook-v2';
 const OFFLINE_URL = 'offline.html';
 
 const PRECACHE_ASSETS = [
@@ -7,11 +7,11 @@ const PRECACHE_ASSETS = [
   './about.html',
   './portfolio.html',
   './pricing.html',
-  './faq.html',
-  './contact.html',
   './css/styles.css',
+  './css/creative-sections.css',
   './js/main.js',
   './js/components.js',
+  './js/creative-sections.js',
   './offline.html',
   './manifest.json'
 ];

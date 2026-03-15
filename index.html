@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -12,7 +12,16 @@
     <meta property="og:title" content="Storybook Weddings | Wedding Photography & Videography">
     <meta property="og:type" content="website">
     <meta property="og:description" content="Premium wedding photography and videography services in Christchurch, New Zealand.">
-    
+    <meta property="og:url" content="https://storybook.nz/">
+    <meta property="og:image" content="https://storybook.nz/assets/icons/icon-512x512.png">
+    <meta property="og:image:width" content="512">
+    <meta property="og:image:height" content="512">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Storybook Weddings | Wedding Photography & Videography">
+    <meta name="twitter:description" content="Premium wedding photography and videography services in Christchurch, New Zealand.">
+    <meta name="twitter:image" content="https://storybook.nz/assets/icons/icon-512x512.png">
+    <link rel="canonical" href="https://storybook.nz/">
+
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
@@ -26,6 +35,81 @@
     
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/creative-sections.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": "https://storybook.nz",
+        "name": "Storybook Weddings",
+        "description": "Wedding Photography & Videography in Christchurch, New Zealand. Capturing your special day with cinematic excellence and everlasting memories.",
+        "url": "https://storybook.nz",
+        "telephone": "+64204023909",
+        "email": "joel@tempero.nz",
+        "image": "https://storybook.nz/assets/icons/icon-512x512.png",
+        "logo": "https://storybook.nz/assets/icons/icon-512x512.png",
+        "priceRange": "$$",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Christchurch",
+            "addressRegion": "Canterbury",
+            "addressCountry": "NZ"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": -43.5321,
+            "longitude": 172.6362
+        },
+        "areaServed": {
+            "@type": "GeoCircle",
+            "geoMidpoint": {
+                "@type": "GeoCoordinates",
+                "latitude": -43.5321,
+                "longitude": 172.6362
+            },
+            "geoRadius": "200000"
+        },
+        "sameAs": [
+            "https://www.facebook.com/storybook.nz",
+            "https://www.instagram.com/storybook.nz/",
+            "https://www.youtube.com/@storybookweddingsnz"
+        ],
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "08:00",
+            "closes": "20:00"
+        },
+        "founder": [
+            { "@type": "Person", "name": "Joel Tempero" },
+            { "@type": "Person", "name": "Rachel Tempero" }
+        ],
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Wedding Services",
+            "itemListElement": [
+                {
+                    "@type": "Offer",
+                    "itemOffered": { "@type": "Service", "name": "Wedding Photography", "description": "Professional wedding photography coverage" },
+                    "priceCurrency": "NZD",
+                    "price": "2500"
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": { "@type": "Service", "name": "Wedding Videography", "description": "Cinematic wedding videography coverage" },
+                    "priceCurrency": "NZD",
+                    "price": "2500"
+                },
+                {
+                    "@type": "Offer",
+                    "itemOffered": { "@type": "Service", "name": "Photo + Video Package", "description": "Combined photography and videography package" },
+                    "priceCurrency": "NZD",
+                    "price": "4000"
+                }
+            ]
+        }
+    }
+    </script>
 </head>
 <body>
     <!-- Loading Screen -->
@@ -244,8 +328,8 @@
     <video-modal></video-modal>
 
     <!-- Scripts -->
-    <script src="js/components.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/creative-sections.js"></script>
+    <script src="js/components.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/creative-sections.js" defer></script>
 </body>
 </html>

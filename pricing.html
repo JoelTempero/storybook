@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -10,7 +10,14 @@
     <meta name="description" content="Wedding photography and videography pricing in Christchurch, New Zealand. Transparent pricing with our interactive quote builder.">
     <meta property="og:title" content="Pricing | Storybook Weddings">
     <meta property="og:description" content="Build your custom wedding package quote.">
-    
+    <meta property="og:url" content="https://storybook.nz/pricing.html">
+    <meta property="og:image" content="https://storybook.nz/assets/icons/icon-512x512.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Pricing | Storybook Weddings">
+    <meta name="twitter:description" content="Build your custom wedding package quote.">
+    <meta name="twitter:image" content="https://storybook.nz/assets/icons/icon-512x512.png">
+    <link rel="canonical" href="https://storybook.nz/pricing.html">
+
     <link rel="manifest" href="manifest.json">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
@@ -22,6 +29,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="css/styles.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://storybook.nz/" },
+            { "@type": "ListItem", "position": 2, "name": "Pricing", "item": "https://storybook.nz/pricing.html" }
+        ]
+    }
+    </script>
 </head>
 <body>
     <site-header current="pricing"></site-header>
@@ -326,7 +344,7 @@
     <site-footer></site-footer>
     <mobile-nav current="pricing"></mobile-nav>
 
-    <script src="js/components.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/components.js" defer></script>
+    <script src="js/main.js" defer></script>
 </body>
 </html>
