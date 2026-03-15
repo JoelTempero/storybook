@@ -11,7 +11,8 @@
 - **Backend**: None (static site)
 - **Database**: None
 - **Hosting**: GitHub Pages
-- **Other**: PWA (service worker, manifest, offline support), Google Fonts (Inter, Cormorant Garamond)
+- **Analytics**: Google Analytics 4 (G-773S4SHMBD)
+- **Other**: PWA (service worker v2, manifest, offline support), Google Fonts (Inter, Cormorant Garamond)
 
 ## Build & Dev Commands
 - Dev server: Open `index.html` in browser or use any local server (e.g. `npx serve`)
@@ -24,32 +25,52 @@
 - Mobile-first responsive design
 - CSS split: `styles.css` (main) + `creative-sections.css`
 - JS split: `main.js` + `components.js` + `creative-sections.js`
+- All scripts use `defer` attribute
+- Portfolio images use `loading="lazy"`
 
 ## Site Structure
-- `index.html` — Home page (hero video, sections)
-- `about.html` — About page
-- `portfolio.html` — Portfolio/gallery
-- `pricing.html` — Pricing packages
-- `privacy.html` / `terms.html` — Legal pages
-- `portal/login.html` — Client portal login
+- `index.html` — Home page (hero video, creative sections, contact form)
+- `about.html` — About page (team bio, FAQ accordion)
+- `portfolio.html` — Portfolio/gallery (mosaic layout, video modals)
+- `pricing.html` — Pricing calculator (services, add-ons, quote builder)
+- `privacy.html` / `terms.html` — Legal pages (noindex)
+- `portal/login.html` — Client portal login (noindex, nofollow)
 - `offline.html` — PWA offline fallback
+- `robots.txt` / `sitemap.xml` — SEO crawl files
 
 ## Current Progress
-- Full site is live with all core pages
-- PWA configured with service worker and manifest
+- Full site live with all core pages
+- PWA configured with service worker v2 and manifest
 - Client portal login page exists
+- Drone videography/photography add-on on pricing page (Aorangi Aerials partnership)
+- Full SEO implementation: robots.txt, sitemap.xml, canonical URLs, OG/Twitter cards, JSON-LD schemas
+- GA4 tracking on all public pages
+- Performance: deferred scripts, lazy-loaded images, noindex on legal/portal pages
 
 ## Next Steps
-- [ ] Review and identify any improvements or new features needed
-- [ ] Check portal functionality and expand if needed
+- [ ] Verify Google Search Console ownership and submit sitemap
+- [ ] Create proper 1200x630px OG share image with logo/CTA overlay (Canva)
+- [ ] Optimise large images (convert PNGs to WebP — filmstrip, heights-groom, testimonials)
+- [ ] Expand client portal beyond login page
+- [ ] Consider blog/content marketing for organic traffic (e.g. "Best wedding venues in Canterbury")
 
 ## Session Log
 ### 2026-03-15
 - Initial project scan and CLAUDE.md created
+- Added drone videography/photography add-on to pricing (slider for 1-5 locations, AA logo)
+- Implemented SEO phases 1-4: robots.txt, sitemap.xml, canonicals, OG/Twitter cards, JSON-LD (LocalBusiness, FAQ, Breadcrumbs), defer scripts, lazy loading, noindex on legal pages
+- Added GA4 tracking (G-773S4SHMBD) to all public pages
+- Set portfolio-01.jpg as social share image, expanded OG descriptions
+- Fixed service worker (removed dead page refs, added missing assets, bumped to v2)
 
 ## Key Decisions
 - Static site with no build tools — keeps deployment simple via GitHub Pages
 - PWA approach for mobile install capability
+- Drone add-on uses slider (1-5 locations) rather than checkboxes for cleaner UX
+- Using portfolio-01.jpg as OG share image (not perfectly sized at 2244x1496 but works; proper 1200x630 version is a future task)
+- Legal pages (privacy, terms) and portal set to noindex to save crawl budget
+- JSON-LD LocalBusiness schema includes Christchurch geo coordinates and service catalog with pricing
 
 ## Known Issues
-- Untracked file: `assets/images/AA.avif` (not yet committed)
+- OG share image is 2244x1496 instead of recommended 1200x630 (platforms auto-crop, but a purpose-built image would be better)
+- Google Search Console not yet verified/sitemap not yet submitted
