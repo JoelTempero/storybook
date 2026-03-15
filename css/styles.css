@@ -559,10 +559,13 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
 .couples-pricing-note { font-size: 0.8rem; color: var(--color-success); margin-top: 8px; font-weight: 500; }
 
-.addon-partner-logo { height: 20px; width: auto; margin-left: 8px; vertical-align: middle; filter: invert(1); }
-.drone-locations { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
-.drone-location-row { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; }
-.drone-location-row span:first-child { flex: 1; }
+.drone-addon { display: flex; align-items: flex-start; gap: 16px; }
+.addon-partner-logo { width: 48px; height: 48px; object-fit: contain; filter: invert(1); flex-shrink: 0; border-radius: var(--radius-sm); }
+.drone-locations { margin-top: 12px; }
+.drone-slider-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 0.9rem; }
+.drone-location-count { font-weight: 600; color: #B8860B; }
+.drone-slider-container { margin-bottom: 4px; }
+.drone-extra-cost { font-size: 0.8rem; color: var(--color-text-muted); margin: 0; }
 .drone-note { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 10px; font-style: italic; }
 .documentary-note { font-size: 0.9rem; color: var(--color-text-muted); font-style: italic; }
 

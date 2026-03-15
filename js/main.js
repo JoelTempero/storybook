@@ -282,10 +282,8 @@ function toggleDrone() {
     if (droneLocations) droneLocations.style.display = droneChecked ? 'block' : 'none';
     if (droneNote) droneNote.style.display = droneChecked ? 'block' : 'none';
     if (!droneChecked) {
-        ['drone-loc-2', 'drone-loc-3', 'drone-loc-4', 'drone-loc-5'].forEach(id => {
-            const el = document.getElementById(id);
-            if (el) el.checked = false;
-        });
+        const droneSlider = document.getElementById('drone-slider');
+        if (droneSlider) droneSlider.value = 1;
     }
 }
 
@@ -313,7 +311,7 @@ function handleServiceChange() {
         } else {
             addonsSection.classList.add('disabled');
             // Reset all addons
-            ['website', 'screensaver', 'recording-ceremony', 'recording-speeches', 'drone', 'drone-loc-2', 'drone-loc-3', 'drone-loc-4', 'drone-loc-5', 'events'].forEach(id => {
+            ['website', 'screensaver', 'recording-ceremony', 'recording-speeches', 'drone', 'events'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.checked = false;
             });
@@ -321,8 +319,10 @@ function handleServiceChange() {
             if (socialSlider) socialSlider.value = 0;
             const droneLocations = document.getElementById('drone-locations');
             const droneNote = document.getElementById('drone-note');
+            const droneSlider = document.getElementById('drone-slider');
             if (droneLocations) droneLocations.style.display = 'none';
             if (droneNote) droneNote.style.display = 'none';
+            if (droneSlider) droneSlider.value = 1;
         }
     }
 
@@ -499,18 +499,24 @@ function updateCalculator() {
 
     // Drone
     if (document.getElementById('drone')?.checked) {
-        let droneTotal = pricing.droneBase;
-        let extraLocations = 0;
-        ['drone-loc-2', 'drone-loc-3', 'drone-loc-4', 'drone-loc-5'].forEach(id => {
-            if (document.getElementById(id)?.checked) {
-                droneTotal += pricing.droneExtraLocation;
-                extraLocations++;
-            }
-        });
+        const droneSlider = document.getElementById('drone-slider');
+        const locationCount = parseInt(droneSlider?.value || 1);
+        const extraLocations = locationCount - 1;
+        const droneTotal = pricing.droneBase + (extraLocations * pricing.droneExtraLocation);
+
+        const droneLocationCount = document.getElementById('drone-location-count');
+        const droneExtraCost = document.getElementById('drone-extra-cost');
         const dronePrice = document.getElementById('drone-price');
+
+        if (droneLocationCount) droneLocationCount.textContent = `${locationCount} location${locationCount !== 1 ? 's' : ''}`;
+        if (droneExtraCost) {
+            droneExtraCost.textContent = extraLocations > 0
+                ? `+$${extraLocations * pricing.droneExtraLocation} for ${extraLocations} extra location${extraLocations !== 1 ? 's' : ''}`
+                : 'Base price — 1st location included';
+        }
         if (dronePrice) dronePrice.textContent = `$${droneTotal}`;
+
         subtotal += droneTotal;
-        const locationCount = 1 + extraLocations;
         summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Drone Videography / Photography</div><div class="summary-item-detail">${locationCount} location${locationCount !== 1 ? 's' : ''}</div></div><span class="summary-item-price">$${droneTotal}</span></div>`;
     }
 

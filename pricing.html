@@ -218,38 +218,20 @@
                             </div>
 
                             <!-- Drone Videography/Photography -->
-                            <div class="addon-item">
+                            <div class="addon-item drone-addon">
+                                <img src="assets/images/AA.avif" alt="Aorangi Aerials" class="addon-partner-logo">
                                 <div class="addon-info">
-                                    <div class="addon-name">
-                                        Drone Videography / Photography
-                                        <img src="assets/images/AA.avif" alt="Aorangi Aerials" class="addon-partner-logo">
-                                    </div>
+                                    <div class="addon-name">Drone Videography / Photography</div>
                                     <div class="addon-desc">Take your celebration to the skies! In partnership with Aorangi Aerials.</div>
                                     <div class="drone-locations" id="drone-locations" style="display: none;">
-                                        <div class="drone-location-row">
-                                            <span>1st location</span>
-                                            <span>$300 (included)</span>
+                                        <div class="drone-slider-label">
+                                            <span>Locations</span>
+                                            <span class="drone-location-count" id="drone-location-count">1 location</span>
                                         </div>
-                                        <label class="drone-location-row">
-                                            <span>2nd location (+$100)</span>
-                                            <input type="checkbox" class="addon-checkbox" id="drone-loc-2" onchange="updateCalculator()">
-                                            <span class="addon-check-custom"></span>
-                                        </label>
-                                        <label class="drone-location-row">
-                                            <span>3rd location (+$100)</span>
-                                            <input type="checkbox" class="addon-checkbox" id="drone-loc-3" onchange="updateCalculator()">
-                                            <span class="addon-check-custom"></span>
-                                        </label>
-                                        <label class="drone-location-row">
-                                            <span>4th location (+$100)</span>
-                                            <input type="checkbox" class="addon-checkbox" id="drone-loc-4" onchange="updateCalculator()">
-                                            <span class="addon-check-custom"></span>
-                                        </label>
-                                        <label class="drone-location-row">
-                                            <span>5th location (+$100)</span>
-                                            <input type="checkbox" class="addon-checkbox" id="drone-loc-5" onchange="updateCalculator()">
-                                            <span class="addon-check-custom"></span>
-                                        </label>
+                                        <div class="drone-slider-container">
+                                            <input type="range" id="drone-slider" class="photo-slider" min="1" max="5" step="1" value="1" oninput="updateCalculator()">
+                                        </div>
+                                        <p class="drone-extra-cost" id="drone-extra-cost">Base price — 1st location included</p>
                                     </div>
                                     <p class="drone-note" id="drone-note" style="display: none;">Events outside of Christchurch may need to be reviewed and quoted separately.</p>
                                 </div>
