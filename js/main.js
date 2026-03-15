@@ -263,7 +263,9 @@ const pricing = {
     couplesWithPackage: 450,
     photoBase: { half: 650, full: 1000 },
     photoExtra: 75,
-    photoMax: 2000
+    photoMax: 2000,
+    droneBase: 300,
+    droneExtraLocation: 100
 };
 
 const calcState = {
@@ -272,6 +274,20 @@ const calcState = {
     combo: { selected: false, duration: 'half', photos: 650 },
     documentary: { selected: false }
 };
+
+function toggleDrone() {
+    const droneChecked = document.getElementById('drone')?.checked;
+    const droneLocations = document.getElementById('drone-locations');
+    const droneNote = document.getElementById('drone-note');
+    if (droneLocations) droneLocations.style.display = droneChecked ? 'block' : 'none';
+    if (droneNote) droneNote.style.display = droneChecked ? 'block' : 'none';
+    if (!droneChecked) {
+        ['drone-loc-2', 'drone-loc-3', 'drone-loc-4', 'drone-loc-5'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.checked = false;
+        });
+    }
+}
 
 function handleServiceChange() {
     const services = ['photography', 'videography', 'combo', 'documentary'];
@@ -297,12 +313,16 @@ function handleServiceChange() {
         } else {
             addonsSection.classList.add('disabled');
             // Reset all addons
-            ['website', 'screensaver', 'recording-ceremony', 'recording-speeches', 'events'].forEach(id => {
+            ['website', 'screensaver', 'recording-ceremony', 'recording-speeches', 'drone', 'drone-loc-2', 'drone-loc-3', 'drone-loc-4', 'drone-loc-5', 'events'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.checked = false;
             });
             const socialSlider = document.getElementById('social-slider');
             if (socialSlider) socialSlider.value = 0;
+            const droneLocations = document.getElementById('drone-locations');
+            const droneNote = document.getElementById('drone-note');
+            if (droneLocations) droneLocations.style.display = 'none';
+            if (droneNote) droneNote.style.display = 'none';
         }
     }
 
@@ -477,6 +497,23 @@ function updateCalculator() {
         summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Social Videos</div><div class="summary-item-detail">${socialCount} reel${socialCount !== 1 ? 's' : ''}</div></div><span class="summary-item-price">$${socialTotal}</span></div>`;
     }
 
+    // Drone
+    if (document.getElementById('drone')?.checked) {
+        let droneTotal = pricing.droneBase;
+        let extraLocations = 0;
+        ['drone-loc-2', 'drone-loc-3', 'drone-loc-4', 'drone-loc-5'].forEach(id => {
+            if (document.getElementById(id)?.checked) {
+                droneTotal += pricing.droneExtraLocation;
+                extraLocations++;
+            }
+        });
+        const dronePrice = document.getElementById('drone-price');
+        if (dronePrice) dronePrice.textContent = `$${droneTotal}`;
+        subtotal += droneTotal;
+        const locationCount = 1 + extraLocations;
+        summaryHTML += `<div class="summary-item"><div><div class="summary-item-name">Drone Videography / Photography</div><div class="summary-item-detail">${locationCount} location${locationCount !== 1 ? 's' : ''}</div></div><span class="summary-item-price">$${droneTotal}</span></div>`;
+    }
+
     // Events
     if (document.getElementById('events')?.checked) {
         hasQuoteItems = true;
@@ -615,6 +652,7 @@ if (typeof module !== 'undefined' && module.exports) {
         installPWA,
         handleServiceChange,
         setDuration,
+        toggleDrone,
         updateCalculator
     };
 }

@@ -558,6 +558,12 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .addon-checkbox:checked + .addon-check-custom::after { opacity: 1; }
 
 .couples-pricing-note { font-size: 0.8rem; color: var(--color-success); margin-top: 8px; font-weight: 500; }
+
+.addon-partner-logo { height: 20px; width: auto; margin-left: 8px; vertical-align: middle; filter: invert(1); }
+.drone-locations { margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+.drone-location-row { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer; }
+.drone-location-row span:first-child { flex: 1; }
+.drone-note { font-size: 0.8rem; color: var(--color-text-muted); margin-top: 10px; font-style: italic; }
 .documentary-note { font-size: 0.9rem; color: var(--color-text-muted); font-style: italic; }
 
 .calc-summary { background: linear-gradient(135deg, #0A0A0A 0%, #1a1a1a 100%); color: var(--color-text-light); border-radius: 20px; padding: 32px; }
