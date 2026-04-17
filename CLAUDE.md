@@ -59,9 +59,11 @@ Brain location: `D:/Sidequest Digital/Dev Projects/Brain/`
 - Full SEO implementation: robots.txt, sitemap.xml, canonical URLs, OG/Twitter cards, JSON-LD schemas
 - GA4 tracking on all public pages
 - Performance: deferred scripts, lazy-loaded images, noindex on legal/portal pages
+- GSC indexing issues resolved: removed noindex pages from sitemap, confirmed robots.txt and canonical behaviour is correct
 
 ## Next Steps
-- [ ] Verify Google Search Console ownership and submit sitemap
+- [ ] Validate GSC noindex fix (hit "Validate Fix" in Search Console)
+- [ ] Submit sitemap in GSC if not already done
 - [ ] Create proper 1200x630px OG share image with logo/CTA overlay (Canva)
 - [ ] Optimise large images (convert PNGs to WebP — filmstrip, heights-groom, testimonials)
 - [ ] Expand client portal beyond login page
@@ -76,6 +78,11 @@ Brain location: `D:/Sidequest Digital/Dev Projects/Brain/`
 - Set portfolio-01.jpg as social share image, expanded OG descriptions
 - Fixed service worker (removed dead page refs, added missing assets, bumped to v2)
 
+### 2026-04-17
+- Diagnosed 3 GSC indexing issues: noindex/sitemap conflict, robots.txt blocking portal, GitHub Pages canonical alternate
+- Fixed sitemap.xml: removed privacy.html and terms.html (noindex pages shouldn't be in sitemap)
+- Confirmed robots.txt portal block and GitHub Pages canonical alternate are working as designed
+
 ## Key Decisions
 - Static site with no build tools — keeps deployment simple via GitHub Pages
 - PWA approach for mobile install capability
@@ -86,4 +93,4 @@ Brain location: `D:/Sidequest Digital/Dev Projects/Brain/`
 
 ## Known Issues
 - OG share image is 2244x1496 instead of recommended 1200x630 (platforms auto-crop, but a purpose-built image would be better)
-- Google Search Console not yet verified/sitemap not yet submitted
+- GSC: need to validate noindex fix and confirm sitemap submission
