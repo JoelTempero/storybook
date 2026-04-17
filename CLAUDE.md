@@ -6,6 +6,19 @@
 - **Status**: Live
 - **Domain**: storybook.nz (GitHub Pages)
 
+## Playbooks In Use
+Read these from the Brain folder at session start. Do not copy into this project.
+Brain location: `D:/Sidequest Digital/Dev Projects/Brain/`
+
+- `JoelTempero.md` — working profile (always)
+- `TokenDiscipline.md` — token cost hygiene (always)
+- `CLAUDE-WebsiteInstructions.md` — 13-phase website rebuild workflow
+- `DesignSystem.md` — design contract workflow
+- `ContentScraping.md` — content extraction workflow
+- `SEO.md` — SEO workflow
+- `Security.md` — pre-launch security audit
+- `Deployment.md` — deployment workflow
+
 ## Tech Stack
 - **Frontend**: Vanilla HTML/CSS/JS
 - **Backend**: None (static site)
