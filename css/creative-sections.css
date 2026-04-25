@@ -285,6 +285,7 @@ main > section:not(.creative-section) {
 
 .heights-line {
     display: block;
+    white-space: nowrap;
 }
 
 .heights-line .letter {
