@@ -4,7 +4,7 @@
 - **Client**: Storybook Weddings
 - **Type**: Static PWA / Business Website
 - **Status**: Live
-- **Domain**: storybook.nz (GitHub Pages)
+- **Domain**: storybook.nz (Firebase Hosting)
 
 ## Playbooks In Use
 Read these from the Brain folder at session start. Do not copy into this project.
@@ -23,14 +23,14 @@ Brain location: `D:/Sidequest Digital/Dev Projects/Brain/`
 - **Frontend**: Vanilla HTML/CSS/JS
 - **Backend**: None (static site)
 - **Database**: None
-- **Hosting**: GitHub Pages
+- **Hosting**: Firebase Hosting (project: storybook-weddings)
 - **Analytics**: Google Analytics 4 (G-773S4SHMBD)
 - **Other**: PWA (service worker v2, manifest, offline support), Google Fonts (Inter, Cormorant Garamond)
 
 ## Build & Dev Commands
 - Dev server: Open `index.html` in browser or use any local server (e.g. `npx serve`)
 - Build: N/A (no build step)
-- Deploy: Push to `main` branch (GitHub Pages auto-deploys)
+- Deploy: `firebase deploy --only hosting`
 
 ## Code Conventions
 - Custom web components for shared UI (`<site-header>` in `js/components.js`)
@@ -60,10 +60,13 @@ Brain location: `D:/Sidequest Digital/Dev Projects/Brain/`
 - GA4 tracking on all public pages
 - Performance: deferred scripts, lazy-loaded images, noindex on legal/portal pages
 - GSC indexing issues resolved: removed noindex pages from sitemap, confirmed robots.txt and canonical behaviour is correct
+- Migrated hosting from GitHub Pages to Firebase Hosting (storybook-weddings project)
+- Hero heading "Taking your / wedding to / new heights" locked to 3 lines across all viewports
 
 ## Next Steps
+- [ ] Disable GitHub Pages in repo settings (hosting is now Firebase)
 - [ ] Validate GSC noindex fix (hit "Validate Fix" in Search Console)
-- [ ] Submit sitemap in GSC if not already done
+- [ ] Update GSC sitemap URL if domain has changed
 - [ ] Create proper 1200x630px OG share image with logo/CTA overlay (Canva)
 - [ ] Optimise large images (convert PNGs to WebP — filmstrip, heights-groom, testimonials)
 - [ ] Expand client portal beyond login page
@@ -83,8 +86,15 @@ Brain location: `D:/Sidequest Digital/Dev Projects/Brain/`
 - Fixed sitemap.xml: removed privacy.html and terms.html (noindex pages shouldn't be in sitemap)
 - Confirmed robots.txt portal block and GitHub Pages canonical alternate are working as designed
 
+### 2026-04-25
+- Fixed hero heading "Taking your / wedding to / new heights" to maintain 3 rows at all viewport sizes (white-space: nowrap)
+- Migrated hosting from GitHub Pages to Firebase Hosting (project: storybook-weddings)
+- Created firebase.json with caching headers, clean URLs, and ignore rules
+- Deployed to storybook-weddings.web.app, custom domain storybook.nz connected
+
 ## Key Decisions
-- Static site with no build tools — keeps deployment simple via GitHub Pages
+- Moved from GitHub Pages to Firebase Hosting for flexibility (custom domain, headers, future Firebase features like auth for portal)
+- Static site with no build tools — keeps deployment simple
 - PWA approach for mobile install capability
 - Drone add-on uses slider (1-5 locations) rather than checkboxes for cleaner UX
 - Using portfolio-01.jpg as OG share image (not perfectly sized at 2244x1496 but works; proper 1200x630 version is a future task)
